@@ -1,0 +1,115 @@
+.navPacotes{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink6.jpg);
+  background-position:center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navPacotes h1{
+  font-size: 5rem;
+  letter-spacing: 1px;
+  font-style: italic;
+  color:  rgb(183, 143, 63);
+  }
+
+
+.section{
+ 
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.996);
+}
+.section span{
+  color:rgb(183, 143, 63) ;
+ font-size: 3rem;
+}
+.section h1{
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 2.5rem;
+  color: rgb(169, 176, 165);
+}
+.sectionContainer{
+  width: 70%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+ 
+}
+
+.sectionContainer img{
+  width: 20rem;
+  height: 15rem;
+  border-radius:  0.3rem;
+}
+.sectionContainer img:hover{
+  transform: translateY(-5px);
+}
+
+/* ORCAMENTO TIPO */
+.orcamentoType{
+  height: 29rem;
+  width: 20.1rem;
+  border-radius:  0.7rem;
+ text-align: center;
+ margin: 3rem 1rem;
+ border: 1px solid transparent;
+ background-color: rgba(22, 22, 22, 0.862);
+ box-shadow: 10px 10px 10px rgba(118, 123, 58, 0.661);;
+}
+.orcamentoType h2{
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+  color: rgb(217, 220, 222);
+}
+.orcamentoType p{
+font-size: 0.9rem;
+font-weight: bold;
+color: rgb(224, 218, 218);
+margin: 0.4rem 0 0.3rem 0;
+}
+.orcamentoPreco{
+ display: flex;
+ flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.2rem;
+}
+
+.orcamentoPreco p:last-child {
+  font-size: 1.2rem;
+  color: rgb(183, 143, 63);
+  letter-spacing: -1px;
+}
+.orcamentoType a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.orcamentoType a:first-of-type {
+ border: 1px solid transparent;
+ color: black;
+ background-color:  rgb(204, 142, 18);
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+    opacity: 0.8;
+  transition: 0.4s;
+  width: 11rem;
+  margin: 0 auto 1rem;
+}
+.orcamentoType a:first-of-type:hover{
+opacity: 1;
+
+}
+.orcamentoType a:last-child{
+  color: rgb(41, 39, 39);
+  font-weight: bold;
+  transition: 0.7s;
+  letter-spacing: -1px;
+}
+.orcamentoType a:last-child:hover{
+  color: rgb(53, 53, 53);
+}

@@ -1,0 +1,127 @@
+.navUnidade{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/gym.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.navUnidade h1{
+  font-size: 5rem;
+  letter-spacing: 1px;
+  font-style: italic;
+  color: rgb(255, 255, 255);
+  }
+.NomeUnidade{
+  font-size: 5rem;
+  letter-spacing: 1px;
+  font-style: italic;
+  color: #fffdfd;
+ width: 1rem;
+  line-height: 1.5rem;
+  }
+ .blue{
+    font-size: 5rem;
+    letter-spacing: 1px;
+    font-style: italic;
+  color: #0d0ddd;
+  }
+  .red{
+    font-size: 5rem;
+    letter-spacing: 1px;
+    font-style: italic;
+  color: #dd0d0d;
+  }
+/* PLANOS E PREÇO */
+
+
+.pricingContainer{
+  text-align: center;
+  margin-bottom: 5rem 0;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.pricingContainer h2{
+  font-size: 50px;
+ color:  rgb(41, 248, 0);
+}
+.pricingContainer p{
+  font-size: 30px;
+  font-weight: 500;
+  padding-bottom: 5rem ;
+  width: 100%;
+  margin: 0 auto;
+  color: rgb(220, 226, 226);
+}
+.pricingLogo{
+  height: 20rem;
+  background-image: url(../assets/esteiras.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.plansContainer{
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 50px auto 0;
+}
+
+.plan {
+   flex: 1;
+   padding: 20px;
+}
+.plan ul{
+  padding: 0;
+}
+.plan li{
+  list-style: none;
+  height: 60px;
+  line-height: 60px;
+  font-size: 17px;
+  font-weight: 700;
+  background-color: rgb(224, 219, 219);
+  color: rgb(16, 131, 133);
+}
+.plan .price{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: rgb(23, 107, 108);
+color: rgb(207, 212, 210);
+ text-align: center;
+ line-height: 120px;
+ margin: 0 auto -50px;
+ position: relative;
+ font-size: 20px;
+
+}
+.plan .planName {
+  width: 100%;
+  height: 100px;
+  padding: 50px 0;
+  background-color:rgb(16, 131, 133);
+  border-radius: 1rem 1rem 0  0 ;
+  color: #fffdfd;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.plan .planBtn{
+  height: 70px;
+  line-height: 70px;
+  background-color:rgb(16, 131, 133) ;
+  border-radius:  0  0 1rem 1rem ;
+  color: rgb(186, 182, 182);
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.plan .recomended{
+  background-color: red;
+}

@@ -1,0 +1,179 @@
+a{
+  color: #000;
+}
+.faleConosco{
+  max-width: 100%; /* Garante que o conteúdo não ultrapasse a largura da janela */
+  overflow-x: hidden; /* Impede o scroll horizontal dentro do container */
+}
+.imgFale{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.555),rgba(20,20,20,1)),url(../assets/drink1.jpeg);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.imgFale h1{
+ margin-bottom: 1rem;
+ font-size: 5rem;
+ letter-spacing: -2px;
+  font-style:italic;
+ color: rgb(146, 117, 60);
+}
+.imgFale p{
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 1rem 0  2rem 0;
+  color: white;
+}
+.sac{
+  width: 100%;
+  display: flex; 
+  justify-content: center;
+}
+.sac h2 {
+  position: relative;
+  color: #3b4d9500;
+  font-family: "Kanit", Sans-serif;
+  font-size: 500px;
+  letter-spacing: -0.8px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color:rgb(146, 117, 60);
+
+}
+.formContainer{
+  position: absolute;
+}
+.formFaleConosco{
+ background-color: rgb(46, 44, 44);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  height: 100%;
+ padding-top: 4rem;
+}
+.formText{
+  width: 100%;
+  margin: 2rem 5rem;
+}
+.formText h2{
+  font-size: 2.4rem;
+  letter-spacing: -1px;
+  color: rgb(205, 215, 205);
+}
+.formText p{
+font-size: 1.1rem;
+font-weight: 500;
+margin: 1rem 0  2rem 0;
+color: white;
+}
+.form{
+ width: 100%;
+ margin: 0 5rem;
+
+}
+.form input{
+height: 3.5rem;
+width: 100%;
+font-size: 1rem;
+font-weight: bold;
+padding: 1rem  2rem  ;
+background-color: transparent;
+border: 2px solid rgb(180, 176, 176);
+margin-top: 1rem;
+border-radius: 0.3rem;
+}
+
+ input.has-value {
+  background-color: #d3d3d3; /* Cor de fundo quando o input tem valor */
+}
+
+form input[type= textarea]{
+height: 6rem;
+padding: 0rem 1rem 2rem 2rem  ;
+
+}
+form input[type= submit]{
+background-color:rgb(212, 146, 16) ;
+color: black;
+border-radius: 2rem;
+border: 1px solid transparent;
+cursor: pointer;
+transition: 0.5s;
+opacity: 0.7;
+width: 50%;
+display:flex;
+margin: 1rem auto;
+}
+form input[type= submit]:hover{
+border: 1px solid rgb(173, 131, 49);
+background-color: transparent;
+opacity: 1;
+}
+.block{
+  display: flex;
+  gap: 1rem;
+ width: 100%;
+}
+.inline{
+  display: flex;
+flex-direction: column;
+width: 36rem;
+}
+.contatos{
+  position: absolute;
+ z-index: 1;
+  height: 100%;
+  left: 46rem; /* Ajuste a distância conforme necessário */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 0 5rem;
+}
+.infoItem {
+ display: flex;
+ gap: 1rem;
+ margin-bottom: 3rem;
+align-items: center;
+}
+.infoItem h3{
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.infoItem p{
+  padding: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.infoItem i{ 
+  background-color: rgb(146, 117, 60);
+  font-size: 20px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+  
+}
+.infoItem h3{
+  padding: 0;
+  font-size: 21px;
+  font-weight: 700;
+ color:rgb(159, 158, 152);
+}
+.infoItem p{
+ 
+  font-size: 1rem;
+font-weight: 500;
+color: white;
+}

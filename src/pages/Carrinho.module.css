@@ -1,0 +1,226 @@
+
+
+.navCarrinho{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink3.jpeg);
+  background-position:center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navCarrinho h1{
+  margin-bottom: 1rem;
+  font-size: 5rem;
+  letter-spacing: -2px;
+   font-style:italic;
+  color: rgb(146, 117, 60);
+}
+.carrinhoContent{
+  padding:1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+}
+.carrinhoTitle{
+  padding: 1rem;
+}
+.itemSection{
+  background: linear-gradient(rgba(22, 22, 22, 0.891),rgba(8, 5, 5, 0.275)), url(../assets/drink6.jpg);
+  background-position:center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+
+}
+
+.produtos{
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  gap: 1.3rem;
+  
+}
+.itens{
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+}
+.carrinhoTitle h1{
+  width: 40%;
+ font-size: 2rem;
+ color:  rgb(146, 117, 60);
+  font-family:cursive;
+ margin:  1rem 1.6rem;
+}
+.carrinhoTitle span{
+  width: 2rem;
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  position: relative;
+  bottom: 0.5rem;
+  color:  rgb(146, 117, 60);
+  font-weight: 800;
+}
+.articleProdutos{
+  width: 100%;
+  height: 16.4rem;
+  background-color: rgb(35, 34, 34);
+  border-radius: 0.6rem ;
+  margin-bottom: 1rem;
+}
+.quantidadeItens{
+  color:  rgb(146, 117, 60);
+  font-family: cursive;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem 0;
+}
+.imgItem{
+  width: 29%;
+}
+.imgItem img{
+  width: 100%;
+  height: 86%;
+  margin-top: 2rem;
+}
+.itemContent{
+  display: flex;
+  border-top: 1px solid rgb(146, 117, 60);
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+.infoPacote{
+  display: flex;
+  justify-content: space-between;
+ 
+}
+.infoSection{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.info{
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.info h3{
+  font-size: 1.3rem;
+  color:  rgb(146, 117, 60);
+}
+.info p{
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: rgb(177, 169, 169);
+  
+}
+.info span{
+  color:  rgb(146, 117, 60);
+}
+.preco p{
+  color:  rgb(146, 117, 60);
+  font-size: 1.3rem;
+  margin-top: 1rem;
+}
+.buttons{
+  display: flex;
+  gap: 1rem;
+  padding-right: 2rem;
+  margin-top: 1rem;
+}
+.buttons button{
+  height: 3.3rem;
+  width: 3rem;
+}
+
+
+
+
+
+/* SUMARIO  */
+.articleSumario{
+  width: 28%;
+ height: 25%;
+  background-color: rgb(30, 29, 29);
+  border-radius: 0.6rem;
+}
+
+.cardHeader{
+  border-bottom: 1px solid  rgb(146, 117, 60);
+}
+.cardHeader h5{
+  color:  rgb(146, 117, 60);
+  font-family: cursive;
+  font-size: 1.4rem;
+  padding: 0.35rem 2rem;
+}
+.cardBody{
+  padding: 1rem 2rem;
+}
+.listGroup{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.listGroupItem{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.listGroupItem p{
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(177, 169, 169);
+}
+.listGroupItem span{
+  font-size: 1rem;
+  font-weight: 700;
+  color:  rgb(146, 117, 60);
+}
+.listGroupItem h4{
+  font-size: 1.1rem;
+  color: rgb(177, 169, 169);
+}
+/* LINKS DE NAVEGAÇAO  */
+
+.navLinks{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+  gap: 0.6rem;
+}
+.pagamento{
+   height: 2.5rem;
+  text-align: center;
+  background-color:  rgb(146, 117, 60);
+  border-radius: 0.6rem;
+  padding-top: 0.5rem;
+  width: 100%;
+  opacity: 0.9;
+  transition: 0.5s;
+}
+.continuar{
+   height: 2.4rem;
+  text-align: center;
+  background-color: rgb(112, 85, 76);
+  border-radius: 0.6rem;
+  padding-top: 0.5rem;
+  width: 100%;
+  opacity: 0.9;
+  transition: 0.5s;
+}
+.pagamento:hover{
+  opacity: 1;
+}
+.continuar:hover{
+  opacity: 1;
+}

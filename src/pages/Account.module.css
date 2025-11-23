@@ -1,0 +1,112 @@
+.mainAccount{
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink6.jpg);
+  background-position:center;
+  background-size: cover;
+} 
+.navAccount{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink6.jpg);
+  background-position:center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navAccount h1{
+  margin-bottom: 1rem;
+  font-size: 5rem;
+  letter-spacing: -2px;
+   font-style:italic;
+  color: rgb(146, 117, 60);
+}
+.accountTitle h1{
+  width: 40%;
+ font-size: 2rem;
+ color:  rgb(146, 117, 60);
+  font-family:cursive;
+ margin:  1rem 1.6rem;
+}
+.accountTitle span{
+  width: 2rem;
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  position: relative;
+  bottom: 0.5rem;
+  color:  rgb(146, 117, 60);
+  font-weight: 800;
+}
+.accountSection{
+  display: flex;
+  width: 100%; 
+ justify-content: center;
+ align-items: center;
+ padding: 1rem 0;
+ gap: 1rem;
+}
+.accountAside{
+  background-color: rgb(35, 34, 34);
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 0.6rem;
+  padding-bottom: 1rem;
+}
+.accountAside img{
+  height: 11rem;
+  width: 12rem;
+  border-radius: 50%;
+  margin: 2rem 0 1rem;
+  background-color: white;
+}
+.accountAside h1{
+  color: rgb(146, 117, 60);
+  font-size: 1.3rem;
+}
+.accountAside p{
+  color: rgb(178, 178, 180);
+  font-weight: 600;
+
+}
+.infoSection{
+  background-color: rgb(35, 34, 34);
+  width: 40%;
+  border-radius: 0.7rem;
+}
+.infoArticle{
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  padding-bottom: 1rem;
+}
+.infoArticle h2{
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem;
+  color: rgb(146, 117, 60);
+  font-style: italic;
+}
+
+.flexRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Opcional, garante que ocupem a largura total */
+  margin-bottom: 8px; /* Opcional, para espaçamento entre linhas */
+  border-bottom: 1px solid rgb(117, 117, 114);
+}
+.flexRow:last-child {
+  border: none;
+}
+
+dd{
+  padding: 0.3rem 0;
+  color: rgb(146, 117, 60);
+  font-weight: 700;   
+}
+dt{
+  color: rgb(177, 169, 169);
+  font-weight: 700;
+}

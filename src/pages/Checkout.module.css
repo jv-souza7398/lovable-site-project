@@ -1,0 +1,145 @@
+/* ***  */
+.pagamentoContent label{
+  font-size: 1.2rem;
+  color:  rgb(183, 143, 63);
+  font-weight: 500;
+  margin-bottom: .5rem;
+ }
+ 
+/* ***  */
+.navPagamento{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink6.jpg);
+  background-position:center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navPagamento h1{
+  margin-bottom: 1rem;
+  font-size: 5rem;
+  letter-spacing: -2px;
+   font-style:italic;
+  color: rgb(146, 117, 60);
+}
+.pagamentoContent{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgba(11, 11, 11, 0.92);
+}
+
+button{
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(146, 117, 60);
+  transition: 0.1s;
+  opacity: 0.8;
+  cursor: pointer;
+}
+button:hover{
+ opacity: 1;
+}
+
+/* INFO PACOTE  */
+.InfoPacote{
+  position: relative; 
+  width: 34%;
+  background-color: rgb(0, 0, 0);
+  margin: 0 auto;
+  padding-left: 2rem;
+  margin-right: 0;
+}
+/* IMG */
+.imgPacote{
+  width: 100%;
+}
+.imgPacote img{
+  width: 30rem;
+  height: 20rem;
+  border-radius: 0.6rem;
+  margin-top: 1rem;
+
+}
+/* INFO  */
+.InfoPacote h4{ 
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.2rem 0 0rem 0;
+  color: rgb(158, 123, 53);
+  font-family: "Bebas Neue", sans-serif;
+}
+.InfoPacote p{
+  font-size: 1.1rem;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin: 0.5rem 0 1rem 0;
+  color: rgb(177, 169, 169);
+}
+.itemPrice{
+  border-bottom: 1px solid rgb(165, 160, 160);
+  width: 91.5%;
+  display: flex;
+  justify-content: end;
+}
+.itemPrice span{
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0.8rem 0.9rem 0.8rem 0 ;
+  font-family: "Bebas Neue", sans-serif;
+  
+}
+.itemPrice p{
+  font-size: 1.25rem;
+  color:  rgb(146, 117, 60);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.InfoPacote h2{
+  width: 78%;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color:  rgb(146, 117, 60);
+  margin-top: 1rem;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* INFO ADICIONAIS  */
+.infoAdicionais{
+  max-width: 29rem;
+  
+  overflow-wrap: break-word;
+}
+.infoAdicionais h2{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.2rem 0 0rem 0;
+  color:  rgb(146, 117, 60);
+  font-family: "Bebas Neue", sans-serif;
+}
+.infoAdicionais p{
+  width: 44%;
+  justify-content: flex-end;
+  color:  rgb(146, 117, 60);
+}
+.info{
+width: 100%;
+display: flex;
+justify-content: space-between;
+
+}
+.info p:first-child{
+  width: 50%;
+  color: rgb(177, 169, 169);
+  
+}
+.info p:last-child{
+  text-align: end;
+}
+

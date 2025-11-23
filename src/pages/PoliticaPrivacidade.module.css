@@ -1,0 +1,62 @@
+.imgPrivacidade{
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink3.jpeg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.imgPrivacidade h1{
+  font-size: 5rem;
+  letter-spacing: -2px;
+  font-style: italic;
+  color:rgb(146, 117, 60);
+  }
+  .imgPrivacidade p{
+    width: 59%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 1rem 0  2rem 0;
+    color: white;;
+  }
+
+ .politica{
+  background-color: rgba(0, 0, 0, 0.648);
+ padding-bottom: 1rem;
+ }
+.contentPolitica{
+  width: 70rem;
+ margin: 2rem auto 0;
+}
+.contentPolitica h1{
+  color: rgb(146, 117, 60);
+  font-size: 2.5rem;
+  margin: 1rem 0;
+  font-weight: 800;
+  font-family: "Kanit", Sans-serif;
+}
+.contentPolitica h2{
+  color: rgb(146, 117, 60);
+  font-size: 1.7rem;
+  margin: 1.5rem 0;
+  font-family: "Kanit", Sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px
+}
+.contentPolitica h3{
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+.contentPolitica p{
+  line-height: 1.6rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #dedada;
+  margin: 1rem 0  0;
+  font-family: "Kanit", Sans-serif;
+}
