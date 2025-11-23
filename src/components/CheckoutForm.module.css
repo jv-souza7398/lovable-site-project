@@ -1,0 +1,59 @@
+/* src/CheckoutForm.module.css */
+
+/* Contêiner do Formulário */
+.formContainer {
+  max-width: 500px; /* Ajustado para mais espaço */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+/* Títulos e Labels */
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px; /* Ajustado para tamanho maior */
+}
+
+/* Estilo do Elemento do Cartão */
+.cardElement {
+  margin-bottom: 16px;
+}
+
+/* Mensagem de Erro */
+.error {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Botão de Envio */
+.submitButton {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 12px 20px; /* Ajustado para mais padding */
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #218838;
+}
+

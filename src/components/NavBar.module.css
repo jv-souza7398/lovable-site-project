@@ -1,0 +1,99 @@
+
+.content{
+  position: absolute;
+  display: flex;
+  text-transform: uppercase;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 11%;
+  background-color: transparent;
+  padding: 0rem;
+
+ 
+}
+
+.logo{
+  position: sticky;
+  display: flex;
+ gap: 0.5rem;
+ height: 100%;
+ margin-right: 3rem;
+
+}
+.logo h1{
+  font-size: 1rem;
+  letter-spacing: 4px;
+  color: rgb(183, 143, 63) ;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+}
+.logo img{
+margin-bottom: 0.6rem;
+}
+.content img{
+  width: 4rem;
+  height: 3.5rem;
+ margin-top: 1rem;
+  border-radius: 100%;
+}
+.navbarContent{
+width: 100%;
+display: flex;
+justify-content: center;
+gap: 4rem;
+align-items: center;
+position: sticky;
+top: 0;
+z-index: 1000;
+margin-right: 11rem;
+}
+
+.navItens ul {
+  display: flex;
+   list-style: none;
+  gap: 35px;
+  align-items: center;
+}
+.navItens li {
+  font-size: 17px;
+  position: relative;
+  padding: 0.4rem 0;
+  
+}
+.navItens  a{
+  color: white;
+}
+.logoImg:hover{
+  border-bottom: none;
+}
+.navItens li:before{
+  content: "";
+  left: 0;
+  bottom: 0;
+  width: 0;
+  border-bottom: 3px solid  rgb(183, 143, 63);
+  position: absolute; 
+  transition: all 1s ease;
+}
+.navItens li:hover:before{
+  width: 100%;
+  background-color: transparent;
+}
+.navItens img:hover:before{
+  border-bottom: none;
+  background-color: transparent;
+}
+
+
+.servicos{
+  display: flex;
+  gap: 1rem;
+  
+}
+.servicos i{
+  font-size: 1.3rem;
+  color: aliceblue;
+}

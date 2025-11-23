@@ -1,0 +1,16 @@
+.breadcrumbs {
+  margin-bottom: 20px;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color:  rgb(146, 117, 60);
+  font-size: 2rem;
+  font-style:italic;
+}
+
+.breadcrumbs span {
+  color: #6c757d;
+  font-size: 2rem;
+  font-style:italic;
+}
