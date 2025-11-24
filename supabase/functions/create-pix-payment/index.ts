@@ -37,8 +37,8 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        frequency: 'once',
-        methods: ['pix'],
+        frequency: 'ONE_TIME',
+        methods: ['PIX'],
         products: [{
           externalId: `order-${Date.now()}`,
           name: description,
