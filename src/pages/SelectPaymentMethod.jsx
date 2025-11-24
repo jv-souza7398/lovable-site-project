@@ -1,15 +1,47 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AccountContext } from '../contexts/AccountContext';
 import classes from './SelectPaymentMethod.module.css';
 import { FaQrcode } from 'react-icons/fa';
+import { supabase } from '../integrations/supabase/client';
 
 const SelectPaymentMethod = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { AccountItems } = useContext(AccountContext);
   const { cartItems, totalAmount } = location.state || {};
   const [loading, setLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        setAuthLoading(false);
+        navigate('/Login/', { state: { redirectTo: '/SelectPaymentMethod/' } });
+        return;
+      }
+
+      setUser(session.user);
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error) {
+        console.error('Erro ao buscar dados do perfil:', error);
+      } else {
+        setProfile(data);
+      }
+
+      setAuthLoading(false);
+    };
+
+    loadUser();
+  }, [navigate]);
 
   if (!cartItems || cartItems.length === 0) {
     return (
@@ -22,7 +54,17 @@ const SelectPaymentMethod = () => {
     );
   }
 
-  if (!AccountItems || AccountItems.length === 0) {
+  if (authLoading) {
+    return (
+      <div className={classes.container}>
+        <div className={classes.emptyState}>
+          <h1>Carregando...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
     return (
       <div className={classes.container}>
         <div className={classes.emptyState}>
@@ -37,29 +79,23 @@ const SelectPaymentMethod = () => {
     setLoading(true);
     
     try {
-      // Seleciona o cadastro mais recente com CPF/telefone preenchidos
-      const customer =
-        [...AccountItems].reverse().find((item) => item.cpf && item.telefone) ||
-        AccountItems[AccountItems.length - 1];
-
-      if (!customer) {
-        throw new Error('Dados de identificação não encontrados');
+      if (!profile) {
+        throw new Error('Dados de identificação não encontrados. Atualize seu cadastro.');
       }
 
-      // Navega para a página de processamento PIX
       navigate('/ProcessPixPayment/', {
         state: {
           cartItems,
           totalAmount,
-          customerEmail: customer.email,
-          customerName: customer.nomeCompleto,
-          customerPhone: customer.telefone,
-          customerTaxId: customer.cpf,
+          customerEmail: profile.email || user?.email,
+          customerName: profile.nome_completo || user?.email,
+          customerPhone: profile.telefone,
+          customerTaxId: profile.cpf,
         },
       });
     } catch (error) {
       console.error('Error:', error);
-      alert('Erro ao processar pagamento. Tente novamente.');
+      alert(error.message || 'Erro ao processar pagamento. Tente novamente.');
     } finally {
       setLoading(false);
     }
