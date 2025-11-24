@@ -21,6 +21,18 @@ const ProcessPixPayment = () => {
       setLoading(true);
       setError(null);
 
+      if (!customerEmail || !customerName || !customerPhone || !customerTaxId) {
+        console.error('Dados de identificação incompletos:', {
+          customerEmail,
+          customerName,
+          customerPhone,
+          customerTaxId,
+        });
+        setError('Dados de identificação incompletos. Volte e preencha CPF e telefone.');
+        setLoading(false);
+        return;
+      }
+
       // Calcula o valor total em centavos
       const totalValue = cartItems.reduce((acc, item) => {
         const valorNumerico = parseFloat(

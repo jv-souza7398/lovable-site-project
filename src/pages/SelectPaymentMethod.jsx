@@ -37,16 +37,25 @@ const SelectPaymentMethod = () => {
     setLoading(true);
     
     try {
+      // Seleciona o cadastro mais recente com CPF/telefone preenchidos
+      const customer =
+        [...AccountItems].reverse().find((item) => item.cpf && item.telefone) ||
+        AccountItems[AccountItems.length - 1];
+
+      if (!customer) {
+        throw new Error('Dados de identificação não encontrados');
+      }
+
       // Navega para a página de processamento PIX
       navigate('/ProcessPixPayment/', {
         state: {
           cartItems,
           totalAmount,
-          customerEmail: AccountItems[0].email,
-          customerName: AccountItems[0].nomeCompleto,
-          customerPhone: AccountItems[0].telefone,
-          customerTaxId: AccountItems[0].cpf,
-        }
+          customerEmail: customer.email,
+          customerName: customer.nomeCompleto,
+          customerPhone: customer.telefone,
+          customerTaxId: customer.cpf,
+        },
       });
     } catch (error) {
       console.error('Error:', error);
