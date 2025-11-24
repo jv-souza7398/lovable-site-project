@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import classes from './NavBar.module.css'
 import { AccountContext } from '../contexts/AccountContext'
 
@@ -8,6 +8,7 @@ import logo from '../assets/Vincci.jpg'
 function Navbar() {
   const navigate = useNavigate();
   const { AccountItems } = useContext(AccountContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleAccountClick = (e) => {
     e.preventDefault();
@@ -24,26 +25,60 @@ function Navbar() {
     <div className={classes.content}>   
       <nav className={classes.navbarContent}>
         <div className={classes.logo}>
-       <span><img  src={logo} /></span>
-    <h1> VINCCI PUB</h1>
-    </div>
-        <div className={classes.navItens} >
-        <ul>
-          <Link to={"#"}><i class="bi bi-search"></i></Link>
-          <li><Link>HOME</Link></li>
-          <li><Link to={"/Pacotes/"}>PACOTES</Link></li>
-             <Link to={"#"}><img src={logo} className={classes.logoImg}/></Link>
-              <li><Link to={"/sobre/"}>SOBRE NÓS</Link></li>   
-      
-          <li><Link to={"/fale-conosco/"}>FALE CONOSCO</Link></li>
-         </ul>
-         </div> 
-          <div className={classes.servicos}>
-          <a href="#" onClick={handleAccountClick}><i class="bi bi-person"></i></a>
-          <Link to={"/Carrinho/"}><i class="bi bi-cart"></i></Link>    
-          </div>
+          <span><img  src={logo} /></span>
+          <h1> VINCCI PUB</h1>
+        </div>
+
+        {/* Botão Hambúrguer */}
+        <button 
+          className={classes.hamburger} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+        >
+          <span className={menuOpen ? classes.open : ''}></span>
+          <span className={menuOpen ? classes.open : ''}></span>
+          <span className={menuOpen ? classes.open : ''}></span>
+        </button>
+
+        {/* Menu Desktop */}
+        <div className={classes.navItens}>
+          <ul>
+            <Link to={"#"}><i className="bi bi-search"></i></Link>
+            <li><Link to={"/"}>HOME</Link></li>
+            <li><Link to={"/Pacotes/"}>PACOTES</Link></li>
+            <Link to={"#"}><img src={logo} className={classes.logoImg}/></Link>
+            <li><Link to={"/sobre/"}>SOBRE NÓS</Link></li>   
+            <li><Link to={"/fale-conosco/"}>FALE CONOSCO</Link></li>
+          </ul>
+        </div> 
+
+        {/* Ícones Desktop */}
+        <div className={classes.servicos}>
+          <a href="#" onClick={handleAccountClick}><i className="bi bi-person"></i></a>
+          <Link to={"/Carrinho/"}><i className="bi bi-cart"></i></Link>    
+        </div>
+
+        {/* Menu Mobile */}
+        <div className={`${classes.mobileMenu} ${menuOpen ? classes.mobileMenuOpen : ''}`}>
+          <ul>
+            <li><Link to={"/"} onClick={() => setMenuOpen(false)}>HOME</Link></li>
+            <li><Link to={"/Pacotes/"} onClick={() => setMenuOpen(false)}>PACOTES</Link></li>
+            <li><Link to={"/sobre/"} onClick={() => setMenuOpen(false)}>SOBRE NÓS</Link></li>
+            <li><Link to={"/fale-conosco/"} onClick={() => setMenuOpen(false)}>FALE CONOSCO</Link></li>
+            <li>
+              <a href="#" onClick={(e) => { handleAccountClick(e); setMenuOpen(false); }}>
+                <i className="bi bi-person"></i> MINHA CONTA
+              </a>
+            </li>
+            <li>
+              <Link to={"/Carrinho/"} onClick={() => setMenuOpen(false)}>
+                <i className="bi bi-cart"></i> CARRINHO
+              </Link>
+            </li>
+          </ul>
+        </div>
       </nav>
-  </div>
+    </div>
   )
 }
 
