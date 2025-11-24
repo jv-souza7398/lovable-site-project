@@ -11,6 +11,7 @@ interface PaymentRequest {
   customerEmail: string;
   customerName: string;
   customerPhone: string;
+  customerTaxId: string;
 }
 
 serve(async (req) => {
@@ -20,9 +21,9 @@ serve(async (req) => {
   }
 
   try {
-    const { amount, description, customerEmail, customerName, customerPhone }: PaymentRequest = await req.json();
+    const { amount, description, customerEmail, customerName, customerPhone, customerTaxId }: PaymentRequest = await req.json();
     
-    console.log('Creating PIX payment:', { amount, description, customerEmail, customerName, customerPhone });
+    console.log('Creating PIX payment:', { amount, description, customerEmail, customerName, customerPhone, customerTaxId });
 
     const abacatePayApiKey = Deno.env.get('ABACATEPAY_API_KEY');
     
@@ -53,6 +54,7 @@ serve(async (req) => {
           email: customerEmail,
           name: customerName,
           cellphone: customerPhone,
+          taxId: customerTaxId,
         },
       }),
     });
