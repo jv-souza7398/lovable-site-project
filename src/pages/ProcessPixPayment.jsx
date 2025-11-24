@@ -45,11 +45,36 @@ const ProcessPixPayment = () => {
 
       if (data.status === 'PAID') {
         setPaymentStatus('paid');
+        
+        // Envia email de confirmação
+        const paymentDate = new Date().toLocaleString('pt-BR');
+        await supabase.functions.invoke('send-order-confirmation', {
+          body: {
+            customerName,
+            customerEmail,
+            customerPhone,
+            customerTaxId,
+            pixId,
+            amount: Math.round(totalValue * 100),
+            items: cartItems.map(item => ({
+              title: item.item.title,
+              quantity: item.quantidade,
+              value: item.valorTotalFormatado,
+            })),
+            paymentDate,
+          },
+        }).catch(err => {
+          console.error('Error sending confirmation email:', err);
+          // Não bloqueia o fluxo se o email falhar
+        });
+
         navigate('/Completion', {
           state: {
             pixId,
             amount: totalAmount,
-            status: 'paid'
+            status: 'paid',
+            customerName,
+            customerEmail,
           }
         });
       } else if (data.status === 'EXPIRED') {
@@ -78,6 +103,8 @@ const ProcessPixPayment = () => {
     }
   };
 
+  const [totalValue, setTotalValue] = useState(0);
+
   const createPixPayment = async () => {
     try {
       setLoading(true);
@@ -96,7 +123,7 @@ const ProcessPixPayment = () => {
       }
 
       // Calcula o valor total em centavos
-      const totalValue = cartItems.reduce((acc, item) => {
+      const calculatedTotal = cartItems.reduce((acc, item) => {
         const valorNumerico = parseFloat(
           item.valorTotalFormatado
             .replace('R$', '')
@@ -105,12 +132,14 @@ const ProcessPixPayment = () => {
         );
         return acc + valorNumerico;
       }, 0);
+      
+      setTotalValue(calculatedTotal);
 
       // Cria descrição do pedido
       const description = cartItems.map(item => item.item.title).join(', ');
 
       console.log('Creating PIX QR Code with:', {
-        amount: Math.round(totalValue * 100), // Converte para centavos
+        amount: Math.round(calculatedTotal * 100), // Converte para centavos
         description,
         customerEmail,
         customerName,
@@ -122,7 +151,7 @@ const ProcessPixPayment = () => {
         'create-pix-payment',
         {
           body: {
-            amount: Math.round(totalValue * 100), // AbacatePay espera valor em centavos
+            amount: Math.round(calculatedTotal * 100), // AbacatePay espera valor em centavos
             description,
             customerEmail,
             customerName,

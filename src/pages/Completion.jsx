@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import classes from './Completion.module.css';
 import { FaCheckCircle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import vincci from '../assets/Vincci.jpg';
 
 const Completion = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const [orderData, setOrderData] = useState(null);
 
   useEffect(() => {
-    // Captura os parâmetros da URL que o AbacatePay envia
-    const billingId = searchParams.get('billingId');
-    const status = searchParams.get('status');
-    const amount = searchParams.get('amount');
-    
-    if (billingId) {
+    // Prioriza dados do state (navegação interna)
+    if (location.state) {
       setOrderData({
-        billingId,
-        status: status || 'completed',
-        amount: amount || null,
+        pixId: location.state.pixId,
+        amount: location.state.amount,
+        status: location.state.status || 'completed',
+        customerName: location.state.customerName,
+        customerEmail: location.state.customerEmail,
       });
+    } else {
+      // Fallback para parâmetros da URL (navegação externa)
+      const billingId = searchParams.get('billingId');
+      const status = searchParams.get('status');
+      const amount = searchParams.get('amount');
+      
+      if (billingId) {
+        setOrderData({
+          pixId: billingId,
+          status: status || 'completed',
+          amount: amount || null,
+        });
+      }
     }
-  }, [searchParams]);
+  }, [searchParams, location.state]);
 
   const handleBackToHome = () => {
     navigate('/');
@@ -34,6 +47,10 @@ const Completion = () => {
 
   return (
     <div className={classes.container}>
+      <div className={classes.logoContainer}>
+        <img src={vincci} alt="Vincci Pub" className={classes.logo} />
+      </div>
+      
       <div className={classes.content}>
         <div className={classes.successCard}>
           <div className={classes.successIcon}>
@@ -45,24 +62,15 @@ const Completion = () => {
             Obrigado pela sua compra! Seu pagamento foi processado com sucesso.
           </p>
 
-          {orderData?.billingId && (
+          {orderData?.pixId && (
             <div className={classes.orderInfo}>
-              <h3>Detalhes do Pedido</h3>
               <div className={classes.infoItem}>
-                <span className={classes.label}>ID do Pedido:</span>
-                <span className={classes.value}>{orderData.billingId}</span>
+                <span className={classes.label}>Valor:</span>
+                <span className={classes.value}>{orderData.amount}</span>
               </div>
-              {orderData.amount && (
-                <div className={classes.infoItem}>
-                  <span className={classes.label}>Valor Pago:</span>
-                  <span className={classes.value}>
-                    R$ {(parseInt(orderData.amount) / 100).toFixed(2).replace('.', ',')}
-                  </span>
-                </div>
-              )}
               <div className={classes.infoItem}>
-                <span className={classes.label}>Status:</span>
-                <span className={classes.statusBadge}>Confirmado</span>
+                <span className={classes.label}>ID do Pagamento:</span>
+                <span className={classes.value}>{orderData.pixId}</span>
               </div>
             </div>
           )}
