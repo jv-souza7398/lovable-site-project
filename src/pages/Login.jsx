@@ -1,14 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import classes from './Login.module.css';
-import { AccountContext } from '../contexts/AccountContext';
+import { supabase } from '../integrations/supabase/client';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaVenusMars, FaCalendar } from 'react-icons/fa';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { addToAccount, AccountItems } = useContext(AccountContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Pega o redirectTo do state (se houver)
   const redirectTo = location.state?.redirectTo || '/Minha-Conta/';
@@ -26,43 +27,77 @@ const Login = () => {
   const [telefone, setTelefone] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    
-    // Verifica se o usuário existe no AccountItems
-    const userExists = AccountItems.find(
-      user => user.email === loginEmail
-    );
+  // Verifica se o usuário já está logado
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate(redirectTo);
+      }
+    };
+    checkUser();
+  }, [navigate, redirectTo]);
 
-    if (userExists) {
-      alert('Login realizado com sucesso!');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: loginSenha,
+      });
+
+      if (error) throw error;
+
       navigate(redirectTo);
-    } else {
-      alert('Usuário não encontrado. Por favor, crie uma conta.');
-      setIsLogin(false);
+    } catch (error) {
+      setError(error.message || 'Erro ao fazer login. Verifique suas credenciais.');
+      console.error('Erro no login:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCadastro = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
 
     if (!cpf || !nomeCompleto || !email || !senha || !sexo || !telefone || !dataNascimento) {
-      alert('Por favor, preencha todos os campos.');
+      setError('Por favor, preencha todos os campos.');
+      setLoading(false);
       return;
     }
 
-    const itemParaConta = {
-      cpf,
-      nomeCompleto,
-      email,
-      sexo,
-      telefone,
-      dataNascimento,
-    };
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password: senha,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            cpf,
+            nome_completo: nomeCompleto,
+            email,
+            sexo,
+            telefone,
+            data_nascimento: dataNascimento,
+          }
+        }
+      });
 
-    addToAccount(itemParaConta);
-    alert('Conta criada com sucesso!');
-    navigate(redirectTo);
+      if (error) throw error;
+
+      alert('Conta criada com sucesso!');
+      navigate(redirectTo);
+    } catch (error) {
+      setError(error.message || 'Erro ao criar conta. Tente novamente.');
+      console.error('Erro no cadastro:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,6 +123,8 @@ const Login = () => {
             <h2>Bem-vindo de volta!</h2>
             <p className={classes.subtitle}>Entre com suas credenciais</p>
 
+            {error && <p className={classes.error}>{error}</p>}
+
             <div className={classes.inputGroup}>
               <FaEnvelope className={classes.icon} />
               <input
@@ -96,6 +133,7 @@ const Login = () => {
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -107,11 +145,12 @@ const Login = () => {
                 value={loginSenha}
                 onChange={(e) => setLoginSenha(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
-            <button type="submit" className={classes.submitButton}>
-              Entrar
+            <button type="submit" className={classes.submitButton} disabled={loading}>
+              {loading ? 'Entrando...' : 'Entrar'}
             </button>
 
             <p className={classes.switchText}>
@@ -124,6 +163,8 @@ const Login = () => {
             <h2>Criar nova conta</h2>
             <p className={classes.subtitle}>Preencha seus dados</p>
 
+            {error && <p className={classes.error}>{error}</p>}
+
             <div className={classes.inputGroup}>
               <FaUser className={classes.icon} />
               <input
@@ -132,6 +173,7 @@ const Login = () => {
                 value={cpf}
                 onChange={(e) => setCPF(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -143,6 +185,7 @@ const Login = () => {
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -154,6 +197,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -165,6 +209,7 @@ const Login = () => {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -174,6 +219,7 @@ const Login = () => {
                 value={sexo}
                 onChange={(e) => setSexo(e.target.value)}
                 required
+                disabled={loading}
               >
                 <option value="">Selecione o Sexo</option>
                 <option value="masculino">Masculino</option>
@@ -189,6 +235,7 @@ const Login = () => {
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -200,11 +247,12 @@ const Login = () => {
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
-            <button type="submit" className={classes.submitButton}>
-              Criar Conta
+            <button type="submit" className={classes.submitButton} disabled={loading}>
+              {loading ? 'Criando conta...' : 'Criar Conta'}
             </button>
 
             <p className={classes.switchText}>
