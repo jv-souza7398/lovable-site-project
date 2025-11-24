@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 2rem 1rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75)),
+  background: linear-gradient(135deg, rgba(17, 17, 17, 0.95), rgba(40, 40, 40, 0.9)),
               url(../assets/pub2.webp);
   background-position: center;
   background-size: cover;
@@ -12,6 +12,18 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow-x: hidden;
+}
+
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(146, 117, 60, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .logoContainer {
@@ -19,36 +31,125 @@
   top: 2rem;
   left: 2rem;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInLeft 0.8s ease-out;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(146, 117, 60, 0.5);
+  border: 3px solid rgb(146, 117, 60);
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: rgb(146, 117, 60);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .content {
-  max-width: 900px;
+  max-width: 800px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
-.successCard {
+/* Ícone de sucesso */
+.successIconContainer {
+  display: flex;
+  justify-content: center;
+  animation: scaleIn 0.6s ease-out;
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.successIconCircle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
+  position: relative;
+}
+
+.successIconCircle::before {
+  content: '';
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid rgba(40, 167, 69, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+.successIcon {
+  font-size: 4rem;
+  color: white;
+}
+
+/* Card principal */
+.mainCard {
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 16px;
-  padding: 3rem 2rem;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
-  border: 2px solid rgba(255, 215, 0, 0.6);
-  animation: slideUp 0.6s ease-out;
-  max-width: 900px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(146, 117, 60, 0.3);
+  animation: slideUp 0.8s ease-out;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -56,232 +157,354 @@
   }
 }
 
-.successIcon {
-  font-size: 5rem;
-  color: #28a745;
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, rgb(146, 117, 60), rgb(180, 150, 90));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 1rem;
-  animation: scaleIn 0.5s ease-out 0.2s both;
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.successCard h1 {
-  font-size: 2rem;
-  color: #000;
-  margin-bottom: 0.75rem;
-  font-weight: bold;
+  letter-spacing: -1px;
 }
 
 .subtitle {
-  font-size: 1rem;
-  color: #666;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Card de informações do pedido */
+.orderCard {
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.95), rgba(126, 97, 40, 0.95));
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.orderHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
+  color: white;
 }
 
-.orderInfo {
-  background: rgba(255, 215, 0, 0.1);
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin: 1.5rem 0;
-  text-align: left;
-  border: 2px solid rgba(255, 215, 0, 0.3);
+.orderIcon {
+  font-size: 2rem;
+  color: #ffd700;
 }
 
-.infoItem {
+.orderHeader h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detailRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  color: #000;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
 }
 
-.label {
-  font-weight: 600;
-  color: #FFD700;
+.detailLabel {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
 }
 
-.value {
-  color: #333;
-  font-family: monospace;
-  font-size: 0.9rem;
-}
-
-.nextSteps {
-  margin: 2rem 0 1.5rem;
-  text-align: left;
-}
-
-.nextSteps h3 {
+.detailValue {
   font-size: 1.3rem;
-  color: #000;
-  margin-bottom: 1.2rem;
-  text-align: center;
-  font-weight: 600;
+  font-weight: 800;
+  color: #ffd700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.nextSteps ol {
-  list-style: none;
-  padding: 0;
-  counter-reset: step-counter;
-}
-
-.nextSteps li {
-  counter-increment: step-counter;
-  display: flex;
-  align-items: flex-start;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
-  background: rgba(146, 117, 60, 0.1);
-  border-radius: 8px;
-  border-left: 4px solid rgb(146, 117, 60);
-  position: relative;
-}
-
-.nextSteps li::before {
-  content: counter(step-counter);
-  background: rgb(146, 117, 60);
+.detailValueCode {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
   color: white;
-  width: 24px;
-  height: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  word-break: break-all;
+}
+
+/* Card de passos */
+.stepsCard {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.stepsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(146, 117, 60);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stepItem {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.stepNumber {
+  min-width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgb(146, 117, 60), rgb(180, 150, 90));
+  color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  margin-right: 0.75rem;
-  flex-shrink: 0;
-  font-size: 0.85rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(146, 117, 60, 0.4);
 }
 
-.stepIcon {
-  margin-right: 0.5rem;
+.stepContent {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: rgba(146, 117, 60, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid rgb(146, 117, 60);
+  transition: all 0.3s ease;
+}
+
+.stepContent:hover {
+  background: rgba(146, 117, 60, 0.1);
+  transform: translateX(5px);
+}
+
+.stepIconMain {
+  font-size: 1.5rem;
   color: rgb(146, 117, 60);
-  font-size: 1rem;
-  flex-shrink: 0;
-  margin-top: 0.15rem;
+  margin-top: 0.2rem;
 }
 
-.nextSteps li span {
+.stepText h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #333;
-  line-height: 1.5;
-  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
 }
 
+.stepText p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Botões de ação */
 .actions {
   display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  margin: 1.5rem 0 1rem;
-  flex-wrap: wrap;
+  gap: 1rem;
+  animation: slideUp 0.8s ease-out 0.6s both;
 }
 
-.primaryButton,
-.secondaryButton {
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+.homeButton,
+.supportButton {
+  flex: 1;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.primaryButton {
+.homeButton {
   background: rgb(146, 117, 60);
   color: white;
-  flex: 1;
-  min-width: 160px;
-  justify-content: center;
 }
 
-.primaryButton:hover {
+.homeButton:hover {
   background: rgb(126, 97, 40);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(146, 117, 60, 0.4);
 }
 
-.secondaryButton {
+.supportButton {
   background: #25D366;
   color: white;
-  flex: 1;
-  min-width: 180px;
-  justify-content: center;
 }
 
-.secondaryButton:hover {
+.supportButton:hover {
   background: #1DA851;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
-.thankYou {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid rgba(146, 117, 60, 0.3);
+/* Mensagem final */
+.finalMessage {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  animation: slideUp 0.8s ease-out 0.8s both;
 }
 
-.thankYou p {
-  font-size: 1rem;
-  color: #666;
+.finalMessage p {
+  font-size: 1.1rem;
+  color: white;
   font-style: italic;
+  margin: 0;
+  line-height: 1.6;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
+.celebration {
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
   .logoContainer {
     top: 1rem;
     left: 1rem;
+    flex-direction: column;
+    gap: 0.3rem;
   }
 
   .logo {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 
-  .successCard {
-    padding: 2rem 1.5rem;
+  .logoText {
+    font-size: 0.9rem;
+  }
+
+  .successIconCircle {
+    width: 90px;
+    height: 90px;
   }
 
   .successIcon {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 
-  .successCard h1 {
-    font-size: 1.5rem;
+  .mainCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .mainTitle {
+    font-size: 1.8rem;
   }
 
   .subtitle {
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+
+  .orderCard {
+    padding: 1.5rem;
+  }
+
+  .orderHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .detailRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .detailValue {
+    font-size: 1.1rem;
+  }
+
+  .stepItem {
+    gap: 1rem;
+  }
+
+  .stepContent {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .actions {
     flex-direction: column;
   }
 
-  .primaryButton,
-  .secondaryButton {
+  .homeButton,
+  .supportButton {
     width: 100%;
-    justify-content: center;
-    min-width: auto;
   }
 
-  .nextSteps li {
-    padding: 0.65rem;
+  .finalMessage p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .content {
+    gap: 1rem;
+  }
+
+  .mainTitle {
+    font-size: 1.5rem;
+  }
+
+  .stepsTitle {
+    font-size: 1.2rem;
+  }
+
+  .stepText h4 {
+    font-size: 1rem;
+  }
+
+  .stepText p {
     font-size: 0.9rem;
-  }
-
-  .nextSteps h3 {
-    font-size: 1.1rem;
   }
 }
