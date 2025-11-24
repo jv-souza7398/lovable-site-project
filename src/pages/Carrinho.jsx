@@ -1,13 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
-import { AccountContext } from '../contexts/AccountContext';
+import { supabase } from '../integrations/supabase/client';
 import classes from './Carrinho.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 function Carrinho() {
   const { cartItems } = useContext(CartContext);
-  const { AccountItems } = useContext(AccountContext);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+      setLoading(false);
+    };
+    checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <header className={classes.navCarrinho}>
+        <h1>Carregando...</h1>
+      </header>
+    );
+  }
 
   if (!cartItems || cartItems.length === 0) {
     return(
@@ -17,11 +41,13 @@ function Carrinho() {
     )
   }
 
-  const handleGoToPayment = () => {
+  const handleGoToPayment = async () => {
     // Verifica se o usuário está logado
-    if (!AccountItems || AccountItems.length === 0) {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
       alert('Você precisa fazer login para continuar com o pagamento.');
-      navigate('/Identificação/');
+      navigate('/Login/', { state: { redirectTo: '/Carrinho/' } });
       return;
     }
 
