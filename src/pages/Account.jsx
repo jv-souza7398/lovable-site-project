@@ -10,9 +10,8 @@ function Account() {
   useEffect(() => {
     // Verifica se o usuário está logado
     if (!AccountItems || AccountItems.length === 0) {
-      // Redireciona para a página de identificação/login
-      alert('Você precisa fazer login para acessar sua conta.');
-      navigate('/Identificação/');
+      // Redireciona para a página de login
+      navigate('/Login/');
     }
   }, [AccountItems, navigate]);
 

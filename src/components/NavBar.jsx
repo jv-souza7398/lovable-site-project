@@ -1,9 +1,25 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import classes from './NavBar.module.css'
+import { AccountContext } from '../contexts/AccountContext'
 
 import logo from '../assets/Vincci.jpg'
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { AccountItems } = useContext(AccountContext);
+
+  const handleAccountClick = (e) => {
+    e.preventDefault();
+    
+    // Verifica se o usuário está logado
+    if (AccountItems && AccountItems.length > 0) {
+      navigate('/Minha-Conta/');
+    } else {
+      navigate('/Login/');
+    }
+  };
+
   return (
     <div className={classes.content}>   
       <nav className={classes.navbarContent}>
@@ -23,7 +39,7 @@ function Navbar() {
          </ul>
          </div> 
           <div className={classes.servicos}>
-          <Link to={"/Minha-Conta/"}><i class="bi bi-person"></i></Link>
+          <a href="#" onClick={handleAccountClick}><i class="bi bi-person"></i></a>
           <Link to={"/Carrinho/"}><i class="bi bi-cart"></i></Link>    
           </div>
       </nav>
