@@ -46,7 +46,6 @@ serve(async (req) => {
       }],
       returnUrl: `${req.headers.get('origin')}/billing`,
       completionUrl: `${req.headers.get('origin')}/completion`,
-      customerId: externalId,
       customer: {
         name: customerName,
         cellphone: customerPhone,
@@ -54,11 +53,7 @@ serve(async (req) => {
         taxId: customerTaxId,
       },
       allowCoupons: false,
-      coupons: [],
       externalId,
-      metadata: {
-        externalId,
-      },
     };
 
     console.log('AbacatePay payload:', JSON.stringify(payload));
