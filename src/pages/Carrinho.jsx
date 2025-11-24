@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
+import { AccountContext } from '../contexts/AccountContext';
 import classes from './Carrinho.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 function Carrinho() {
   const { cartItems } = useContext(CartContext);
+  const { AccountItems } = useContext(AccountContext);
+  const navigate = useNavigate();
 
   if (!cartItems || cartItems.length === 0) {
     return(
@@ -13,6 +17,39 @@ function Carrinho() {
     )
   }
 
+  const handleGoToPayment = () => {
+    // Verifica se o usuário está logado
+    if (!AccountItems || AccountItems.length === 0) {
+      alert('Você precisa fazer login para continuar com o pagamento.');
+      navigate('/Identificação/');
+      return;
+    }
+
+    // Calcula o total
+    const totalAmount = new Intl.NumberFormat('pt-BR', { 
+      style: 'currency', 
+      currency: 'BRL', 
+      minimumFractionDigits: 2 
+    }).format(
+      cartItems.reduce((acc, item) => {
+        const valorNumerico = parseFloat(
+          item.valorTotalFormatado
+            .replace('R$', '')
+            .replace(/\./g, '')
+            .replace(',', '.')
+        );
+        return acc + valorNumerico;
+      }, 0)
+    );
+
+    // Navega para seleção de método de pagamento
+    navigate('/SelectPaymentMethod/', {
+      state: {
+        cartItems,
+        totalAmount
+      }
+    });
+  };
 
   return (
     <>
@@ -120,8 +157,8 @@ function Carrinho() {
 
 
                 <nav className={classes.navLinks}>
-                  <Link to={"/Checkout/"} className={classes.pagamento}>Ir para pagamento</Link>
-                  <Link to={"/continuar-comprando"} className={classes.continuar}>Continuar comprando</Link>
+                  <button onClick={handleGoToPayment} className={classes.pagamento}>Ir para pagamento</button>
+                  <Link to={"/Pacotes/"} className={classes.continuar}>Continuar comprando</Link>
                 </nav>
               </div>
             </section>

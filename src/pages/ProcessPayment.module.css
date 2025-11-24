@@ -1,0 +1,257 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background: hsl(var(--background));
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: 8px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.paymentSection {
+  background: hsl(var(--card));
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--border));
+}
+
+.pixContainer,
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pixIcon,
+.cardIcon {
+  font-size: 4rem;
+  color: hsl(var(--primary));
+}
+
+.pixContainer h2,
+.cardContainer h2 {
+  font-size: 1.8rem;
+  color: hsl(var(--foreground));
+  text-align: center;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid hsl(var(--border));
+  border-top: 4px solid hsl(var(--primary));
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: hsl(var(--muted-foreground));
+  font-size: 1.1rem;
+}
+
+.qrCodeSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.qrCodePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: hsl(var(--background));
+  border: 2px dashed hsl(var(--border));
+  border-radius: 8px;
+  gap: 1rem;
+}
+
+.qrCodePlaceholder p {
+  color: hsl(var(--muted-foreground));
+  font-size: 1.1rem;
+}
+
+.instructions {
+  color: hsl(var(--foreground));
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.pixCodeSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pixCodeSection > p {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.pixCodeBox {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+}
+
+.pixCodeBox code {
+  flex: 1;
+  font-size: 0.8rem;
+  color: hsl(var(--foreground));
+  word-break: break-all;
+}
+
+.copyButton {
+  padding: 0.5rem 1rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.copyButton:hover {
+  background: hsl(var(--primary) / 0.9);
+}
+
+.waitingPayment {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: hsl(var(--muted) / 0.3);
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.waitingPayment p {
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem;
+}
+
+.successIcon {
+  font-size: 5rem;
+  color: #10b981;
+}
+
+.success h3 {
+  font-size: 2rem;
+  color: hsl(var(--foreground));
+}
+
+.success p {
+  color: hsl(var(--muted-foreground));
+  font-size: 1.1rem;
+}
+
+.summary {
+  background: hsl(var(--card));
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--border));
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.summary h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+.summaryItems {
+  margin-bottom: 1.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.summaryItem p {
+  color: hsl(var(--foreground));
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid hsl(var(--border));
+}
+
+.total h4 {
+  font-size: 1.2rem;
+  color: hsl(var(--foreground));
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: relative;
+    top: 0;
+  }
+
+  .paymentSection {
+    padding: 2rem 1rem;
+  }
+}
