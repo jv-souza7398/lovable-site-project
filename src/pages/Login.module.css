@@ -1,0 +1,176 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(20, 20, 20, 0.95)), 
+              url(../assets/pub.webp);
+  background-position: center;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.loginBox {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(30, 29, 29, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  color: rgb(177, 169, 169);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  color: rgb(146, 117, 60);
+  border-bottom-color: rgb(146, 117, 60);
+}
+
+.tab:hover {
+  color: rgb(146, 117, 60);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form h2 {
+  color: rgb(146, 117, 60);
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+.subtitle {
+  color: rgb(177, 169, 169);
+  text-align: center;
+  margin: -0.5rem 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  color: rgb(146, 117, 60);
+  font-size: 1.2rem;
+}
+
+.inputGroup input,
+.inputGroup select {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  background: rgba(35, 34, 34, 0.8);
+  border: 2px solid rgba(146, 117, 60, 0.3);
+  border-radius: 8px;
+  color: rgb(177, 169, 169);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  outline: none;
+  border-color: rgb(146, 117, 60);
+  background: rgba(35, 34, 34, 1);
+}
+
+.inputGroup input::placeholder {
+  color: rgba(177, 169, 169, 0.6);
+}
+
+.inputGroup select {
+  cursor: pointer;
+}
+
+.inputGroup select option {
+  background: rgb(30, 29, 29);
+  color: rgb(177, 169, 169);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background: rgb(146, 117, 60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  background: rgb(166, 137, 80);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.4);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+.switchText {
+  text-align: center;
+  color: rgb(177, 169, 169);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.switchText span {
+  color: rgb(146, 117, 60);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.switchText span:hover {
+  color: rgb(166, 137, 80);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .loginBox {
+    padding: 1.5rem;
+  }
+
+  .form h2 {
+    font-size: 1.5rem;
+  }
+
+  .tab {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}

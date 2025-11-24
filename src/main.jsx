@@ -12,6 +12,7 @@ import Pacotes from './pages/Pacotes.jsx'
 import Images from './pages/images.jsx'
 import Account from './pages/Account.jsx'
 import Identificacao from './pages/Identificacao.jsx'
+import Login from './pages/Login.jsx'
 import Orçamento from './pages/Orçamento.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Carrinho from './pages/Carrinho.jsx'
@@ -67,7 +68,11 @@ const router=createBrowserRouter([
         {
           path:"/Identificação/",
           element:<Identificacao/>
-        }, 
+        },
+        {
+          path:"/Login/",
+          element:<Login/>
+        },
         {
           path:"/Checkout/",
           element:<Checkout/>
