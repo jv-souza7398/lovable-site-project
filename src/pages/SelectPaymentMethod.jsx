@@ -1,39 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { AccountContext } from '../contexts/AccountContext';
 import classes from './SelectPaymentMethod.module.css';
-import { FaCreditCard, FaQrcode } from 'react-icons/fa';
+import { FaQrcode } from 'react-icons/fa';
 
 const SelectPaymentMethod = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { AccountItems } = useContext(AccountContext);
   const { cartItems, totalAmount } = location.state || {};
-  const [selectedMethod, setSelectedMethod] = useState('');
+  const [loading, setLoading] = useState(false);
 
   if (!cartItems || cartItems.length === 0) {
     return (
       <div className={classes.container}>
-        <h1>Nenhum item no carrinho.</h1>
+        <div className={classes.emptyState}>
+          <h1>Carrinho vazio</h1>
+          <p>Adicione itens ao carrinho para continuar</p>
+        </div>
       </div>
     );
   }
 
-  const handleMethodSelect = (method) => {
-    setSelectedMethod(method);
-  };
+  if (!AccountItems || AccountItems.length === 0) {
+    return (
+      <div className={classes.container}>
+        <div className={classes.emptyState}>
+          <h1>Login necessário</h1>
+          <p>Você precisa estar logado para continuar</p>
+        </div>
+      </div>
+    );
+  }
 
-  const handleContinue = () => {
-    if (!selectedMethod) {
-      alert('Por favor, selecione um método de pagamento.');
-      return;
+  const handlePixPayment = async () => {
+    setLoading(true);
+    
+    try {
+      // Navega para a página de processamento PIX
+      navigate('/ProcessPixPayment/', {
+        state: {
+          cartItems,
+          totalAmount,
+          customerEmail: AccountItems[0].email,
+          customerName: AccountItems[0].nomeCompleto,
+        }
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Erro ao processar pagamento. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
-
-    navigate('/ProcessPayment/', {
-      state: {
-        cartItems,
-        totalAmount,
-        paymentMethod: selectedMethod
-      }
-    });
   };
 
   return (
@@ -44,39 +62,22 @@ const SelectPaymentMethod = () => {
 
       <div className={classes.content}>
         <div className={classes.paymentMethods}>
-          <h2>Escolha como deseja pagar</h2>
+          <h2>Como deseja pagar?</h2>
           
           <div 
-            className={`${classes.methodCard} ${selectedMethod === 'credit' ? classes.selected : ''}`}
-            onClick={() => handleMethodSelect('credit')}
-          >
-            <FaCreditCard className={classes.icon} />
-            <div className={classes.methodInfo}>
-              <h3>Cartão de Crédito</h3>
-              <p>Pagamento parcelado disponível</p>
-            </div>
-          </div>
-
-          <div 
-            className={`${classes.methodCard} ${selectedMethod === 'debit' ? classes.selected : ''}`}
-            onClick={() => handleMethodSelect('debit')}
-          >
-            <FaCreditCard className={classes.icon} />
-            <div className={classes.methodInfo}>
-              <h3>Cartão de Débito</h3>
-              <p>Pagamento à vista</p>
-            </div>
-          </div>
-
-          <div 
-            className={`${classes.methodCard} ${selectedMethod === 'pix' ? classes.selected : ''}`}
-            onClick={() => handleMethodSelect('pix')}
+            className={classes.methodCard}
+            onClick={handlePixPayment}
           >
             <FaQrcode className={classes.icon} />
             <div className={classes.methodInfo}>
               <h3>PIX</h3>
-              <p>Pagamento instantâneo</p>
+              <p>Pagamento instantâneo e seguro</p>
+              <p className={classes.highlight}>Aprovação imediata</p>
             </div>
+          </div>
+
+          <div className={classes.comingSoon}>
+            <p>🔒 Cartão de crédito e débito em breve</p>
           </div>
         </div>
 
@@ -94,17 +95,13 @@ const SelectPaymentMethod = () => {
             <h4>Total</h4>
             <h4>{totalAmount}</h4>
           </div>
-          <button 
-            className={classes.continueButton}
-            onClick={handleContinue}
-            disabled={!selectedMethod}
-          >
-            Continuar para Pagamento
-          </button>
         </div>
       </div>
     </div>
   );
+};
+
+export default SelectPaymentMethod;
 };
 
 export default SelectPaymentMethod;

@@ -1,8 +1,206 @@
 .container {
   width: 100%;
   min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(20, 20, 20, 0.95)),
+              url(../assets/drink6.jpg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(30, 29, 29, 0.95);
+  border-radius: 16px;
+  max-width: 500px;
+  margin: 4rem auto;
+}
+
+.emptyState h1 {
+  color: rgb(146, 117, 60);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.emptyState p {
+  color: rgb(177, 169, 169);
+  font-size: 1.1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
   padding: 2rem;
-  background: hsl(var(--background));
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.9), rgba(166, 137, 80, 0.9));
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(146, 117, 60, 0.3);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.paymentMethods h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: rgb(146, 117, 60);
+  font-family: cursive;
+}
+
+.methodCard {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  background: rgba(35, 34, 34, 0.9);
+  border: 3px solid rgb(146, 117, 60);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.methodCard:hover {
+  background: rgba(146, 117, 60, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(146, 117, 60, 0.4);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-right: 2rem;
+  color: rgb(146, 117, 60);
+}
+
+.methodInfo h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: rgb(146, 117, 60);
+  font-weight: 700;
+}
+
+.methodInfo p {
+  color: rgb(177, 169, 169);
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.highlight {
+  color: rgb(146, 117, 60) !important;
+  font-weight: 600;
+}
+
+.comingSoon {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(35, 34, 34, 0.5);
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.comingSoon p {
+  color: rgb(177, 169, 169);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.summary {
+  background: rgba(30, 29, 29, 0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid rgb(146, 117, 60);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.summary h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: rgb(146, 117, 60);
+  font-family: cursive;
+  border-bottom: 2px solid rgb(146, 117, 60);
+  padding-bottom: 0.5rem;
+}
+
+.summaryItems {
+  margin-bottom: 1.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(146, 117, 60, 0.3);
+}
+
+.summaryItem p {
+  color: rgb(177, 169, 169);
+  font-weight: 600;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 3px solid rgb(146, 117, 60);
+}
+
+.total h4 {
+  font-size: 1.4rem;
+  color: rgb(146, 117, 60);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .paymentMethods h2 {
+    font-size: 1.4rem;
+  }
+
+  .methodCard {
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .methodInfo h3 {
+    font-size: 1.2rem;
+  }
 }
 
 .header {

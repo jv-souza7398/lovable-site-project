@@ -1,0 +1,285 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(20, 20, 20, 0.95)),
+              url(../assets/drink6.jpg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.9), rgba(166, 137, 80, 0.9));
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(146, 117, 60, 0.3);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.paymentSection {
+  background: rgba(30, 29, 29, 0.95);
+  padding: 3rem;
+  border-radius: 12px;
+  border: 2px solid rgb(146, 117, 60);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(146, 117, 60, 0.3);
+  border-top: 4px solid rgb(146, 117, 60);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading h2 {
+  color: rgb(146, 117, 60);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.loading p {
+  color: rgb(177, 169, 169);
+  font-size: 1.1rem;
+}
+
+.error,
+.errorState {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error h1,
+.errorState h2 {
+  color: #dc2626;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.error p,
+.errorState p {
+  color: rgb(177, 169, 169);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.retryButton {
+  padding: 1rem 2rem;
+  background: rgb(146, 117, 60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retryButton:hover {
+  background: rgb(166, 137, 80);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.4);
+}
+
+.pixContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.pixIcon {
+  font-size: 5rem;
+  color: rgb(146, 117, 60);
+}
+
+.pixContainer h2 {
+  font-size: 2rem;
+  color: rgb(146, 117, 60);
+  margin: 0;
+}
+
+.instructions {
+  color: rgb(177, 169, 169);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  background: rgba(35, 34, 34, 0.5);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(146, 117, 60, 0.3);
+}
+
+.instructions h3 {
+  color: rgb(146, 117, 60);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.instructions ol {
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.instructions li {
+  margin-bottom: 0.75rem;
+}
+
+.paymentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 3rem;
+  background: rgb(146, 117, 60);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.3);
+}
+
+.paymentButton:hover {
+  background: rgb(166, 137, 80);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(146, 117, 60, 0.5);
+}
+
+.paymentInfo {
+  width: 100%;
+  background: rgba(35, 34, 34, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(146, 117, 60, 0.3);
+}
+
+.paymentInfo p {
+  color: rgb(177, 169, 169);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.paymentInfo strong {
+  color: rgb(146, 117, 60);
+}
+
+.summary {
+  background: rgba(30, 29, 29, 0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid rgb(146, 117, 60);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.summary h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: rgb(146, 117, 60);
+  font-family: cursive;
+  border-bottom: 2px solid rgb(146, 117, 60);
+  padding-bottom: 0.5rem;
+}
+
+.summaryItems {
+  margin-bottom: 1.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(146, 117, 60, 0.3);
+}
+
+.summaryItem p {
+  color: rgb(177, 169, 169);
+  font-weight: 600;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 3px solid rgb(146, 117, 60);
+}
+
+.total h4 {
+  font-size: 1.4rem;
+  color: rgb(146, 117, 60);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .paymentSection {
+    padding: 2rem 1rem;
+  }
+
+  .pixContainer h2 {
+    font-size: 1.5rem;
+  }
+
+  .paymentButton {
+    padding: 1.25rem 2rem;
+    font-size: 1rem;
+  }
+}
