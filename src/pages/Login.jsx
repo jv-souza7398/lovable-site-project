@@ -7,7 +7,11 @@ import { FaUser, FaLock, FaEnvelope, FaPhone, FaVenusMars, FaCalendar } from 're
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToAccount, AccountItems } = useContext(AccountContext);
+
+  // Pega o redirectTo do state (se houver)
+  const redirectTo = location.state?.redirectTo || '/Minha-Conta/';
 
   // Estados para login
   const [loginEmail, setLoginEmail] = useState('');
@@ -32,7 +36,7 @@ const Login = () => {
 
     if (userExists) {
       alert('Login realizado com sucesso!');
-      navigate('/Minha-Conta/');
+      navigate(redirectTo);
     } else {
       alert('Usuário não encontrado. Por favor, crie uma conta.');
       setIsLogin(false);
@@ -58,7 +62,7 @@ const Login = () => {
 
     addToAccount(itemParaConta);
     alert('Conta criada com sucesso!');
-    navigate('/Minha-Conta/');
+    navigate(redirectTo);
   };
 
   return (

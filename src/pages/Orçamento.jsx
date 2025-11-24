@@ -1,6 +1,7 @@
 import React, { useState,useEffect,useContext } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
+import { AccountContext } from '../contexts/AccountContext';
 import drink8 from '../assets/drink8.jpg';
 import drink9 from '../assets/drink9.jpg';
 import drink10 from '../assets/drink10.jpg';
@@ -30,6 +31,7 @@ const Orçamento = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mostrarValor, setMostrarValor] = useState(false); 
   const { addToCart } = useContext(CartContext);
+  const { AccountItems } = useContext(AccountContext);
   const location = useLocation();
   const navigate = useNavigate();
   const { title } = useParams();
@@ -119,7 +121,7 @@ useEffect(() => {
   }
 }, [horario, convidados, bartenders]);
 
-// NAVEGAR PARA IDENTIFICACAO 
+// NAVEGAR PARA IDENTIFICACAO OU CARRINHO
 const handleContratarClick = () => {
    
   if (!horario || !convidados || !bartenders) {
@@ -141,16 +143,23 @@ const handleContratarClick = () => {
   };
   addToCart(itemParaCarrinho);
 
-  // Navega para a página de Identificação
-  navigate('/Identificação/', { 
-    state: { 
-      item,
-      horario,
-      convidados,
-      bartenders,
-      valorTotalFormatado, // Passar o valor formatado
-    }  
-  });
+  // Verifica se o usuário está logado
+  if (AccountItems && AccountItems.length > 0) {
+    // Usuário está logado, vai direto para o carrinho
+    navigate('/Carrinho/');
+  } else {
+    // Usuário não está logado, vai para a página de login/cadastro
+    navigate('/Login/', { 
+      state: { 
+        redirectTo: '/Carrinho/',
+        item,
+        horario,
+        convidados,
+        bartenders,
+        valorTotalFormatado,
+      }  
+    });
+  }
 };
 
   // EFFEITO DE APARECER 
