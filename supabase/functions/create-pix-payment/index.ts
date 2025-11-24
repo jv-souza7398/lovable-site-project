@@ -12,6 +12,7 @@ interface PaymentRequest {
   customerName: string;
   customerPhone: string;
   customerTaxId: string;
+  expiresIn?: number;
 }
 
 serve(async (req) => {
@@ -21,9 +22,9 @@ serve(async (req) => {
   }
 
   try {
-    const { amount, description, customerEmail, customerName, customerPhone, customerTaxId }: PaymentRequest = await req.json();
+    const { amount, description, customerEmail, customerName, customerPhone, customerTaxId, expiresIn }: PaymentRequest = await req.json();
     
-    console.log('Creating PIX payment:', { amount, description, customerEmail, customerName, customerPhone, customerTaxId });
+    console.log('Creating PIX QR Code:', { amount, description, customerEmail, customerName, customerPhone, customerTaxId });
 
     const abacatePayApiKey = Deno.env.get('ABACATEPAY_API_KEY');
     
@@ -31,71 +32,32 @@ serve(async (req) => {
       throw new Error('ABACATEPAY_API_KEY not configured');
     }
 
-    // Criar ou recuperar cliente e depois criar cobrança PIX no AbacatePay
     const externalId = `order-${Date.now()}`;
 
-    const customerPayload = {
-      name: customerName,
-      cellphone: customerPhone,
-      email: customerEmail,
-      taxId: customerTaxId,
-    };
-
-    console.log('AbacatePay customer payload:', JSON.stringify(customerPayload));
-
-    // Primeiro, garante que o cliente exista na AbacatePay
-    const customerResponse = await fetch('https://api.abacatepay.com/v1/customer/create', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${abacatePayApiKey}`,
-        'Content-Type': 'application/json',
+    const pixQrCodePayload = {
+      amount,
+      expiresIn: expiresIn || 3600, // 1 hora por padrão
+      description,
+      customer: {
+        name: customerName,
+        cellphone: customerPhone,
+        email: customerEmail,
+        taxId: customerTaxId,
       },
-      body: JSON.stringify(customerPayload),
-    });
-
-    if (!customerResponse.ok) {
-      const errorText = await customerResponse.text();
-      console.error('AbacatePay create-customer API error:', errorText);
-      throw new Error(`AbacatePay create-customer API error: ${customerResponse.status} - ${errorText}`);
-    }
-
-    const customerData = await customerResponse.json();
-    console.log('AbacatePay customer response:', customerData);
-
-    const customerId = customerData.data?.id ?? customerData.id;
-
-    if (!customerId) {
-      console.error('AbacatePay customerId ausente na resposta:', customerData);
-      throw new Error('AbacatePay customerId ausente na resposta da API de cliente');
-    }
-
-    const billingPayload = {
-      frequency: 'ONE_TIME',
-      methods: ['PIX'],
-      products: [{
+      metadata: {
         externalId,
-        name: description,
-        description,
-        quantity: 1,
-        price: amount,
-      }],
-      returnUrl: `${req.headers.get('origin')}/billing`,
-      completionUrl: `${req.headers.get('origin')}/completion`,
-      customerId,
-      customer: customerPayload,
-      allowCoupons: false,
-      externalId,
+      },
     };
 
-    console.log('AbacatePay billing payload:', JSON.stringify(billingPayload));
+    console.log('AbacatePay PIX QR Code payload:', JSON.stringify(pixQrCodePayload));
 
-    const response = await fetch('https://api.abacatepay.com/v1/billing/create', {
+    const response = await fetch('https://api.abacatepay.com/v1/pixQrCode/create', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${abacatePayApiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(billingPayload),
+      body: JSON.stringify(pixQrCodePayload),
     });
 
     if (!response.ok) {
@@ -105,24 +67,25 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log('AbacatePay response:', data);
+    console.log('AbacatePay PIX QR Code response:', data);
 
-    const billingData = data.data ?? data;
-    const billingId = billingData?.id;
-    const paymentUrl = billingData?.url;
+    const pixData = data.data ?? data;
+    const pixId = pixData?.id;
+    const qrCodeImageUrl = pixData?.qrCodeImage;
+    const pixCopyPaste = pixData?.qrCode;
 
-    if (!billingId || !paymentUrl) {
-      console.error('AbacatePay billingId ou url ausente na resposta:', data);
-      throw new Error('AbacatePay billingId ou url ausente na resposta da API de cobrança');
+    if (!pixId || !qrCodeImageUrl || !pixCopyPaste) {
+      console.error('AbacatePay dados do PIX ausentes na resposta:', data);
+      throw new Error('AbacatePay dados do PIX ausentes na resposta da API');
     }
 
     return new Response(
       JSON.stringify({
         success: true,
-        billingId,
-        url: paymentUrl,
-        // AbacatePay retorna o link da página de pagamento
-        // O PIX QR Code estará disponível nessa página
+        pixId,
+        qrCodeImageUrl,
+        pixCopyPaste,
+        expiresAt: pixData?.expiresAt,
       }),
       {
         status: 200,
