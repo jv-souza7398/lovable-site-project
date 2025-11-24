@@ -1,0 +1,165 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: hsl(var(--background));
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: 8px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.statusCard {
+  background: hsl(var(--card));
+  border: 3px solid;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInScale 0.5s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.statusCard h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.statusCard > p {
+  font-size: 1.2rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 2rem;
+}
+
+.billingInfo {
+  background: hsl(var(--muted) / 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.billingId {
+  font-size: 1rem;
+  color: hsl(var(--foreground));
+  word-break: break-all;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.successMessage,
+.warningMessage,
+.errorMessage {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.successMessage {
+  background: hsl(142 76% 36% / 0.1);
+  color: hsl(142 76% 36%);
+  border: 1px solid hsl(142 76% 36% / 0.3);
+}
+
+.warningMessage {
+  background: hsl(38 92% 50% / 0.1);
+  color: hsl(38 92% 40%);
+  border: 1px solid hsl(38 92% 50% / 0.3);
+}
+
+.errorMessage {
+  background: hsl(0 84% 60% / 0.1);
+  color: hsl(0 84% 50%);
+  border: 1px solid hsl(0 84% 60% / 0.3);
+}
+
+.primaryButton,
+.secondaryButton {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primaryButton {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.primaryButton:hover {
+  background: hsl(var(--primary) / 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.secondaryButton:hover {
+  background: hsl(var(--secondary) / 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .statusCard {
+    padding: 2rem 1rem;
+  }
+
+  .icon {
+    font-size: 3.5rem;
+  }
+
+  .statusCard h2 {
+    font-size: 1.5rem;
+  }
+
+  .statusCard > p {
+    font-size: 1rem;
+  }
+}
