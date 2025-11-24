@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 2rem 1rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(20, 20, 20, 0.95)),
+  background: linear-gradient(rgba(240, 235, 225, 0.95), rgba(250, 245, 235, 0.9)),
               url(../assets/drink6.jpg);
   background-position: center;
   background-size: cover;
@@ -35,7 +35,7 @@
 }
 
 .paymentSection {
-  background: rgba(30, 29, 29, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   padding: 3rem;
   border-radius: 12px;
   border: 2px solid rgb(146, 117, 60);
@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .loading {
@@ -74,7 +75,7 @@
 }
 
 .loading p {
-  color: rgb(177, 169, 169);
+  color: rgb(80, 80, 80);
   font-size: 1.1rem;
 }
 
@@ -93,7 +94,7 @@
 
 .error p,
 .errorState p {
-  color: rgb(177, 169, 169);
+  color: rgb(80, 80, 80);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
 }
@@ -137,11 +138,11 @@
 }
 
 .instructions {
-  color: rgb(177, 169, 169);
+  color: rgb(60, 60, 60);
   font-size: 1.1rem;
   line-height: 1.6;
   max-width: 600px;
-  background: rgba(35, 34, 34, 0.5);
+  background: rgba(255, 250, 240, 0.8);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid rgba(146, 117, 60, 0.3);
@@ -188,14 +189,14 @@
 
 .paymentInfo {
   width: 100%;
-  background: rgba(35, 34, 34, 0.7);
+  background: rgba(255, 250, 240, 0.8);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid rgba(146, 117, 60, 0.3);
 }
 
 .paymentInfo p {
-  color: rgb(177, 169, 169);
+  color: rgb(60, 60, 60);
   font-size: 1rem;
   margin: 0.5rem 0;
 }
@@ -205,13 +206,14 @@
 }
 
 .summary {
-  background: rgba(30, 29, 29, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   padding: 2rem;
   border-radius: 12px;
   border: 2px solid rgb(146, 117, 60);
   height: fit-content;
   position: sticky;
   top: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .summary h3 {
@@ -236,7 +238,7 @@
 }
 
 .summaryItem p {
-  color: rgb(177, 169, 169);
+  color: rgb(60, 60, 60);
   font-weight: 600;
 }
 
