@@ -1,18 +1,24 @@
-import React, { useContext } from 'react';
-import classes from './Account.module.css'; // Importação das classes do CSS Module
+import React, { useContext, useEffect } from 'react';
+import classes from './Account.module.css';
 import { AccountContext } from '../contexts/AccountContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Account() {
   const { AccountItems } = useContext(AccountContext);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    // Verifica se o usuário está logado
+    if (!AccountItems || AccountItems.length === 0) {
+      // Redireciona para a página de identificação/login
+      alert('Você precisa fazer login para acessar sua conta.');
+      navigate('/Identificação/');
+    }
+  }, [AccountItems, navigate]);
+
+  // Se não houver usuário logado, não renderiza nada (pois o useEffect já redirecionou)
   if (!AccountItems || AccountItems.length === 0) {
-    return (
-
-    <header className={classes.navAccount}>
-     <h1>O carrinho está vazio.</h1>;
-     </header>
-    )
+    return null;
   }
   return (
     <>
