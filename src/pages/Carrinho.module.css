@@ -290,7 +290,7 @@
 
 @media (max-width: 768px) {
   .navCarrinho {
-    height: 18rem;
+    height: 16rem;
   }
 
   .navCarrinho h1 {
@@ -300,11 +300,16 @@
   .carrinhoTitle h1 {
     font-size: 1.5rem;
     width: 100%;
-    margin: 1rem 0;
+    margin: 1rem 0.5rem;
+  }
+
+  .carrinhoTitle span {
+    font-size: 1.5rem;
   }
 
   .produtos {
     padding: 1rem 0.5rem;
+    width: 95%;
   }
 
   .articleProdutos {
@@ -312,38 +317,52 @@
   }
 
   .itemContent {
-    flex-direction: column;
-    padding-left: 1rem;
-    gap: 1rem;
+    flex-direction: row;
+    padding-left: 0.5rem;
+    gap: 0.5rem;
   }
 
   .imgItem {
-    width: 100%;
-    min-width: auto;
-    max-width: 100%;
+    width: 35%;
+    min-width: 100px;
+    max-width: 150px;
+    padding: 0.5rem 0;
   }
 
   .imgItem img {
-    max-height: 220px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
+    max-height: 150px;
   }
 
   .infoSection {
-    width: 100%;
+    width: 65%;
   }
 
   .info {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    gap: 0.4rem;
   }
 
   .info h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .info p {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+  }
+
+  .preco p {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .buttons {
+    padding-right: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .buttons button {
+    height: 2.5rem;
+    width: 2.5rem;
   }
 
   .cardBody {
@@ -357,21 +376,59 @@
 
   .listGroupItem p,
   .listGroupItem span {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
+  .navCarrinho {
+    height: 14rem;
+  }
+
   .navCarrinho h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .carrinhoTitle h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .carrinhoTitle span {
+    font-size: 1.1rem;
   }
 
   .quantidadeItens {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .itemContent {
+    flex-direction: column;
+    padding-left: 0.5rem;
+  }
+
+  .imgItem {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .imgItem img {
+    max-height: 180px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .infoSection {
+    width: 100%;
+  }
+
+  .infoPacote {
+    flex-direction: column;
+  }
+
+  .buttons {
+    padding-right: 1rem;
+    justify-content: flex-start;
   }
 
   .pagamento,
