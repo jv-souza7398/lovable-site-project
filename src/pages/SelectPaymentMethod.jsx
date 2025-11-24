@@ -44,6 +44,7 @@ const SelectPaymentMethod = () => {
           totalAmount,
           customerEmail: AccountItems[0].email,
           customerName: AccountItems[0].nomeCompleto,
+          customerPhone: AccountItems[0].telefone,
         }
       });
     } catch (error) {

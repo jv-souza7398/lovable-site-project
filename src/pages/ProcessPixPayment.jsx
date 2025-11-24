@@ -6,7 +6,7 @@ import { FaQrcode, FaCopy, FaCheckCircle } from 'react-icons/fa';
 
 const ProcessPixPayment = () => {
   const location = useLocation();
-  const { cartItems, totalAmount, customerEmail, customerName } = location.state || {};
+  const { cartItems, totalAmount, customerEmail, customerName, customerPhone } = location.state || {};
   const [loading, setLoading] = useState(true);
   const [paymentUrl, setPaymentUrl] = useState(null);
   const [error, setError] = useState(null);
@@ -39,7 +39,8 @@ const ProcessPixPayment = () => {
         amount: Math.round(totalValue * 100), // Converte para centavos
         description,
         customerEmail,
-        customerName
+        customerName,
+        customerPhone
       });
 
       const { data, error: functionError } = await supabase.functions.invoke(
@@ -50,6 +51,7 @@ const ProcessPixPayment = () => {
             description,
             customerEmail,
             customerName,
+            customerPhone,
           },
         }
       );
