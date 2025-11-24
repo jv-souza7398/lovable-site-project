@@ -31,10 +31,45 @@ serve(async (req) => {
       throw new Error('ABACATEPAY_API_KEY not configured');
     }
 
-    // Criar cobrança PIX no AbacatePay
+    // Criar ou recuperar cliente e depois criar cobrança PIX no AbacatePay
     const externalId = `order-${Date.now()}`;
 
-    const payload = {
+    const customerPayload = {
+      name: customerName,
+      cellphone: customerPhone,
+      email: customerEmail,
+      taxId: customerTaxId,
+    };
+
+    console.log('AbacatePay customer payload:', JSON.stringify(customerPayload));
+
+    // Primeiro, garante que o cliente exista na AbacatePay
+    const customerResponse = await fetch('https://api.abacatepay.com/v1/customer/create', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${abacatePayApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(customerPayload),
+    });
+
+    if (!customerResponse.ok) {
+      const errorText = await customerResponse.text();
+      console.error('AbacatePay create-customer API error:', errorText);
+      throw new Error(`AbacatePay create-customer API error: ${customerResponse.status} - ${errorText}`);
+    }
+
+    const customerData = await customerResponse.json();
+    console.log('AbacatePay customer response:', customerData);
+
+    const customerId = customerData.data?.id ?? customerData.id;
+
+    if (!customerId) {
+      console.error('AbacatePay customerId ausente na resposta:', customerData);
+      throw new Error('AbacatePay customerId ausente na resposta da API de cliente');
+    }
+
+    const billingPayload = {
       frequency: 'ONE_TIME',
       methods: ['PIX'],
       products: [{
@@ -46,17 +81,13 @@ serve(async (req) => {
       }],
       returnUrl: `${req.headers.get('origin')}/billing`,
       completionUrl: `${req.headers.get('origin')}/completion`,
-      customer: {
-        name: customerName,
-        cellphone: customerPhone,
-        email: customerEmail,
-        taxId: customerTaxId,
-      },
+      customerId,
+      customer: customerPayload,
       allowCoupons: false,
       externalId,
     };
 
-    console.log('AbacatePay payload:', JSON.stringify(payload));
+    console.log('AbacatePay billing payload:', JSON.stringify(billingPayload));
 
     const response = await fetch('https://api.abacatepay.com/v1/billing/create', {
       method: 'POST',
@@ -64,7 +95,7 @@ serve(async (req) => {
         'Authorization': `Bearer ${abacatePayApiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(billingPayload),
     });
 
     if (!response.ok) {
