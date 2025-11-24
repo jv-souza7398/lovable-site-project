@@ -1,0 +1,263 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--background)) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  max-width: 900px;
+  width: 100%;
+}
+
+.successCard {
+  background: hsl(var(--card));
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.successIcon {
+  font-size: 6rem;
+  color: hsl(142 76% 36%);
+  margin-bottom: 1.5rem;
+  animation: scaleIn 0.5s ease-out 0.2s both;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.successCard h1 {
+  font-size: 2.5rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 2rem;
+}
+
+.orderInfo {
+  background: hsl(var(--muted) / 0.3);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.orderInfo h3 {
+  font-size: 1.3rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.value {
+  color: hsl(var(--muted-foreground));
+  font-family: monospace;
+}
+
+.statusBadge {
+  background: hsl(142 76% 36%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.nextSteps {
+  margin: 2.5rem 0;
+  text-align: left;
+}
+
+.nextSteps h3 {
+  font-size: 1.5rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.nextSteps ol {
+  list-style: none;
+  padding: 0;
+  counter-reset: step-counter;
+}
+
+.nextSteps li {
+  counter-increment: step-counter;
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: hsl(var(--background));
+  border-radius: 8px;
+  border-left: 4px solid hsl(var(--primary));
+  position: relative;
+}
+
+.nextSteps li::before {
+  content: counter(step-counter);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.stepIcon {
+  margin-right: 0.75rem;
+  color: hsl(var(--primary));
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.nextSteps li span {
+  color: hsl(var(--foreground));
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.primaryButton {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  flex: 1;
+  min-width: 200px;
+}
+
+.primaryButton:hover {
+  background: hsl(var(--primary) / 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+  background: hsl(142 76% 36%);
+  color: white;
+  flex: 1;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.secondaryButton:hover {
+  background: hsl(142 76% 30%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.thankYou {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid hsl(var(--border));
+}
+
+.thankYou p {
+  font-size: 1.1rem;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .successCard {
+    padding: 2rem 1rem;
+  }
+
+  .successIcon {
+    font-size: 4rem;
+  }
+
+  .successCard h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nextSteps li {
+    flex-direction: column;
+    text-align: left;
+  }
+}
