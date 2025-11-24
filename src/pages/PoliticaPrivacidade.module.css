@@ -60,3 +60,80 @@
   margin: 1rem 0  0;
   font-family: "Kanit", Sans-serif;
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .imgPrivacidade h1 {
+    font-size: 4rem;
+  }
+  
+  .contentPolitica {
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .imgPrivacidade {
+    height: 18rem;
+  }
+  
+  .imgPrivacidade h1 {
+    font-size: 3rem;
+  }
+  
+  .imgPrivacidade p {
+    width: 80%;
+    font-size: 1rem;
+  }
+  
+  .contentPolitica {
+    width: 90%;
+  }
+  
+  .contentPolitica h1 {
+    font-size: 2rem;
+  }
+  
+  .contentPolitica h2 {
+    font-size: 1.4rem;
+  }
+  
+  .contentPolitica h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imgPrivacidade {
+    height: 16rem;
+  }
+  
+  .imgPrivacidade h1 {
+    font-size: 2rem;
+  }
+  
+  .imgPrivacidade p {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+  
+  .contentPolitica {
+    width: 95%;
+  }
+  
+  .contentPolitica h1 {
+    font-size: 1.5rem;
+  }
+  
+  .contentPolitica h2 {
+    font-size: 1.2rem;
+  }
+  
+  .contentPolitica h3 {
+    font-size: 1rem;
+  }
+  
+  .contentPolitica p {
+    font-size: 0.9rem;
+  }
+}

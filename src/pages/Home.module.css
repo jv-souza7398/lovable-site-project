@@ -754,3 +754,340 @@ display: flex;
   font-weight: bold;
   color: rgb(143, 139, 139);
 }
+
+/* Responsividade Home */
+@media (max-width: 1024px) {
+  .contentHome {
+    margin: 0 3rem;
+  }
+  
+  .contentHome h1 {
+    font-size: 2rem;
+  }
+  
+  .contentHome h3 {
+    font-size: 1.7rem;
+  }
+  
+  .content {
+    margin: 0 3rem;
+  }
+  
+  .content h4 {
+    width: 100%;
+  }
+  
+  .content p {
+    width: 100%;
+  }
+  
+  .contentvideo iframe {
+    width: 100%;
+  }
+  
+  .sectionContainer {
+    width: 85%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .pacoteTitle {
+    margin: 0 3rem;
+  }
+  
+  .container {
+    width: 90%;
+  }
+  
+  .sobre {
+    width: 50%;
+    margin-left: 3rem;
+  }
+  
+  .sobre h3,
+  .sobre h5 {
+    width: 100%;
+  }
+  
+  .conhecerAmbiente {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .frase {
+    width: 100%;
+    font-size: 2.5rem;
+  }
+  
+  .detalhes {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .contentDetalhes {
+    width: 100%;
+    padding-left: 2rem;
+  }
+  
+  .objetos {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .objetosItens {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .img {
+    height: 30rem;
+  }
+  
+  .contentHome {
+    margin: 0 1rem;
+  }
+  
+  .contentHome h1 {
+    font-size: 1.5rem;
+  }
+  
+  .contentHome h3 {
+    font-size: 1.3rem;
+  }
+  
+  .contentHome a {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+  }
+  
+  .content {
+    margin: 0 2rem;
+  }
+  
+  .content h3 {
+    font-size: 0.9rem;
+  }
+  
+  .content h4 {
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
+  
+  .content p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  .contentvideo {
+    margin: 3rem 1rem;
+  }
+  
+  .contentvideo iframe {
+    width: 100%;
+    height: 18rem;
+  }
+  
+  .section h1 {
+    font-size: 2rem;
+  }
+  
+  .sectionContainer {
+    width: 90%;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .sectionContainer img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .sectionPacotes {
+    height: auto;
+  }
+  
+  .pacoteTitle {
+    width: 90%;
+    margin: 0 1rem;
+  }
+  
+  .pacoteTitle h2 {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+  
+  .pacotes {
+    width: 90%;
+    margin: 2rem auto;
+  }
+  
+  .maispacote a {
+    width: 80%;
+  }
+  
+  .container {
+    flex-direction: column;
+    height: auto;
+    width: 95%;
+  }
+  
+  .cardItem {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .cardItem h4 {
+    width: 100%;
+  }
+  
+  .cardItem p {
+    width: 90%;
+  }
+  
+  .sobre {
+    width: 90%;
+    margin: 2rem auto;
+  }
+  
+  .sobreNos {
+    font-size: 1.2rem;
+  }
+  
+  .sobre h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .sobre h5 {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+  
+  .sobreBtn a {
+    margin-left: 0;
+  }
+  
+  .sobrefotos {
+    margin: 2rem 1rem;
+  }
+  
+  .sobrefotos img {
+    width: 100%;
+    height: auto;
+    margin: 2rem auto;
+  }
+  
+  figure img,
+  figure iframe {
+    width: 100%;
+    height: auto;
+  }
+  
+  .conhecerAmbiente {
+    width: 95%;
+  }
+  
+  .frase {
+    font-size: 2rem;
+    padding: 1rem;
+  }
+  
+  .contentDetalhes {
+    padding-left: 1rem;
+  }
+  
+  .contentDetalhes h1 {
+    font-size: 2rem;
+  }
+  
+  .listaDetalhes,
+  .listaObjetos {
+    margin: 1rem;
+  }
+  
+  .listaDetalhes li,
+  .listaObjetos li {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+  
+  .objetosItens h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .img {
+    height: 24rem;
+  }
+  
+  .contentHome h1 {
+    font-size: 1.2rem;
+  }
+  
+  .contentHome h3 {
+    font-size: 1rem;
+  }
+  
+  .contentHome a {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  .content {
+    margin: 0 1rem;
+  }
+  
+  .content h4 {
+    font-size: 1.1rem;
+  }
+  
+  .content p {
+    font-size: 0.9rem;
+  }
+  
+  .contentvideo iframe {
+    height: 15rem;
+  }
+  
+  .section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .pacoteTitle h2 {
+    font-size: 1.2rem;
+  }
+  
+  .pacotes {
+    width: 95%;
+  }
+  
+  .pacotes h2 {
+    font-size: 1.2rem;
+  }
+  
+  .sobre h3 {
+    font-size: 1.2rem;
+  }
+  
+  .sobre h5 {
+    font-size: 1rem;
+  }
+  
+  .frase {
+    font-size: 1.5rem;
+  }
+  
+  .contentDetalhes h1,
+  .objetosItens h1 {
+    font-size: 1.5rem;
+  }
+  
+  .listaDetalhes li,
+  .listaObjetos li {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}

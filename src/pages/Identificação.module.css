@@ -214,3 +214,105 @@ justify-content: space-between;
   text-align: end;
 }
 
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navIdentificacao h1 {
+    font-size: 4rem;
+  }
+  
+  .IdentificacaoContent {
+    flex-direction: column;
+  }
+  
+  .cadastroIdentificacao {
+    width: 85%;
+    margin: 1rem auto;
+  }
+  
+  .ContentIdentificacao {
+    width: 90%;
+  }
+  
+  .InfoPacote {
+    width: 85%;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+  
+  .imgPacote img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navIdentificacao {
+    height: 18rem;
+  }
+  
+  .navIdentificacao h1 {
+    font-size: 3rem;
+  }
+  
+  .cadastroIdentificacao {
+    width: 90%;
+    margin: 1rem;
+  }
+  
+  .cadastroIdentificacao h2 {
+    font-size: 1.5rem;
+  }
+  
+  .cadastroIdentificacao p {
+    font-size: 1.2rem;
+  }
+  
+  .ContentIdentificacao {
+    width: 100%;
+  }
+  
+  .btn button {
+    width: 100%;
+  }
+  
+  .InfoPacote {
+    width: 90%;
+    padding: 0.5rem;
+  }
+  
+  .imgPacote img {
+    width: 100%;
+  }
+  
+  .infoAdicionais {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navIdentificacao {
+    height: 14rem;
+  }
+  
+  .navIdentificacao h1 {
+    font-size: 2rem;
+  }
+  
+  .cadastroIdentificacao {
+    width: 95%;
+    margin: 0.5rem;
+  }
+  
+  .cadastroIdentificacao h2 {
+    font-size: 1.3rem;
+  }
+  
+  .cadastroIdentificacao p {
+    font-size: 1rem;
+  }
+  
+  .InfoCadastro p {
+    width: 100%;
+  }
+}
+

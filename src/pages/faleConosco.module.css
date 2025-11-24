@@ -177,3 +177,133 @@ align-items: center;
 font-weight: 500;
 color: white;
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .imgFale h1 {
+    font-size: 4rem;
+  }
+  
+  .formFaleConosco {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+  
+  .formText {
+    width: 90%;
+    margin: 1rem auto;
+  }
+  
+  .form {
+    width: 90%;
+    margin: 1rem auto;
+  }
+  
+  .contatos {
+    position: relative;
+    left: 0;
+    margin: 2rem auto;
+    width: 90%;
+  }
+  
+  .inline {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .imgFale {
+    height: 18rem;
+  }
+  
+  .imgFale h1 {
+    font-size: 3rem;
+  }
+  
+  .imgFale p {
+    font-size: 1rem;
+  }
+  
+  .sac h2 {
+    font-size: 300px;
+  }
+  
+  .formText {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .formText h2 {
+    font-size: 2rem;
+  }
+  
+  .formText p {
+    font-size: 1rem;
+  }
+  
+  .form {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .block {
+    flex-direction: column;
+  }
+  
+  .inline {
+    width: 100%;
+  }
+  
+  form input[type=submit] {
+    width: 100%;
+  }
+  
+  .contatos {
+    width: 95%;
+  }
+  
+  .infoItem {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imgFale {
+    height: 14rem;
+  }
+  
+  .imgFale h1 {
+    font-size: 2rem;
+  }
+  
+  .imgFale p {
+    font-size: 0.9rem;
+  }
+  
+  .sac h2 {
+    font-size: 200px;
+  }
+  
+  .formText h2 {
+    font-size: 1.5rem;
+  }
+  
+  .formText p {
+    font-size: 0.9rem;
+  }
+  
+  .form input {
+    height: 3rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .infoItem h3 {
+    font-size: 18px;
+  }
+  
+  .infoItem p {
+    font-size: 0.9rem;
+  }
+}
