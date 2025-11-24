@@ -3,56 +3,41 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import classes from './ProcessPixPayment.module.css';
 import { FaQrcode, FaCheckCircle } from 'react-icons/fa';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 const ProcessPixPayment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { cartItems, totalAmount, customerEmail, customerName, customerPhone, customerTaxId } = location.state || {};
   const [loading, setLoading] = useState(true);
-  const [paymentUrl, setPaymentUrl] = useState(null);
+  const [qrCodeImageUrl, setQrCodeImageUrl] = useState(null);
+  const [pixCopyPaste, setPixCopyPaste] = useState(null);
   const [error, setError] = useState(null);
-  const [billingId, setBillingId] = useState(null);
+  const [pixId, setPixId] = useState(null);
   const [checkingPayment, setCheckingPayment] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [shouldCheckPayment, setShouldCheckPayment] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
     createPixPayment();
   }, []);
 
-  // Polling para verificar status do pagamento automaticamente (SOMENTE APÓS abrir o modal)
-  useEffect(() => {
-    if (!billingId || !shouldCheckPayment) return;
-
-    const checkInterval = setInterval(async () => {
-      await checkPaymentStatus();
-    }, 5000); // Verifica a cada 5 segundos
-
-    return () => clearInterval(checkInterval);
-  }, [billingId, shouldCheckPayment]);
+  // Não faz polling automático, apenas quando o usuário clicar
 
   const checkPaymentStatus = async () => {
-    if (!billingId || checkingPayment) return;
+    if (!pixId || checkingPayment) return;
 
     try {
       setCheckingPayment(true);
       const { data, error: functionError } = await supabase.functions.invoke(
         'check-pix-payment-status',
         {
-          body: { billingId },
+          body: { pixId },
         }
       );
 
       if (functionError) {
         console.error('Error checking payment status:', functionError);
+        setError('Erro ao verificar pagamento. Tente novamente.');
         return;
       }
 
@@ -60,25 +45,37 @@ const ProcessPixPayment = () => {
 
       if (data.status === 'PAID') {
         setPaymentStatus('paid');
-        setShouldCheckPayment(false); // Para de verificar
         navigate('/Completion', {
           state: {
-            billingId,
+            pixId,
             amount: totalAmount,
             status: 'paid'
           }
         });
+      } else if (data.status === 'EXPIRED') {
+        setError('Pagamento expirado. Por favor, gere um novo QR Code.');
+      } else {
+        setError('Pagamento ainda não foi confirmado. Aguarde alguns instantes.');
       }
     } catch (err) {
       console.error('Error checking payment:', err);
+      setError('Erro ao verificar pagamento. Tente novamente.');
     } finally {
       setCheckingPayment(false);
     }
   };
 
-  const handleOpenPayment = () => {
-    setIsDialogOpen(true);
-    setShouldCheckPayment(true); // Inicia verificação automática após abrir modal
+  const copyPixCode = async () => {
+    if (!pixCopyPaste) return;
+
+    try {
+      await navigator.clipboard.writeText(pixCopyPaste);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 3000);
+    } catch (err) {
+      console.error('Error copying to clipboard:', err);
+      setError('Erro ao copiar código PIX');
+    }
   };
 
   const createPixPayment = async () => {
@@ -112,7 +109,7 @@ const ProcessPixPayment = () => {
       // Cria descrição do pedido
       const description = cartItems.map(item => item.item.title).join(', ');
 
-      console.log('Creating PIX payment with:', {
+      console.log('Creating PIX QR Code with:', {
         amount: Math.round(totalValue * 100), // Converte para centavos
         description,
         customerEmail,
@@ -131,6 +128,7 @@ const ProcessPixPayment = () => {
             customerName,
             customerPhone,
             customerTaxId,
+            expiresIn: 3600, // 1 hora
           },
         }
       );
@@ -144,9 +142,10 @@ const ProcessPixPayment = () => {
         throw new Error(data.error || 'Erro ao criar pagamento PIX');
       }
 
-      console.log('Payment created:', data);
-      setPaymentUrl(data.url);
-      setBillingId(data.billingId);
+      console.log('PIX QR Code created:', data);
+      setQrCodeImageUrl(data.qrCodeImageUrl);
+      setPixCopyPaste(data.pixCopyPaste);
+      setPixId(data.pixId);
     } catch (err) {
       console.error('Error creating PIX payment:', err);
       setError(err.message || 'Erro ao criar pagamento PIX. Tente novamente.');
@@ -188,31 +187,39 @@ const ProcessPixPayment = () => {
                 Tentar Novamente
               </button>
             </div>
-          ) : paymentUrl ? (
+          ) : qrCodeImageUrl ? (
             <div className={classes.pixContainer}>
-              <FaQrcode className={classes.pixIconLarge} />
               <h2>Pagamento PIX Pronto!</h2>
               
+              <div className={classes.qrCodeArea}>
+                <img 
+                  src={qrCodeImageUrl} 
+                  alt="QR Code PIX" 
+                  className={classes.qrCodeImage}
+                />
+              </div>
+
               <div className={classes.paymentDetails}>
                 <p className={classes.detailItem}>
                   <strong>Valor:</strong> {totalAmount}
                 </p>
                 <p className={classes.detailItem}>
-                  <strong>ID do Pagamento:</strong> {billingId}
+                  <strong>ID do Pagamento:</strong> {pixId}
                 </p>
               </div>
 
-              <p className={classes.instructionsText}>
-                Clique no botão abaixo para abrir o QR Code e realizar o pagamento via PIX
-              </p>
-
-              <button 
-                onClick={handleOpenPayment}
-                className={classes.paymentButton}
-              >
-                <FaQrcode />
-                Prosseguir com Pagamento
-              </button>
+              <div className={classes.pixCodeSection}>
+                <label className={classes.pixCodeLabel}>Código PIX (Copia e Cola):</label>
+                <div className={classes.pixCodeBox}>
+                  <code className={classes.pixCode}>{pixCopyPaste}</code>
+                </div>
+                <button 
+                  onClick={copyPixCode}
+                  className={classes.copyButton}
+                >
+                  {copySuccess ? '✓ Copiado!' : 'Copiar código PIX'}
+                </button>
+              </div>
 
               <button 
                 onClick={checkPaymentStatus}
@@ -220,35 +227,8 @@ const ProcessPixPayment = () => {
                 disabled={checkingPayment}
               >
                 <FaCheckCircle />
-                {checkingPayment ? 'Verificando...' : 'Já Paguei'}
+                {checkingPayment ? 'Verificando...' : 'Pagamento Realizado'}
               </button>
-
-              <p className={classes.autoCheckInfo}>
-                {shouldCheckPayment 
-                  ? '✓ Verificando pagamento automaticamente a cada 5 segundos' 
-                  : 'Clique em "Prosseguir com Pagamento" para iniciar'}
-              </p>
-
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className={classes.dialogContent}>
-                  <DialogHeader>
-                    <DialogTitle className={classes.dialogTitle}>
-                      Escaneie o QR Code PIX
-                    </DialogTitle>
-                    <DialogDescription className={classes.dialogDescription}>
-                      Use o aplicativo do seu banco para escanear o código
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className={classes.dialogQrFrame}>
-                    <iframe 
-                      src={paymentUrl} 
-                      className={classes.dialogQrIframe}
-                      title="QR Code PIX"
-                      frameBorder="0"
-                    />
-                  </div>
-                </DialogContent>
-              </Dialog>
             </div>
           ) : null}
         </div>

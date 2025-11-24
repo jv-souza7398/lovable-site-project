@@ -11,10 +11,10 @@ serve(async (req) => {
   }
 
   try {
-    const { billingId } = await req.json();
+    const { pixId } = await req.json();
 
-    if (!billingId) {
-      throw new Error('billingId is required');
+    if (!pixId) {
+      throw new Error('pixId is required');
     }
 
     const ABACATEPAY_API_KEY = Deno.env.get('ABACATEPAY_API_KEY');
@@ -22,14 +22,12 @@ serve(async (req) => {
       throw new Error('ABACATEPAY_API_KEY not configured');
     }
 
-    console.log('Checking payment status for billing:', billingId);
+    console.log('Checking PIX payment status for:', pixId);
 
-    // Consulta a lista de pagamentos e filtra pelo billingId específico
-    const response = await fetch('https://api.abacatepay.com/v1/billing/list', {
+    const response = await fetch(`https://api.abacatepay.com/v1/pixQrCode/check?id=${pixId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${ABACATEPAY_API_KEY}`,
-        'Content-Type': 'application/json',
       },
     });
 
@@ -40,32 +38,21 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log('Billing list response:', data);
+    console.log('PIX payment check response:', data);
 
-    // Procura o billing específico na lista
-    const billing = data.data?.find((bill: any) => bill.id === billingId);
+    const pixData = data.data ?? data;
+    const status = pixData?.status;
 
-    if (!billing) {
-      console.log('Billing not found in list');
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Pagamento não encontrado',
-        }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 404,
-        }
-      );
+    if (!status) {
+      console.error('Status ausente na resposta:', data);
+      throw new Error('Status ausente na resposta da API');
     }
-
-    console.log('Payment status:', billing.status);
 
     return new Response(
       JSON.stringify({
         success: true,
-        status: billing.status, // PAID, PENDING, CANCELLED, etc
-        data: billing
+        status, // PAID, PENDING, EXPIRED, etc
+        data: pixData
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
