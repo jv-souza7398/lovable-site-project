@@ -5,7 +5,7 @@ import classes from './Carrinho.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 function Carrinho() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -108,7 +108,12 @@ function Carrinho() {
                     <p>Nº Convidados: <span>{item.convidados} Convidados</span></p>
                   </div>
                   <div className={classes.buttons}>
-                  <button type="button" className={`${classes.btn} ${classes.btnPrimary}`} title="Remover item">
+                  <button 
+                    type="button" 
+                    className={`${classes.btn} ${classes.btnPrimary}`} 
+                    title="Remover item"
+                    onClick={() => removeFromCart(index)}
+                  >
                     <i className="fas fa-trash"></i>
                   </button>
                   </div>
