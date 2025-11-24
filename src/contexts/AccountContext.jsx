@@ -5,17 +5,21 @@ export const AccountContext = createContext();
 
 export const AccountProvider = ({ children }) => {
   const [AccountItems, setAccountItems] = useState([]);
+  const addToAccount = (newItem) => {
+    setAccountItems((prevItems) => {
+      const existingIndex = prevItems.findIndex(item => item.email === newItem.email);
 
+      // Se não existir, adiciona novo cadastro
+      if (existingIndex === -1) {
+        return [...prevItems, newItem];
+      }
 
-const addToAccount = (newItem) => {
-  setAccountItems((prevItems) => {
-    const exists = prevItems.some(item => item.email === newItem.email);
-    if (!exists) {
-      return [...prevItems, newItem]; // Adiciona novo item se ele não existir
-    }
-    return prevItems; // Se o item já existe, retorna os itens antigos sem mudar nada
-  });
-};
+      // Se já existir, atualiza os dados (incluindo CPF, telefone, etc.)
+      const updatedItems = [...prevItems];
+      updatedItems[existingIndex] = { ...prevItems[existingIndex], ...newItem };
+      return updatedItems;
+    });
+  };
 
 
   return (
