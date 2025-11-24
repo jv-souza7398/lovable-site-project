@@ -1,63 +1,68 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  padding: 2rem 1rem;
-  background: hsl(var(--background));
+  padding: 8rem 1rem 2rem 1rem;
+  background: linear-gradient(rgba(22, 22, 22, 0.95), rgba(8, 5, 5, 0.95)), #000;
 }
 
 .emptyState {
   text-align: center;
   padding: 4rem 2rem;
-  background: hsl(var(--card));
+  background: rgba(146, 117, 60, 0.1);
   border-radius: 16px;
   max-width: 500px;
   margin: 4rem auto;
-  border: 1px solid hsl(var(--border));
+  border: 2px solid rgb(146, 117, 60);
 }
 
 .emptyState h1 {
-  color: hsl(var(--primary));
+  color: rgb(146, 117, 60);
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 .emptyState p {
-  color: hsl(var(--muted-foreground));
+  color: rgb(200, 200, 200);
   font-size: 1.1rem;
 }
 
 .comingSoon {
   text-align: center;
   padding: 1.5rem;
-  background: hsl(var(--muted) / 0.5);
+  background: rgba(146, 117, 60, 0.1);
   border-radius: 8px;
   margin-top: 2rem;
+  border: 1px solid rgba(146, 117, 60, 0.3);
 }
 
 .comingSoon p {
-  color: hsl(var(--muted-foreground));
+  color: rgb(200, 200, 200);
   font-size: 1rem;
   font-style: italic;
 }
 
 .highlight {
-  color: hsl(var(--primary)) !important;
+  color: rgb(146, 117, 60) !important;
   font-weight: 600;
 }
 
 .header {
   text-align: center;
   margin-bottom: 3rem;
-  padding: 2rem;
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border-radius: 8px;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.2), rgba(180, 138, 56, 0.1));
+  border: 2px solid rgb(146, 117, 60);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(146, 117, 60, 0.3);
 }
 
 .header h1 {
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
+  color: rgb(146, 117, 60);
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .content {
@@ -71,63 +76,75 @@
 .paymentMethods h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: hsl(var(--foreground));
+  color: rgb(255, 255, 255);
+  font-weight: 600;
 }
 
 .methodCard {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  padding: 2rem;
   margin-bottom: 1rem;
-  border: 2px solid hsl(var(--border));
-  border-radius: 8px;
+  border: 2px solid rgb(146, 117, 60);
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background: hsl(var(--card));
+  transition: all 0.4s ease;
+  background: rgba(146, 117, 60, 0.05);
+  backdrop-filter: blur(10px);
 }
 
 .methodCard:hover {
-  border-color: hsl(var(--primary));
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: rgb(180, 138, 56);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(146, 117, 60, 0.4);
+  background: rgba(146, 117, 60, 0.15);
 }
 
 .methodCard.selected {
-  border-color: hsl(var(--primary));
-  background: hsl(var(--primary) / 0.1);
+  border-color: rgb(180, 138, 56);
+  background: rgba(146, 117, 60, 0.2);
+  box-shadow: 0 4px 16px rgba(146, 117, 60, 0.3);
 }
 
 .icon {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-right: 1.5rem;
-  color: hsl(var(--primary));
+  color: rgb(146, 117, 60);
+  filter: drop-shadow(0 0 8px rgba(146, 117, 60, 0.5));
 }
 
 .methodInfo h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
-  color: hsl(var(--foreground));
+  color: rgb(255, 255, 255);
+  font-weight: 600;
 }
 
 .methodInfo p {
-  color: hsl(var(--muted-foreground));
-  font-size: 0.9rem;
+  color: rgb(200, 200, 200);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .summary {
-  background: hsl(var(--card));
+  background: rgba(146, 117, 60, 0.08);
   padding: 2rem;
-  border-radius: 8px;
-  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  border: 2px solid rgb(146, 117, 60);
   height: fit-content;
   position: sticky;
   top: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(146, 117, 60, 0.2);
 }
 
 .summary h3 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
-  color: hsl(var(--foreground));
+  color: rgb(146, 117, 60);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .summaryItems {
@@ -138,51 +155,58 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(146, 117, 60, 0.3);
 }
 
 .summaryItem p {
-  color: hsl(var(--foreground));
+  color: rgb(220, 220, 220);
+  font-size: 1rem;
 }
 
 .total {
   display: flex;
   justify-content: space-between;
   margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 2px solid hsl(var(--border));
+  padding-top: 1.5rem;
+  border-top: 2px solid rgb(146, 117, 60);
 }
 
 .total h4 {
-  font-size: 1.2rem;
-  color: hsl(var(--foreground));
+  font-size: 1.3rem;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
 .continueButton {
   width: 100%;
   margin-top: 2rem;
-  padding: 1rem;
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: none;
-  border-radius: 8px;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, rgb(146, 117, 60), rgb(180, 138, 56));
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(146, 117, 60);
+  border-radius: 50px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 16px rgba(146, 117, 60, 0.4);
 }
 
 .continueButton:hover:not(:disabled) {
-  background: hsl(var(--primary) / 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, rgb(180, 138, 56), rgb(146, 117, 60));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(146, 117, 60, 0.6);
+  border-color: rgb(180, 138, 56);
 }
 
 .continueButton:disabled {
-  background: hsl(var(--muted));
+  background: rgba(100, 100, 100, 0.3);
   cursor: not-allowed;
   opacity: 0.5;
+  border-color: rgba(100, 100, 100, 0.3);
 }
 
 @media (max-width: 1024px) {
