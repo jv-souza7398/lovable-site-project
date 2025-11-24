@@ -18,6 +18,7 @@ import Checkout from './pages/Checkout.jsx'
 import Carrinho from './pages/Carrinho.jsx'
 import SelectPaymentMethod from './pages/SelectPaymentMethod.jsx'
 import ProcessPayment from './pages/ProcessPayment.jsx'
+import ProcessPixPayment from './pages/ProcessPixPayment.jsx'
 
 import {register} from 'swiper/element/bundle'
 register()
@@ -88,6 +89,10 @@ const router=createBrowserRouter([
         {
           path:"/ProcessPayment/",
           element:<ProcessPayment/>
+        },
+        {
+          path:"/ProcessPixPayment/",
+          element:<ProcessPixPayment/>
         },
         {
           path:"/Minha-Conta/",
