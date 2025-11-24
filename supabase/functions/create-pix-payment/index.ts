@@ -71,8 +71,8 @@ serve(async (req) => {
 
     const pixData = data.data ?? data;
     const pixId = pixData?.id;
-    const qrCodeImageUrl = pixData?.qrCodeImage;
-    const pixCopyPaste = pixData?.qrCode;
+    const qrCodeImageUrl = pixData?.brCodeBase64; // AbacatePay retorna como brCodeBase64
+    const pixCopyPaste = pixData?.brCode; // AbacatePay retorna como brCode
 
     if (!pixId || !qrCodeImageUrl || !pixCopyPaste) {
       console.error('AbacatePay dados do PIX ausentes na resposta:', data);
