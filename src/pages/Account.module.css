@@ -138,3 +138,100 @@ dt{
   color: rgb(177, 169, 169);
   font-weight: 700;
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navAccount h1 {
+    font-size: 4rem;
+  }
+  
+  .accountTitle h1 {
+    width: 50%;
+    font-size: 1.8rem;
+  }
+  
+  .accountSection {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .accountAside {
+    width: 60%;
+  }
+  
+  .infoSection {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navAccount {
+    height: 18rem;
+  }
+  
+  .navAccount h1 {
+    font-size: 3rem;
+  }
+  
+  .accountTitle h1 {
+    width: 80%;
+    font-size: 1.5rem;
+    margin: 1rem auto;
+  }
+  
+  .accountSection {
+    padding: 0.5rem;
+  }
+  
+  .accountAside {
+    width: 90%;
+  }
+  
+  .accountAside img {
+    height: 9rem;
+    width: 10rem;
+  }
+  
+  .accountAside h1 {
+    font-size: 1.1rem;
+  }
+  
+  .infoSection {
+    width: 90%;
+  }
+  
+  .infoArticle {
+    width: 90%;
+  }
+  
+  .infoArticle h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navAccount {
+    height: 14rem;
+  }
+  
+  .navAccount h1 {
+    font-size: 2rem;
+  }
+  
+  .accountTitle h1 {
+    font-size: 1.2rem;
+  }
+  
+  .accountAside {
+    width: 95%;
+  }
+  
+  .accountAside img {
+    height: 7rem;
+    width: 8rem;
+  }
+  
+  .infoSection {
+    width: 95%;
+  }
+}

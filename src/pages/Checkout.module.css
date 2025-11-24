@@ -143,3 +143,79 @@ justify-content: space-between;
   text-align: end;
 }
 
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navPagamento h1 {
+    font-size: 4rem;
+  }
+  
+  .pagamentoContent {
+    flex-direction: column;
+  }
+  
+  .InfoPacote {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .imgPacote img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navPagamento {
+    height: 18rem;
+  }
+  
+  .navPagamento h1 {
+    font-size: 3rem;
+  }
+  
+  .InfoPacote {
+    width: 95%;
+    padding: 0.5rem;
+  }
+  
+  .imgPacote img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .InfoPacote h4 {
+    font-size: 1.3rem;
+  }
+  
+  .InfoPacote p {
+    font-size: 1rem;
+  }
+  
+  .itemPrice {
+    width: 95%;
+  }
+  
+  .infoAdicionais {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navPagamento {
+    height: 14rem;
+  }
+  
+  .navPagamento h1 {
+    font-size: 2rem;
+  }
+  
+  .InfoPacote h4 {
+    font-size: 1.1rem;
+  }
+  
+  .InfoPacote p {
+    font-size: 0.9rem;
+  }
+}
+

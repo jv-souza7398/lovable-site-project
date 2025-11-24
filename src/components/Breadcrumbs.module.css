@@ -14,3 +14,28 @@
   font-size: 2rem;
   font-style:italic;
 }
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .breadcrumbs a {
+    font-size: 1.5rem;
+  }
+  
+  .breadcrumbs span {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbs {
+    margin-bottom: 15px;
+  }
+  
+  .breadcrumbs a {
+    font-size: 1.2rem;
+  }
+  
+  .breadcrumbs span {
+    font-size: 1.2rem;
+  }
+}

@@ -52,3 +52,42 @@
     opacity: 0.5;
   }
 }
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .whatsappIcon {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  
+  .whatsappIcon img {
+    height: 3rem;
+    width: 3.2rem;
+  }
+  
+  .bolaZap {
+    bottom: 1.3rem;
+    right: 1.3rem;
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsappIcon {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .whatsappIcon img {
+    height: 2.5rem;
+    width: 2.7rem;
+  }
+  
+  .bolaZap {
+    bottom: 0.8rem;
+    right: 0.8rem;
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}

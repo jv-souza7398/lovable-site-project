@@ -291,3 +291,154 @@ body{
   padding-left: 1rem;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navOrcamento h1 {
+    font-size: 4rem;
+  }
+  
+  .servicos {
+    flex-direction: column;
+    padding: 1rem 2rem;
+    height: auto;
+  }
+  
+  .carousel {
+    width: 100%;
+  }
+  
+  .mainImage img {
+    width: 100%;
+  }
+  
+  .servicoContent {
+    width: 90%;
+    margin: 2rem auto;
+  }
+  
+  .servicoContent h2 {
+    width: 90%;
+  }
+  
+  .servicoContent p {
+    width: 90%;
+  }
+  
+  .form form {
+    width: 90%;
+  }
+  
+  .form button {
+    width: 90%;
+  }
+  
+  .sectionDrinks {
+    width: 85%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .navOrcamento {
+    height: 18rem;
+  }
+  
+  .navOrcamento h1 {
+    font-size: 3rem;
+  }
+  
+  .servicos {
+    padding: 1rem;
+  }
+  
+  .mainImage img {
+    height: auto;
+    margin: 0.5rem;
+  }
+  
+  .thumbnailWrapper {
+    width: 100%;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .thumbnailImages img {
+    width: 100px;
+    height: 75px;
+  }
+  
+  .servicoContent {
+    width: 95%;
+    margin: 1rem auto;
+  }
+  
+  .servicoContent h2 {
+    width: 100%;
+  }
+  
+  .servicoContent p {
+    width: 100%;
+  }
+  
+  .form form {
+    width: 100%;
+  }
+  
+  .form button {
+    width: 100%;
+  }
+  
+  .sectionTitle h1 {
+    width: 90%;
+    font-size: 1.5rem;
+  }
+  
+  .sectionDrinks {
+    width: 90%;
+    grid-template-columns: 1fr;
+  }
+  
+  .drinks {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navOrcamento {
+    height: 14rem;
+  }
+  
+  .navOrcamento h1 {
+    font-size: 2rem;
+  }
+  
+  .thumbnailImages img {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .servicoContent h3 {
+    font-size: 0.9rem;
+  }
+  
+  .servicoContent h2 {
+    font-size: 1.5rem;
+  }
+  
+  .servicoContent p {
+    font-size: 0.9rem;
+  }
+  
+  .sectionTitle h1 {
+    font-size: 1.2rem;
+  }
+  
+  .drinks h2 {
+    font-size: 1.5rem;
+  }
+  
+  .drinks p {
+    font-size: 1rem;
+  }
+}

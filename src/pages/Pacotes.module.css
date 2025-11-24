@@ -113,3 +113,78 @@ opacity: 1;
 .orcamentoType a:last-child:hover{
   color: rgb(53, 53, 53);
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navPacotes h1 {
+    font-size: 4rem;
+  }
+  
+  .sectionContainer {
+    width: 85%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .orcamentoType {
+    width: 100%;
+    margin: 2rem auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navPacotes {
+    height: 18rem;
+  }
+  
+  .navPacotes h1 {
+    font-size: 3rem;
+  }
+  
+  .section h1 {
+    font-size: 2rem;
+  }
+  
+  .sectionContainer {
+    width: 90%;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .orcamentoType {
+    width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+  }
+  
+  .orcamentoType h2 {
+    font-size: 1.2rem;
+  }
+  
+  .orcamentoType p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navPacotes {
+    height: 14rem;
+  }
+  
+  .navPacotes h1 {
+    font-size: 2rem;
+  }
+  
+  .section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .sectionContainer {
+    width: 95%;
+  }
+  
+  .orcamentoType {
+    width: 100%;
+    margin: 1rem auto;
+  }
+}

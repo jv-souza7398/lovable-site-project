@@ -62,4 +62,65 @@ select{
   border-radius: 0.6rem;
 }
 
+/* Responsividade Global */
+@media (max-width: 1024px) {
+  h3 {
+    font-size: 1.7rem;
+  }
+  
+  p {
+    font-size: 1.3rem;
+  }
+  
+  img {
+    height: 35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  p {
+    font-size: 1.2rem;
+  }
+  
+  img {
+    height: 30rem;
+  }
+  
+  select {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  img {
+    height: 25rem;
+  }
+  
+  select {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.85rem;
+  }
+}
+
 
