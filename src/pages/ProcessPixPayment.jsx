@@ -3,6 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import classes from './ProcessPixPayment.module.css';
 import { FaQrcode, FaCheckCircle } from 'react-icons/fa';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const ProcessPixPayment = () => {
   const location = useLocation();
@@ -14,6 +21,7 @@ const ProcessPixPayment = () => {
   const [billingId, setBillingId] = useState(null);
   const [checkingPayment, setCheckingPayment] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     createPixPayment();
@@ -173,16 +181,29 @@ const ProcessPixPayment = () => {
             </div>
           ) : paymentUrl ? (
             <div className={classes.pixContainer}>
-              <h2>Escaneie o QR Code para pagar</h2>
+              <FaQrcode className={classes.pixIconLarge} />
+              <h2>Pagamento PIX Pronto!</h2>
               
-              <div className={classes.qrCodeFrame}>
-                <iframe 
-                  src={paymentUrl} 
-                  className={classes.qrCodeIframe}
-                  title="QR Code PIX"
-                  frameBorder="0"
-                />
+              <div className={classes.paymentDetails}>
+                <p className={classes.detailItem}>
+                  <strong>Valor:</strong> {totalAmount}
+                </p>
+                <p className={classes.detailItem}>
+                  <strong>ID do Pagamento:</strong> {billingId}
+                </p>
               </div>
+
+              <p className={classes.instructionsText}>
+                Clique no botão abaixo para abrir o QR Code e realizar o pagamento via PIX
+              </p>
+
+              <button 
+                onClick={() => setIsDialogOpen(true)}
+                className={classes.paymentButton}
+              >
+                <FaQrcode />
+                Prosseguir com Pagamento
+              </button>
 
               <button 
                 onClick={checkPaymentStatus}
@@ -190,12 +211,33 @@ const ProcessPixPayment = () => {
                 disabled={checkingPayment}
               >
                 <FaCheckCircle />
-                {checkingPayment ? 'Verificando...' : 'Pagamento Realizado'}
+                {checkingPayment ? 'Verificando...' : 'Já Paguei'}
               </button>
 
               <p className={classes.autoCheckInfo}>
-                Verificando pagamento automaticamente...
+                ✓ Verificando pagamento automaticamente a cada 5 segundos
               </p>
+
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className={classes.dialogContent}>
+                  <DialogHeader>
+                    <DialogTitle className={classes.dialogTitle}>
+                      Escaneie o QR Code PIX
+                    </DialogTitle>
+                    <DialogDescription className={classes.dialogDescription}>
+                      Use o aplicativo do seu banco para escanear o código
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className={classes.dialogQrFrame}>
+                    <iframe 
+                      src={paymentUrl} 
+                      className={classes.dialogQrIframe}
+                      title="QR Code PIX"
+                      frameBorder="0"
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           ) : null}
         </div>
