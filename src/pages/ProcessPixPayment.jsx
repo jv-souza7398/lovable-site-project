@@ -1,20 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import classes from './ProcessPixPayment.module.css';
-import { FaQrcode, FaCopy, FaCheckCircle } from 'react-icons/fa';
+import { FaQrcode, FaCheckCircle } from 'react-icons/fa';
 
 const ProcessPixPayment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { cartItems, totalAmount, customerEmail, customerName, customerPhone, customerTaxId } = location.state || {};
   const [loading, setLoading] = useState(true);
   const [paymentUrl, setPaymentUrl] = useState(null);
   const [error, setError] = useState(null);
   const [billingId, setBillingId] = useState(null);
+  const [checkingPayment, setCheckingPayment] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
 
   useEffect(() => {
     createPixPayment();
   }, []);
+
+  // Polling para verificar status do pagamento automaticamente
+  useEffect(() => {
+    if (!billingId) return;
+
+    const checkInterval = setInterval(async () => {
+      await checkPaymentStatus();
+    }, 5000); // Verifica a cada 5 segundos
+
+    return () => clearInterval(checkInterval);
+  }, [billingId]);
+
+  const checkPaymentStatus = async () => {
+    if (!billingId || checkingPayment) return;
+
+    try {
+      setCheckingPayment(true);
+      const { data, error: functionError } = await supabase.functions.invoke(
+        'check-pix-payment-status',
+        {
+          body: { billingId },
+        }
+      );
+
+      if (functionError) {
+        console.error('Error checking payment status:', functionError);
+        return;
+      }
+
+      if (data.status === 'PAID') {
+        setPaymentStatus('paid');
+        navigate('/Completion', {
+          state: {
+            billingId,
+            amount: totalAmount,
+            status: 'paid'
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Error checking payment:', err);
+    } finally {
+      setCheckingPayment(false);
+    }
+  };
 
   const createPixPayment = async () => {
     try {
@@ -125,37 +173,29 @@ const ProcessPixPayment = () => {
             </div>
           ) : paymentUrl ? (
             <div className={classes.pixContainer}>
-              <FaQrcode className={classes.pixIcon} />
-              <h2>Pagamento PIX Gerado</h2>
-              <p className={classes.instructions}>
-                Clique no botão abaixo para abrir a página de pagamento do AbacatePay 
-                e visualizar o QR Code PIX
-              </p>
+              <h2>Escaneie o QR Code para pagar</h2>
               
-              <a 
-                href={paymentUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={classes.paymentButton}
+              <div className={classes.qrCodeFrame}>
+                <iframe 
+                  src={paymentUrl} 
+                  className={classes.qrCodeIframe}
+                  title="QR Code PIX"
+                  frameBorder="0"
+                />
+              </div>
+
+              <button 
+                onClick={checkPaymentStatus}
+                className={classes.checkPaymentButton}
+                disabled={checkingPayment}
               >
-                <FaQrcode />
-                Abrir Página de Pagamento PIX
-              </a>
+                <FaCheckCircle />
+                {checkingPayment ? 'Verificando...' : 'Pagamento Realizado'}
+              </button>
 
-              <div className={classes.paymentInfo}>
-                <p><strong>ID do Pagamento:</strong> {billingId}</p>
-                <p><strong>Valor:</strong> {totalAmount}</p>
-              </div>
-
-              <div className={classes.instructions}>
-                <h3>Como pagar:</h3>
-                <ol>
-                  <li>Clique no botão acima para abrir a página de pagamento</li>
-                  <li>Escaneie o QR Code com o aplicativo do seu banco</li>
-                  <li>Ou copie o código PIX e cole no seu app de pagamentos</li>
-                  <li>Confirme o pagamento</li>
-                </ol>
-              </div>
+              <p className={classes.autoCheckInfo}>
+                Verificando pagamento automaticamente...
+              </p>
             </div>
           ) : null}
         </div>
