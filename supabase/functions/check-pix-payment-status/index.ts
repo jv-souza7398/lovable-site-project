@@ -24,8 +24,8 @@ serve(async (req) => {
 
     console.log('Checking payment status for billing:', billingId);
 
-    // Consulta o status do pagamento na AbacatePay
-    const response = await fetch(`https://api.abacatepay.com/v1/billing/info/${billingId}`, {
+    // Consulta a lista de pagamentos e filtra pelo billingId específico
+    const response = await fetch('https://api.abacatepay.com/v1/billing/list', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${ABACATEPAY_API_KEY}`,
@@ -40,13 +40,32 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log('Payment status response:', data);
+    console.log('Billing list response:', data);
+
+    // Procura o billing específico na lista
+    const billing = data.data?.find((bill: any) => bill.id === billingId);
+
+    if (!billing) {
+      console.log('Billing not found in list');
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Pagamento não encontrado',
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 404,
+        }
+      );
+    }
+
+    console.log('Payment status:', billing.status);
 
     return new Response(
       JSON.stringify({
         success: true,
-        status: data.status, // PAID, PENDING, CANCELLED, etc
-        data: data
+        status: billing.status, // PAID, PENDING, CANCELLED, etc
+        data: billing
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -68,3 +87,4 @@ serve(async (req) => {
     );
   }
 });
+

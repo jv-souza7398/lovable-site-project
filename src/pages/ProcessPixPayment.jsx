@@ -22,21 +22,22 @@ const ProcessPixPayment = () => {
   const [checkingPayment, setCheckingPayment] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [shouldCheckPayment, setShouldCheckPayment] = useState(false);
 
   useEffect(() => {
     createPixPayment();
   }, []);
 
-  // Polling para verificar status do pagamento automaticamente
+  // Polling para verificar status do pagamento automaticamente (SOMENTE APÓS abrir o modal)
   useEffect(() => {
-    if (!billingId) return;
+    if (!billingId || !shouldCheckPayment) return;
 
     const checkInterval = setInterval(async () => {
       await checkPaymentStatus();
     }, 5000); // Verifica a cada 5 segundos
 
     return () => clearInterval(checkInterval);
-  }, [billingId]);
+  }, [billingId, shouldCheckPayment]);
 
   const checkPaymentStatus = async () => {
     if (!billingId || checkingPayment) return;
@@ -55,8 +56,11 @@ const ProcessPixPayment = () => {
         return;
       }
 
+      console.log('Payment check response:', data);
+
       if (data.status === 'PAID') {
         setPaymentStatus('paid');
+        setShouldCheckPayment(false); // Para de verificar
         navigate('/Completion', {
           state: {
             billingId,
@@ -70,6 +74,11 @@ const ProcessPixPayment = () => {
     } finally {
       setCheckingPayment(false);
     }
+  };
+
+  const handleOpenPayment = () => {
+    setIsDialogOpen(true);
+    setShouldCheckPayment(true); // Inicia verificação automática após abrir modal
   };
 
   const createPixPayment = async () => {
@@ -198,7 +207,7 @@ const ProcessPixPayment = () => {
               </p>
 
               <button 
-                onClick={() => setIsDialogOpen(true)}
+                onClick={handleOpenPayment}
                 className={classes.paymentButton}
               >
                 <FaQrcode />
@@ -215,7 +224,9 @@ const ProcessPixPayment = () => {
               </button>
 
               <p className={classes.autoCheckInfo}>
-                ✓ Verificando pagamento automaticamente a cada 5 segundos
+                {shouldCheckPayment 
+                  ? '✓ Verificando pagamento automaticamente a cada 5 segundos' 
+                  : 'Clique em "Prosseguir com Pagamento" para iniciar'}
               </p>
 
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
