@@ -8,6 +8,7 @@ import drink11 from '../assets/drink11.jpg';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const menuItems = [
+  { id: 0, img: drink10, title: "TESTE - Produto de Teste", description: "Produto para teste de pagamento", info: "Este é um produto de teste para validar o fluxo de pagamento. Valor simbólico de R$1,00.", price: "A partir de R$1,00" },
   { id: 1, img: drink10, title: "Drinks sem álcool", description: "Bartenders para festas, São Paulo", info: "Bartender para festa Open Bar em São Paulo com 12 opções de Drinks com e sem álcool.", price: "A partir de R$550,00" },
   { id: 2, img: drink11, title: "Barman + lista de compras", description: "Bartenders para festas, São Paulo", info: "Economize, pague apenas pela mão de obra de Barman para festa e receba uma lista sugestiva de compras.", price: "A partir de R$1.689,99" },
   { id: 3, img: drink8, title: "Drinks com e sem álcool", description: "Bartenders para festas, São Paulo", info: "6 opções de Drinks Clássicos + Festival de Caipirinhas com 3 frutas e 3 opções de destilados.", price: "A partir de R$1.889,99" },
