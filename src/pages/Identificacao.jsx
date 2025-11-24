@@ -5,6 +5,7 @@ import classes from './Identificação.module.css';
 import { AccountContext } from '../contexts/AccountContext';
 // Defina ou importe a lista de itens (menuItems)
 const menuItems = [
+  { id: 0, title: "TESTE - Produto de Teste", description: "Produto para teste de pagamento", info: "Este é um produto de teste para validar o fluxo de pagamento. Valor simbólico de R$1,00.", price: "A partir de R$1,00" },
   { id: 1, title: "Drinks sem álcool", description: "Bartenders para festas em São Paulo", info: "Bartender para festa Open Bar em São Paulo com 12 opções de Drinks com e sem álcool. Opção ideal para servir crianças e adultos.", price: "A partir de R$550,00" },
   { id: 2, title: "Barman + lista de compras", description: "Mão de obra de Barman para festa", info: "Economize, pague apenas pela mão de obra de Barman para festa e receba uma lista sugestiva de compras de acordo com seu cardápio!", price: "A partir de R$1.689,99" },
   { id: 3, title: "Drinks com e sem álcool", description: "Bartenders para festas em São Paulo", info: "6 opções de Drinks Clássicos + Festival de Caipirinhas com 3 frutas (Limão, Maracujá e Morango) e 3 opções de destilados (Vodka, Saquê e Cachaça).", price: "A partir de R$1.889,99" },
