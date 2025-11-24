@@ -102,6 +102,4 @@ const SelectPaymentMethod = () => {
 };
 
 export default SelectPaymentMethod;
-};
 
-export default SelectPaymentMethod;
