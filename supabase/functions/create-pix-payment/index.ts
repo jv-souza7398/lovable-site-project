@@ -107,11 +107,20 @@ serve(async (req) => {
     const data = await response.json();
     console.log('AbacatePay response:', data);
 
+    const billingData = data.data ?? data;
+    const billingId = billingData?.id;
+    const paymentUrl = billingData?.url;
+
+    if (!billingId || !paymentUrl) {
+      console.error('AbacatePay billingId ou url ausente na resposta:', data);
+      throw new Error('AbacatePay billingId ou url ausente na resposta da API de cobrança');
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
-        billingId: data.id,
-        url: data.url,
+        billingId,
+        url: paymentUrl,
         // AbacatePay retorna o link da página de pagamento
         // O PIX QR Code estará disponível nessa página
       }),
