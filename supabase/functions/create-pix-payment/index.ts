@@ -32,31 +32,44 @@ serve(async (req) => {
     }
 
     // Criar cobrança PIX no AbacatePay
+    const externalId = `order-${Date.now()}`;
+
+    const payload = {
+      frequency: 'ONE_TIME',
+      methods: ['PIX'],
+      products: [{
+        externalId,
+        name: description,
+        description,
+        quantity: 1,
+        price: amount,
+      }],
+      returnUrl: `${req.headers.get('origin')}/billing`,
+      completionUrl: `${req.headers.get('origin')}/completion`,
+      customerId: externalId,
+      customer: {
+        name: customerName,
+        cellphone: customerPhone,
+        email: customerEmail,
+        taxId: customerTaxId,
+      },
+      allowCoupons: false,
+      coupons: [],
+      externalId,
+      metadata: {
+        externalId,
+      },
+    };
+
+    console.log('AbacatePay payload:', JSON.stringify(payload));
+
     const response = await fetch('https://api.abacatepay.com/v1/billing/create', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${abacatePayApiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        frequency: 'ONE_TIME',
-        methods: ['PIX'],
-        products: [{
-          externalId: `order-${Date.now()}`,
-          name: description,
-          description: description,
-          quantity: 1,
-          price: amount,
-        }],
-        returnUrl: `${req.headers.get('origin')}/payment-success`,
-        completionUrl: `${req.headers.get('origin')}/payment-success`,
-        customer: {
-          email: customerEmail,
-          name: customerName,
-          cellphone: customerPhone,
-          taxId: customerTaxId,
-        },
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
