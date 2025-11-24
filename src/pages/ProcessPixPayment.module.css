@@ -2,11 +2,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 2rem 1rem;
-  background: linear-gradient(rgba(240, 235, 225, 0.95), rgba(250, 245, 235, 0.9)),
-              url(../assets/drink6.jpg);
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, rgba(250, 245, 235, 0.98), rgba(255, 250, 240, 0.95));
 }
 
 .header {
@@ -126,50 +122,37 @@
   text-align: center;
 }
 
-.pixIcon {
-  font-size: 5rem;
-  color: rgb(146, 117, 60);
-}
-
 .pixContainer h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: rgb(146, 117, 60);
   margin: 0;
+  font-weight: 700;
 }
 
-.instructions {
-  color: rgb(60, 60, 60);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 600px;
-  background: rgba(255, 250, 240, 0.8);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(146, 117, 60, 0.3);
+.qrCodeFrame {
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  border: 3px solid rgb(146, 117, 60);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(146, 117, 60, 0.3);
+  background: white;
 }
 
-.instructions h3 {
-  color: rgb(146, 117, 60);
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
+.qrCodeIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
-.instructions ol {
-  text-align: left;
-  padding-left: 1.5rem;
-}
-
-.instructions li {
-  margin-bottom: 0.75rem;
-}
-
-.paymentButton {
+.checkPaymentButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1.5rem 3rem;
-  background: rgb(146, 117, 60);
+  gap: 0.75rem;
+  padding: 1.25rem 3rem;
+  background: linear-gradient(135deg, rgb(146, 117, 60), rgb(166, 137, 80));
   color: white;
   border: none;
   border-radius: 12px;
@@ -177,33 +160,28 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.3);
+  box-shadow: 0 4px 16px rgba(146, 117, 60, 0.4);
+  min-width: 280px;
 }
 
-.paymentButton:hover {
-  background: rgb(166, 137, 80);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(146, 117, 60, 0.5);
+.checkPaymentButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgb(166, 137, 80), rgb(186, 157, 100));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(146, 117, 60, 0.5);
 }
 
-.paymentInfo {
-  width: 100%;
-  background: rgba(255, 250, 240, 0.8);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(146, 117, 60, 0.3);
+.checkPaymentButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.paymentInfo p {
-  color: rgb(60, 60, 60);
-  font-size: 1rem;
-  margin: 0.5rem 0;
+.autoCheckInfo {
+  color: rgb(100, 100, 100);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: -1rem;
 }
 
-.paymentInfo strong {
-  color: rgb(146, 117, 60);
-}
 
 .summary {
   background: rgba(255, 255, 255, 0.95);
@@ -277,11 +255,17 @@
   }
 
   .pixContainer h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
-  .paymentButton {
-    padding: 1.25rem 2rem;
-    font-size: 1rem;
+  .qrCodeFrame {
+    max-width: 100%;
+    height: 450px;
+  }
+
+  .checkPaymentButton {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    min-width: 240px;
   }
 }
