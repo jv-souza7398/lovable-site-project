@@ -23,7 +23,7 @@ function Navbar() {
          </ul>
          </div> 
           <div className={classes.servicos}>
-          <Link to={"/Minha Conta/"}><i class="bi bi-person"></i></Link>
+          <Link to={"/Minha-Conta/"}><i class="bi bi-person"></i></Link>
           <Link to={"/Carrinho/"}><i class="bi bi-cart"></i></Link>    
           </div>
       </nav>

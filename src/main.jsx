@@ -85,7 +85,7 @@ const router=createBrowserRouter([
           element:<ProcessPayment/>
         },
         {
-          path:"Minha Conta/",
+          path:"/Minha-Conta/",
           element:<Account/>
         }
     ]
