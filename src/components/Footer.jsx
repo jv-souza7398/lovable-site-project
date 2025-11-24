@@ -33,13 +33,8 @@ function Footer() {
             <Link to={"/fale-conosco/"}>Fale conosco</Link>  
           </div>
        </div>
-      </div>
-        <div className={classes.direitos}>
-          <ul >
-            <li>© Vincci Pub 2024. Todos os direitos reservados. Desenvolvido Por <span> <Link to={"https://www.linkedin.com/in/rafael-moraes-13ba5b258/"}>Rafael Moraes</Link></span> </li>
-          </ul>
-          </div>
-    </footer>   
+       </div>
+    </footer>
   )
 }
 
