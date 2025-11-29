@@ -3,6 +3,7 @@ import { CartContext } from '../contexts/CartContext';
 import { supabase } from '../integrations/supabase/client';
 import classes from './Carrinho.module.css'
 import { Link, useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
 
 function Carrinho() {
   const { cartItems, removeFromCart } = useContext(CartContext);
@@ -40,6 +41,72 @@ function Carrinho() {
        </header>
     )
   }
+
+  const handleGeneratePDF = () => {
+    const doc = new jsPDF();
+    
+    // Título
+    doc.setFontSize(20);
+    doc.text('ORÇAMENTO', 105, 20, { align: 'center' });
+    
+    // Data
+    doc.setFontSize(10);
+    const dataAtual = new Date().toLocaleDateString('pt-BR');
+    doc.text(`Data: ${dataAtual}`, 20, 35);
+    
+    // Linha separadora
+    doc.line(20, 40, 190, 40);
+    
+    // Itens do carrinho
+    let yPosition = 50;
+    doc.setFontSize(12);
+    
+    cartItems.forEach((item, index) => {
+      // Título do item
+      doc.setFont(undefined, 'bold');
+      doc.text(`ITEM ${index + 1}: ${item.item.title}`, 20, yPosition);
+      
+      // Detalhes do item
+      doc.setFont(undefined, 'normal');
+      doc.setFontSize(10);
+      yPosition += 7;
+      doc.text(`Horário: ${item.horario} Horas`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Nº Bartenders: ${item.bartenders}`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Nº Convidados: ${item.convidados}`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Valor: R$ ${item.valorTotalFormatado}`, 25, yPosition);
+      
+      yPosition += 10;
+      doc.line(20, yPosition, 190, yPosition);
+      yPosition += 10;
+    });
+    
+    // Total
+    const totalAmount = cartItems.reduce((acc, item) => {
+      const valorNumerico = parseFloat(
+        item.valorTotalFormatado
+          .replace('R$', '')
+          .replace(/\./g, '')
+          .replace(',', '.')
+      );
+      return acc + valorNumerico;
+    }, 0);
+    
+    const totalFormatado = new Intl.NumberFormat('pt-BR', { 
+      style: 'currency', 
+      currency: 'BRL', 
+      minimumFractionDigits: 2 
+    }).format(totalAmount);
+    
+    doc.setFontSize(14);
+    doc.setFont(undefined, 'bold');
+    doc.text(`TOTAL: ${totalFormatado}`, 105, yPosition, { align: 'center' });
+    
+    // Salvar PDF
+    doc.save(`orcamento-${dataAtual.replace(/\//g, '-')}.pdf`);
+  };
 
   const handleGoToPayment = async () => {
     // Verifica se o usuário está logado
@@ -188,6 +255,9 @@ function Carrinho() {
 
 
                 <nav className={classes.navLinks}>
+                  <button onClick={handleGeneratePDF} className={classes.downloadPdf}>
+                    <i className="fas fa-file-pdf"></i> Baixar Orçamento PDF
+                  </button>
                   <button onClick={handleGoToPayment} className={classes.pagamento}>Ir para pagamento</button>
                   <Link to={"/Pacotes/"} className={classes.continuar}>Continuar comprando</Link>
                 </nav>

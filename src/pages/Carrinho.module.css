@@ -215,6 +215,29 @@
   margin-top: 1.2rem;
   gap: 0.6rem;
 }
+.downloadPdf{
+  min-height: 2.5rem;
+  height: auto;
+  text-align: center;
+  background-color: rgb(60, 146, 100);
+  border-radius: 0.6rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  opacity: 0.9;
+  transition: 0.5s;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  word-wrap: break-word;
+}
 .pagamento{
   min-height: 2.5rem;
   height: auto;
@@ -254,6 +277,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.downloadPdf:hover{
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(60, 146, 100, 0.3);
 }
 .pagamento:hover{
   opacity: 1;
@@ -431,6 +459,7 @@
     justify-content: flex-start;
   }
 
+  .downloadPdf,
   .pagamento,
   .continuar {
     font-size: 0.9rem;
