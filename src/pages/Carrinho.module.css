@@ -148,12 +148,19 @@
 .buttons{
   display: flex;
   gap: 1rem;
-  padding-right: 2rem;
+  padding-right: 1rem;
   margin-top: 1rem;
+  flex-shrink: 0;
 }
 .buttons button{
-  height: 3.3rem;
-  width: 3rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  min-width: 2.8rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
 }
 
 
@@ -192,6 +199,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 0.5rem 0;
 }
 .listGroupItem p{
   font-size: 1rem;
@@ -206,6 +214,26 @@
 .listGroupItem h4{
   font-size: 1.1rem;
   color: rgb(177, 169, 169);
+}
+
+/* Total destacado */
+.listGroupItemTotal{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  margin-top: 0.5rem;
+  border-top: 2px solid rgb(146, 117, 60);
+}
+.listGroupItemTotal h4{
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: white;
+}
+.listGroupItemTotal span{
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: rgb(146, 117, 60);
 }
 /* LINKS DE NAVEGAÇAO  */
 
@@ -406,6 +434,14 @@
   .listGroupItem span {
     font-size: 0.85rem;
   }
+
+  .listGroupItemTotal h4 {
+    font-size: 1.1rem;
+  }
+
+  .listGroupItemTotal span {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -448,15 +484,24 @@
 
   .infoSection {
     width: 100%;
+    padding-right: 0.5rem;
   }
 
   .infoPacote {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
   }
 
   .buttons {
-    padding-right: 1rem;
-    justify-content: flex-start;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .buttons button {
+    height: 2.2rem;
+    width: 2.2rem;
+    min-width: 2.2rem;
+    font-size: 0.85rem;
   }
 
   .downloadPdf,
@@ -464,5 +509,13 @@
   .continuar {
     font-size: 0.9rem;
     padding: 0.65rem 0.8rem;
+  }
+
+  .listGroupItemTotal h4 {
+    font-size: 1rem;
+  }
+
+  .listGroupItemTotal span {
+    font-size: 1.1rem;
   }
 }
