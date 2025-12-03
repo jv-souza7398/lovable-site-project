@@ -21,12 +21,26 @@ interface CartItem {
   valorTotalFormatado: string;
 }
 
+interface EventDetails {
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento?: string;
+  uf: string;
+  bairro: string;
+  cidade: string;
+  dataEvento: string;
+  horaInicio: string;
+  horaEncerramento: string;
+}
+
 interface QuoteEmailRequest {
   userEmail: string;
   userName: string;
   cartItems: CartItem[];
   totalAmount: string;
-  pdfBase64: string;
+  pdfBase64?: string;
+  eventDetails?: EventDetails;
 }
 
 // Get Gmail access token using refresh token
@@ -122,7 +136,16 @@ async function sendGmailEmail(to: string, subject: string, htmlContent: string, 
   return data;
 }
 
-const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount: string): string => {
+const formatEventDate = (dateStr: string): string => {
+  try {
+    const date = new Date(dateStr + 'T00:00:00');
+    return date.toLocaleDateString('pt-BR');
+  } catch {
+    return dateStr;
+  }
+};
+
+const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount: string, eventDetails?: EventDetails): string => {
   const itemsHTML = cartItems.map((item, index) => `
     <tr>
       <td style="padding: 16px; border-bottom: 1px solid #e5e5e5;">
@@ -140,6 +163,41 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
       </td>
     </tr>
   `).join('');
+
+  const eventDetailsHTML = eventDetails ? `
+    <!-- Event Details -->
+    <tr>
+      <td style="padding: 0 30px 20px;">
+        <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fafafa; border-radius: 8px;">
+          <tr>
+            <td style="padding: 16px; background-color: #92753c; border-radius: 8px 8px 0 0;">
+              <span style="color: #ffffff; font-weight: 600; font-size: 16px;">
+                📍 Detalhes do Evento
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 16px;">
+              <div style="color: #666; font-size: 14px; line-height: 1.8;">
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #333;">Endereço:</strong><br>
+                  ${eventDetails.rua}, ${eventDetails.numero}${eventDetails.complemento ? ` - ${eventDetails.complemento}` : ''}<br>
+                  ${eventDetails.bairro}, ${eventDetails.cidade} - ${eventDetails.uf}<br>
+                  CEP: ${eventDetails.cep}
+                </div>
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #333;">📅 Data do Evento:</strong> ${formatEventDate(eventDetails.dataEvento)}
+                </div>
+                <div>
+                  <strong style="color: #333;">🕐 Horário:</strong> ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  ` : '';
 
   return `
 <!DOCTYPE html>
@@ -181,7 +239,7 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
           
           <!-- Items Table -->
           <tr>
-            <td style="padding: 0 30px;">
+            <td style="padding: 0 30px 20px;">
               <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fafafa; border-radius: 8px;">
                 <tr>
                   <td style="padding: 16px; background-color: #92753c; border-radius: 8px 8px 0 0;">
@@ -194,6 +252,8 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
               </table>
             </td>
           </tr>
+
+          ${eventDetailsHTML}
           
           <!-- Total -->
           <tr>
@@ -255,12 +315,13 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { userEmail, userName, cartItems, totalAmount, pdfBase64 }: QuoteEmailRequest = await req.json();
+    const { userEmail, userName, cartItems, totalAmount, pdfBase64, eventDetails }: QuoteEmailRequest = await req.json();
 
     console.log(`Sending quote email to: ${userEmail}`);
     console.log(`Number of items: ${cartItems.length}`);
+    console.log(`Event details provided: ${!!eventDetails}`);
 
-    const emailHTML = generateEmailHTML(userName, cartItems, totalAmount);
+    const emailHTML = generateEmailHTML(userName, cartItems, totalAmount, eventDetails);
 
     // Send email via Gmail API
     const emailResponse = await sendGmailEmail(

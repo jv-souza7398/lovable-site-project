@@ -191,9 +191,14 @@ function Carrinho() {
         
         doc.setFont(undefined, 'normal');
         doc.setFontSize(10);
-        doc.text(`Endereço: ${eventDetails.rua}, ${eventDetails.bairro}`, 25, yPosition);
+        const enderecoCompleto = eventDetails.complemento 
+          ? `${eventDetails.rua}, ${eventDetails.numero} - ${eventDetails.complemento}`
+          : `${eventDetails.rua}, ${eventDetails.numero}`;
+        doc.text(`Endereço: ${enderecoCompleto}`, 25, yPosition);
         yPosition += 5;
-        doc.text(`${eventDetails.cidade} - ${eventDetails.uf}, CEP: ${eventDetails.cep}`, 25, yPosition);
+        doc.text(`${eventDetails.bairro}, ${eventDetails.cidade} - ${eventDetails.uf}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`CEP: ${eventDetails.cep}`, 25, yPosition);
         yPosition += 5;
         const dataEventoFormatada = new Date(eventDetails.dataEvento + 'T00:00:00').toLocaleDateString('pt-BR');
         doc.text(`Data do evento: ${dataEventoFormatada}`, 25, yPosition);
