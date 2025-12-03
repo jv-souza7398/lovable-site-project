@@ -108,8 +108,65 @@ function Carrinho() {
     doc.save(`orcamento-${dataAtual.replace(/\//g, '-')}.pdf`);
   };
 
+  const generatePDFBase64 = () => {
+    const doc = new jsPDF();
+    
+    doc.setFontSize(20);
+    doc.text('ORÇAMENTO', 105, 20, { align: 'center' });
+    
+    doc.setFontSize(10);
+    const dataAtual = new Date().toLocaleDateString('pt-BR');
+    doc.text(`Data: ${dataAtual}`, 20, 35);
+    
+    doc.line(20, 40, 190, 40);
+    
+    let yPosition = 50;
+    doc.setFontSize(12);
+    
+    cartItems.forEach((item, index) => {
+      doc.setFont(undefined, 'bold');
+      doc.text(`ITEM ${index + 1}: ${item.item.title}`, 20, yPosition);
+      
+      doc.setFont(undefined, 'normal');
+      doc.setFontSize(10);
+      yPosition += 7;
+      doc.text(`Horário: ${item.horario} Horas`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Nº Bartenders: ${item.bartenders}`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Nº Convidados: ${item.convidados}`, 25, yPosition);
+      yPosition += 5;
+      doc.text(`Valor: R$ ${item.valorTotalFormatado}`, 25, yPosition);
+      
+      yPosition += 10;
+      doc.line(20, yPosition, 190, yPosition);
+      yPosition += 10;
+    });
+    
+    const totalValue = cartItems.reduce((acc, item) => {
+      const valorNumerico = parseFloat(
+        item.valorTotalFormatado
+          .replace('R$', '')
+          .replace(/\./g, '')
+          .replace(',', '.')
+      );
+      return acc + valorNumerico;
+    }, 0);
+    
+    const totalFormatado = new Intl.NumberFormat('pt-BR', { 
+      style: 'currency', 
+      currency: 'BRL', 
+      minimumFractionDigits: 2 
+    }).format(totalValue);
+    
+    doc.setFontSize(14);
+    doc.setFont(undefined, 'bold');
+    doc.text(`TOTAL: ${totalFormatado}`, 105, yPosition, { align: 'center' });
+    
+    return doc.output('base64');
+  };
+
   const handleGoToPayment = async () => {
-    // Verifica se o usuário está logado
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
@@ -118,7 +175,6 @@ function Carrinho() {
       return;
     }
 
-    // Calcula o total
     const totalAmount = new Intl.NumberFormat('pt-BR', { 
       style: 'currency', 
       currency: 'BRL', 
@@ -135,7 +191,37 @@ function Carrinho() {
       }, 0)
     );
 
-    // Navega para seleção de método de pagamento
+    // Gerar PDF em base64 e enviar email
+    try {
+      const pdfBase64 = generatePDFBase64();
+      
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('nome_completo')
+        .eq('id', session.user.id)
+        .single();
+      
+      const userName = profile?.nome_completo || session.user.email?.split('@')[0] || 'Cliente';
+      
+      const response = await supabase.functions.invoke('send-quote-email', {
+        body: {
+          userEmail: session.user.email,
+          userName,
+          cartItems,
+          totalAmount,
+          pdfBase64,
+        },
+      });
+
+      if (response.error) {
+        console.error('Erro ao enviar email:', response.error);
+      } else {
+        console.log('Email enviado com sucesso!');
+      }
+    } catch (error) {
+      console.error('Erro ao processar envio de email:', error);
+    }
+
     navigate('/SelectPaymentMethod/', {
       state: {
         cartItems,
