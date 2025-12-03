@@ -230,10 +230,10 @@ const handleContratarClick = () => {
       <h2>Pacote {item.title}</h2>
       <p>{item.info}</p>
       <div className={classes.form}>
-        <form action="#">
+        <form action="#" autoComplete="off">
           <div className={classes.select}>
             <label htmlFor="Horario">Horário Da Festa:</label>
-            <select name="Horario" id="Horario" value={horario} onChange={(e) => setHorario(e.target.value)} required>
+            <select name="Horario" id="Horario" value={horario} onChange={(e) => setHorario(e.target.value)} required autoComplete="off">
               <option value="" disabled>Selecione o Horário</option>
               <option value="3">3 Horas</option>
               <option value="4">4 Horas</option>
@@ -242,7 +242,7 @@ const handleContratarClick = () => {
           </div>
           <div className={classes.select}>
             <label htmlFor="Convidados">Nº Convidados:</label>
-            <select name="Convidados" id="Convidados" value={convidados} onChange={(e) => setConvidados(e.target.value)} required>
+            <select name="Convidados" id="Convidados" value={convidados} onChange={(e) => setConvidados(e.target.value)} required autoComplete="off">
               <option value="" disabled>Selecione uma Opção</option>
               <option value="50">Até 50 pessoas</option>
               <option value="100">Até 100 pessoas</option>
@@ -251,7 +251,7 @@ const handleContratarClick = () => {
           </div>
           <div className={classes.select}>
             <label htmlFor="Bartenders">Nº De Bartenders:</label>
-            <select name="Bartenders" id="Bartenders" value={bartenders} onChange={(e) => setBartenders(e.target.value)} required>
+            <select name="Bartenders" id="Bartenders" value={bartenders} onChange={(e) => setBartenders(e.target.value)} required autoComplete="off">
               <option value="" disabled>Selecione uma Opção</option>
               <option value="1">Apenas 1</option>
               <option value="2">2 Bartenders</option>
