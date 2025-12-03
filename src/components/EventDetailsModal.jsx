@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock, FaHashtag, FaHome, FaTimes } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock, FaHashtag, FaHome, FaTimes, FaWhatsapp, FaTruck } from 'react-icons/fa';
 
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [cep, setCep] = useState('');
@@ -14,6 +14,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [horaEncerramento, setHoraEncerramento] = useState('');
   const [loadingCep, setLoadingCep] = useState(false);
   const [error, setError] = useState('');
+  const [showFreightPopup, setShowFreightPopup] = useState(false);
+  const [eventData, setEventData] = useState(null);
 
   console.log('EventDetailsModal render, open:', open);
 
@@ -53,7 +55,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
       return;
     }
 
-    onConfirm({
+    // Store the event data and show freight popup
+    setEventData({
       cep,
       rua,
       numero,
@@ -65,6 +68,18 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
       horaInicio,
       horaEncerramento,
     });
+    setShowFreightPopup(true);
+  };
+
+  const handleFreightConfirm = () => {
+    if (eventData) {
+      onConfirm(eventData);
+    }
+    setShowFreightPopup(false);
+  };
+
+  const handleFreightCancel = () => {
+    setShowFreightPopup(false);
   };
 
   const formatCep = (value) => {
@@ -344,6 +359,126 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           </button>
         </form>
       </div>
+
+      {/* Freight Confirmation Popup */}
+      {showFreightPopup && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            style={{
+              backgroundColor: 'rgba(30, 29, 29, 0.98)',
+              border: '2px solid rgba(146, 117, 60, 0.5)',
+              borderRadius: '16px',
+              maxWidth: '400px',
+              width: '90%',
+              padding: '24px',
+              textAlign: 'center',
+            }}
+          >
+            <div
+              style={{
+                width: '60px',
+                height: '60px',
+                margin: '0 auto 16px',
+                backgroundColor: 'rgba(146, 117, 60, 0.2)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <FaTruck style={{ fontSize: '28px', color: 'rgb(146, 117, 60)' }} />
+            </div>
+
+            <h3
+              style={{
+                color: 'rgb(146, 117, 60)',
+                fontSize: '20px',
+                fontWeight: 700,
+                marginBottom: '12px',
+              }}
+            >
+              Informação sobre Frete
+            </h3>
+
+            <p
+              style={{
+                color: 'rgb(177, 169, 169)',
+                fontSize: '14px',
+                lineHeight: '1.6',
+                marginBottom: '8px',
+              }}
+            >
+              O valor do frete será acordado via WhatsApp com nosso time de atendimento.
+            </p>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                color: '#25D366',
+                fontSize: '14px',
+                marginBottom: '24px',
+              }}
+            >
+              <FaWhatsapp style={{ fontSize: '18px' }} />
+              <span>Entraremos em contato em breve!</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                onClick={handleFreightCancel}
+                style={{
+                  flex: 1,
+                  padding: '14px',
+                  backgroundColor: 'transparent',
+                  border: '2px solid rgba(146, 117, 60, 0.5)',
+                  borderRadius: '8px',
+                  color: 'rgb(177, 169, 169)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Voltar
+              </button>
+              <button
+                onClick={handleFreightConfirm}
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  padding: '14px',
+                  backgroundColor: 'rgb(146, 117, 60)',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.7 : 1,
+                }}
+              >
+                {loading ? 'Enviando...' : 'Confirmar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import EventDetailsModal from '../components/EventDetailsModal';
 
 function Carrinho() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEventModal, setShowEventModal] = useState(false);
@@ -262,8 +262,9 @@ function Carrinho() {
         alert('Erro ao enviar orçamento. Tente novamente.');
       } else {
         console.log('Email enviado com sucesso!');
-        alert('Orçamento enviado com sucesso!');
+        alert('Orçamento enviado com sucesso! Entraremos em contato em breve.');
         setShowEventModal(false);
+        clearCart();
       }
     } catch (error) {
       console.error('Erro ao processar envio de email:', error);
