@@ -166,24 +166,34 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailHTML = generateEmailHTML(userName, cartItems, totalAmount);
 
+    // Preparar corpo do email
+    const emailBody: any = {
+      from: "Vincci Bartenders <onboarding@resend.dev>",
+      to: [userEmail],
+      subject: "Seu Orçamento - Vincci Bartenders",
+      html: emailHTML,
+    };
+
+    // Adicionar anexo apenas se pdfBase64 estiver disponível
+    if (pdfBase64 && pdfBase64.length > 0) {
+      emailBody.attachments = [
+        {
+          filename: `orcamento-vincci-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`,
+          content: pdfBase64,
+        },
+      ];
+      console.log("PDF attachment added, size:", pdfBase64.length);
+    } else {
+      console.log("No PDF attachment - pdfBase64 is null or empty");
+    }
+
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
-        from: "Vincci Bartenders <onboarding@resend.dev>",
-        to: [userEmail],
-        subject: "Seu Orçamento - Vincci Bartenders",
-        html: emailHTML,
-        attachments: [
-          {
-            filename: `orcamento-vincci-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`,
-            content: pdfBase64,
-          },
-        ],
-      }),
+      body: JSON.stringify(emailBody),
     });
 
     const emailData = await emailResponse.json();
