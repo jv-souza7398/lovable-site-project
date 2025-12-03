@@ -418,6 +418,11 @@ body{
     width: 100%;
   }
   
+  .select select {
+    font-size: 0.95rem;
+    padding: 0.85rem 2.5rem 0.85rem 0.9rem;
+  }
+  
   .sectionTitle h1 {
     width: 90%;
     font-size: 1.5rem;
@@ -457,6 +462,18 @@ body{
   
   .servicoContent p {
     font-size: 0.9rem;
+  }
+  
+  .select select {
+    font-size: 0.9rem;
+    padding: 0.8rem 2.5rem 0.8rem 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .servicoContent label {
+    font-size: 1rem;
   }
   
   .sectionTitle h1 {
