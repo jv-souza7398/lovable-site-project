@@ -371,28 +371,24 @@ function Carrinho() {
                         <p>Frete</p>
                         <span>A ser negociado</span>
                       </li>
-                      <li className={classes.listGroupItem}>
-                        <div>
-                          <h4>Total</h4>
-                        </div>
+                      <li className={classes.listGroupItemTotal}>
+                        <h4>Total</h4>
                         <span>
-                          <strong>
-                            {new Intl.NumberFormat("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                              minimumFractionDigits: 2,
-                            }).format(
-                              cartItems.reduce((acc, item) => {
-                                const valorNumerico = parseFloat(
-                                  item.valorTotalFormatado
-                                    .replace("R$", "")
-                                    .replace(/\./g, "") // Remove pontos de milhar
-                                    .replace(",", "."), // Substitui vírgula por ponto para decimais
-                                );
-                                return acc + valorNumerico;
-                              }, 0),
-                            )}
-                          </strong>
+                          {new Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                            minimumFractionDigits: 2,
+                          }).format(
+                            cartItems.reduce((acc, item) => {
+                              const valorNumerico = parseFloat(
+                                item.valorTotalFormatado
+                                  .replace("R$", "")
+                                  .replace(/\./g, "")
+                                  .replace(",", "."),
+                              );
+                              return acc + valorNumerico;
+                            }, 0),
+                          )}
                         </span>
                       </li>
                     </ul>
