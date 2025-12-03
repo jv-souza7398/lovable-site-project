@@ -113,7 +113,9 @@ function Carrinho() {
 
 
   const handleOpenEventModal = async () => {
+    console.log('handleOpenEventModal chamado');
     const { data: { session } } = await supabase.auth.getSession();
+    console.log('Session:', session);
     
     if (!session) {
       alert('Você precisa fazer login para enviar o orçamento.');
@@ -121,6 +123,7 @@ function Carrinho() {
       return;
     }
     
+    console.log('Abrindo modal...');
     setShowEventModal(true);
   };
 
