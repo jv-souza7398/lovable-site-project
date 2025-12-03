@@ -34,7 +34,16 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 80px;
+  width: 100px;
+  min-width: 80px;
+}
+
+.iconSmall {
+  position: absolute;
+  left: 0.8rem;
+  color: rgb(146, 117, 60);
+  font-size: 0.9rem;
+  z-index: 1;
 }
 
 .icon {
@@ -58,7 +67,7 @@
 }
 
 .inputGroupSmall input {
-  padding-left: 0.9rem;
+  padding-left: 2.2rem;
   text-align: center;
   text-transform: uppercase;
 }

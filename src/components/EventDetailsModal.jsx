@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock, FaHashtag, FaHome } from 'react-icons/fa';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,8 @@ import classes from './EventDetailsModal.module.css';
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [cep, setCep] = useState('');
   const [rua, setRua] = useState('');
+  const [numero, setNumero] = useState('');
+  const [complemento, setComplemento] = useState('');
   const [uf, setUf] = useState('');
   const [bairro, setBairro] = useState('');
   const [cidade, setCidade] = useState('');
@@ -51,14 +53,16 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!cep || !rua || !uf || !bairro || !cidade || !dataEvento || !horaInicio || !horaEncerramento) {
-      setError('Por favor, preencha todos os campos.');
+    if (!cep || !rua || !numero || !uf || !bairro || !cidade || !dataEvento || !horaInicio || !horaEncerramento) {
+      setError('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
     onConfirm({
       cep,
       rua,
+      numero,
+      complemento,
       uf,
       bairro,
       cidade,
@@ -74,8 +78,14 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
     return `${cleaned.slice(0, 5)}-${cleaned.slice(5, 8)}`;
   };
 
+  const handleOpenChange = (isOpen) => {
+    if (!isOpen) {
+      onClose();
+    }
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className={classes.modalContent}>
         <DialogHeader>
           <DialogTitle className={classes.modalTitle}>Dados do Evento</DialogTitle>
@@ -107,6 +117,30 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               onChange={(e) => setRua(e.target.value)}
               disabled={loading}
             />
+          </div>
+
+          <div className={classes.row}>
+            <div className={classes.inputGroupSmall}>
+              <FaHashtag className={classes.iconSmall} />
+              <input
+                type="text"
+                placeholder="Nº"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className={classes.inputGroup}>
+              <FaHome className={classes.icon} />
+              <input
+                type="text"
+                placeholder="Complemento (opcional)"
+                value={complemento}
+                onChange={(e) => setComplemento(e.target.value)}
+                disabled={loading}
+              />
+            </div>
           </div>
 
           <div className={classes.row}>
