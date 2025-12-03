@@ -1,6 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const GMAIL_CLIENT_ID = Deno.env.get("GMAIL_CLIENT_ID");
+const GMAIL_CLIENT_SECRET = Deno.env.get("GMAIL_CLIENT_SECRET");
+const GMAIL_REFRESH_TOKEN = Deno.env.get("GMAIL_REFRESH_TOKEN");
+const GMAIL_USER_EMAIL = Deno.env.get("GMAIL_USER_EMAIL");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -24,6 +27,99 @@ interface QuoteEmailRequest {
   cartItems: CartItem[];
   totalAmount: string;
   pdfBase64: string;
+}
+
+// Get Gmail access token using refresh token
+async function getGmailAccessToken(): Promise<string> {
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: GMAIL_CLIENT_ID!,
+      client_secret: GMAIL_CLIENT_SECRET!,
+      refresh_token: GMAIL_REFRESH_TOKEN!,
+      grant_type: "refresh_token",
+    }),
+  });
+
+  const data = await response.json();
+  
+  if (!response.ok) {
+    console.error("Failed to get access token:", data);
+    throw new Error(`Failed to get access token: ${data.error_description || data.error}`);
+  }
+
+  return data.access_token;
+}
+
+// Create email in RFC 2822 format with attachment
+function createEmail(to: string, subject: string, htmlContent: string, pdfBase64?: string): string {
+  const boundary = "boundary_" + Date.now();
+  
+  let email = [
+    `From: Vincci Bartenders <${GMAIL_USER_EMAIL}>`,
+    `To: ${to}`,
+    `Subject: =?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`,
+    "MIME-Version: 1.0",
+  ];
+
+  if (pdfBase64) {
+    email.push(`Content-Type: multipart/mixed; boundary="${boundary}"`);
+    email.push("");
+    email.push(`--${boundary}`);
+    email.push("Content-Type: text/html; charset=UTF-8");
+    email.push("Content-Transfer-Encoding: base64");
+    email.push("");
+    email.push(btoa(unescape(encodeURIComponent(htmlContent))));
+    email.push(`--${boundary}`);
+    email.push(`Content-Type: application/pdf; name="orcamento-vincci-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf"`);
+    email.push("Content-Transfer-Encoding: base64");
+    email.push(`Content-Disposition: attachment; filename="orcamento-vincci-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf"`);
+    email.push("");
+    email.push(pdfBase64);
+    email.push(`--${boundary}--`);
+  } else {
+    email.push("Content-Type: text/html; charset=UTF-8");
+    email.push("Content-Transfer-Encoding: base64");
+    email.push("");
+    email.push(btoa(unescape(encodeURIComponent(htmlContent))));
+  }
+
+  return email.join("\r\n");
+}
+
+// Send email using Gmail API
+async function sendGmailEmail(to: string, subject: string, htmlContent: string, pdfBase64?: string): Promise<any> {
+  const accessToken = await getGmailAccessToken();
+  const rawEmail = createEmail(to, subject, htmlContent, pdfBase64);
+  
+  // URL-safe base64 encode
+  const encodedEmail = btoa(rawEmail)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  const response = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/send`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      raw: encodedEmail,
+    }),
+  });
+
+  const data = await response.json();
+  
+  if (!response.ok) {
+    console.error("Gmail API error:", data);
+    throw new Error(`Gmail API error: ${data.error?.message || JSON.stringify(data)}`);
+  }
+
+  return data;
 }
 
 const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount: string): string => {
@@ -166,44 +262,17 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailHTML = generateEmailHTML(userName, cartItems, totalAmount);
 
-    // Preparar corpo do email
-    const emailBody: any = {
-      from: "Vincci Bartenders <onboarding@resend.dev>",
-      to: [userEmail],
-      subject: "Seu Orçamento - Vincci Bartenders",
-      html: emailHTML,
-    };
+    // Send email via Gmail API
+    const emailResponse = await sendGmailEmail(
+      userEmail,
+      "Seu Orçamento - Vincci Bartenders",
+      emailHTML,
+      pdfBase64 && pdfBase64.length > 0 ? pdfBase64 : undefined
+    );
 
-    // Adicionar anexo apenas se pdfBase64 estiver disponível
-    if (pdfBase64 && pdfBase64.length > 0) {
-      emailBody.attachments = [
-        {
-          filename: `orcamento-vincci-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`,
-          content: pdfBase64,
-        },
-      ];
-      console.log("PDF attachment added, size:", pdfBase64.length);
-    } else {
-      console.log("No PDF attachment - pdfBase64 is null or empty");
-    }
+    console.log("Email sent successfully via Gmail:", emailResponse);
 
-    const emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify(emailBody),
-    });
-
-    const emailData = await emailResponse.json();
-    console.log("Email sent successfully:", emailData);
-
-    if (!emailResponse.ok) {
-      throw new Error(emailData.message || "Failed to send email");
-    }
-
-    return new Response(JSON.stringify({ success: true, data: emailData }), {
+    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
