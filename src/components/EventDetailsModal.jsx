@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock, FaHashtag, FaHome } from 'react-icons/fa';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+import { FaMapMarkerAlt, FaRoad, FaCity, FaBuilding, FaCalendar, FaClock, FaHashtag, FaHome, FaTimes } from 'react-icons/fa';
 
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [cep, setCep] = useState('');
@@ -21,6 +14,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [horaEncerramento, setHoraEncerramento] = useState('');
   const [loadingCep, setLoadingCep] = useState(false);
   const [error, setError] = useState('');
+
+  console.log('EventDetailsModal render, open:', open);
 
   const handleCepChange = async (e) => {
     const value = e.target.value.replace(/\D/g, '');
@@ -78,34 +73,114 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
     return `${cleaned.slice(0, 5)}-${cleaned.slice(5, 8)}`;
   };
 
-  const inputStyles = "w-full py-3 px-3 pl-11 bg-[rgba(35,34,34,0.8)] border-2 border-[rgba(146,117,60,0.3)] rounded-lg text-[rgb(177,169,169)] text-sm transition-all focus:outline-none focus:border-[rgb(146,117,60)] focus:bg-[rgba(35,34,34,1)] placeholder:text-[rgba(177,169,169,0.6)] disabled:opacity-70 disabled:cursor-not-allowed";
-  
-  const inputSmallStyles = "w-full py-3 px-3 bg-[rgba(35,34,34,0.8)] border-2 border-[rgba(146,117,60,0.3)] rounded-lg text-[rgb(177,169,169)] text-sm text-center uppercase transition-all focus:outline-none focus:border-[rgb(146,117,60)] focus:bg-[rgba(35,34,34,1)] disabled:opacity-70 disabled:cursor-not-allowed";
+  if (!open) {
+    console.log('Modal não está aberto, retornando null');
+    return null;
+  }
 
-  const iconStyles = "absolute left-3 text-[rgb(146,117,60)] text-base z-10";
+  console.log('Modal está aberto, renderizando...');
+
+  const inputStyles = {
+    width: '100%',
+    padding: '12px 12px 12px 44px',
+    backgroundColor: 'rgba(35, 34, 34, 0.8)',
+    border: '2px solid rgba(146, 117, 60, 0.3)',
+    borderRadius: '8px',
+    color: 'rgb(177, 169, 169)',
+    fontSize: '14px',
+    outline: 'none',
+  };
+
+  const inputSmallStyles = {
+    ...inputStyles,
+    paddingLeft: '12px',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  };
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="bg-[rgba(30,29,29,0.98)] border border-[rgba(146,117,60,0.3)] rounded-2xl max-w-[500px] w-[95%] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-[rgb(146,117,60)] text-2xl font-bold text-center mb-2">
-            Dados do Evento
-          </DialogTitle>
-          <DialogDescription className="text-center text-[rgb(177,169,169)] text-sm">
-            Preencha os dados do local e data do evento
-          </DialogDescription>
-        </DialogHeader>
+    <div 
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 9999,
+      }}
+      onClick={onClose}
+    >
+      <div 
+        style={{
+          backgroundColor: 'rgba(30, 29, 29, 0.98)',
+          border: '1px solid rgba(146, 117, 60, 0.3)',
+          borderRadius: '16px',
+          maxWidth: '500px',
+          width: '95%',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          padding: '24px',
+          position: 'relative',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '16px',
+            background: 'none',
+            border: 'none',
+            color: 'rgb(177, 169, 169)',
+            cursor: 'pointer',
+            fontSize: '20px',
+          }}
+        >
+          <FaTimes />
+        </button>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 py-2">
+        {/* Header */}
+        <h2 style={{
+          color: 'rgb(146, 117, 60)',
+          fontSize: '24px',
+          fontWeight: 700,
+          textAlign: 'center',
+          marginBottom: '8px',
+        }}>
+          Dados do Evento
+        </h2>
+        <p style={{
+          color: 'rgb(177, 169, 169)',
+          textAlign: 'center',
+          fontSize: '14px',
+          marginBottom: '20px',
+        }}>
+          Preencha os dados do local e data do evento
+        </p>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {error && (
-            <p className="text-red-500 bg-red-500/10 p-3 rounded-lg text-sm text-center">
+            <p style={{
+              color: '#ef4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              padding: '12px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              textAlign: 'center',
+            }}>
               {error}
             </p>
           )}
 
           {/* CEP */}
-          <div className="relative flex items-center">
-            <FaMapMarkerAlt className={iconStyles} />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FaMapMarkerAlt style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
             <input
               type="text"
               placeholder="CEP"
@@ -113,70 +188,70 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               onChange={handleCepChange}
               maxLength={9}
               disabled={loading || loadingCep}
-              className={inputStyles}
+              style={inputStyles}
             />
             {loadingCep && (
-              <span className="absolute right-3 text-[rgb(146,117,60)] text-xs">
+              <span style={{ position: 'absolute', right: '12px', color: 'rgb(146, 117, 60)', fontSize: '12px' }}>
                 Buscando...
               </span>
             )}
           </div>
 
           {/* Rua */}
-          <div className="relative flex items-center">
-            <FaRoad className={iconStyles} />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FaRoad style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
             <input
               type="text"
               placeholder="Rua"
               value={rua}
               onChange={(e) => setRua(e.target.value)}
               disabled={loading}
-              className={inputStyles}
+              style={inputStyles}
             />
           </div>
 
           {/* Número e Complemento */}
-          <div className="flex gap-4">
-            <div className="relative flex items-center w-24 min-w-[80px]">
-              <FaHashtag className="absolute left-3 text-[rgb(146,117,60)] text-sm z-10" />
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100px' }}>
+              <FaHashtag style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '14px' }} />
               <input
                 type="text"
                 placeholder="Nº"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
                 disabled={loading}
-                className="w-full py-3 px-3 pl-9 bg-[rgba(35,34,34,0.8)] border-2 border-[rgba(146,117,60,0.3)] rounded-lg text-[rgb(177,169,169)] text-sm text-center transition-all focus:outline-none focus:border-[rgb(146,117,60)] focus:bg-[rgba(35,34,34,1)] disabled:opacity-70 disabled:cursor-not-allowed"
+                style={{ ...inputStyles, paddingLeft: '36px', textAlign: 'center' }}
               />
             </div>
 
-            <div className="relative flex items-center flex-1">
-              <FaHome className={iconStyles} />
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', flex: 1 }}>
+              <FaHome style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
               <input
                 type="text"
                 placeholder="Complemento (opcional)"
                 value={complemento}
                 onChange={(e) => setComplemento(e.target.value)}
                 disabled={loading}
-                className={inputStyles}
+                style={inputStyles}
               />
             </div>
           </div>
 
           {/* Bairro e UF */}
-          <div className="flex gap-4">
-            <div className="relative flex items-center flex-1">
-              <FaBuilding className={iconStyles} />
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', flex: 1 }}>
+              <FaBuilding style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
               <input
                 type="text"
                 placeholder="Bairro"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
                 disabled={loading}
-                className={inputStyles}
+                style={inputStyles}
               />
             </div>
 
-            <div className="w-20 min-w-[70px]">
+            <div style={{ width: '80px' }}>
               <input
                 type="text"
                 placeholder="UF"
@@ -184,66 +259,66 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
                 onChange={(e) => setUf(e.target.value)}
                 maxLength={2}
                 disabled={loading}
-                className={inputSmallStyles}
+                style={inputSmallStyles}
               />
             </div>
           </div>
 
           {/* Cidade */}
-          <div className="relative flex items-center">
-            <FaCity className={iconStyles} />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FaCity style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
             <input
               type="text"
               placeholder="Cidade"
               value={cidade}
               onChange={(e) => setCidade(e.target.value)}
               disabled={loading}
-              className={inputStyles}
+              style={inputStyles}
             />
           </div>
 
           {/* Divisória */}
-          <div className="flex items-center my-4 gap-4">
-            <div className="flex-1 h-px bg-[rgba(146,117,60,0.4)]" />
-            <span className="text-[rgb(146,117,60)] text-sm font-semibold whitespace-nowrap">
+          <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0', gap: '16px' }}>
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(146, 117, 60, 0.4)' }} />
+            <span style={{ color: 'rgb(146, 117, 60)', fontSize: '14px', fontWeight: 600, whiteSpace: 'nowrap' }}>
               Detalhes do evento
             </span>
-            <div className="flex-1 h-px bg-[rgba(146,117,60,0.4)]" />
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(146, 117, 60, 0.4)' }} />
           </div>
 
           {/* Data do evento */}
-          <div className="relative flex items-center">
-            <FaCalendar className={iconStyles} />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FaCalendar style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
             <input
               type="date"
               value={dataEvento}
               onChange={(e) => setDataEvento(e.target.value)}
               disabled={loading}
-              className={inputStyles}
+              style={inputStyles}
             />
           </div>
 
           {/* Horários */}
-          <div className="flex gap-4">
-            <div className="relative flex items-center flex-1">
-              <FaClock className={iconStyles} />
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', flex: 1 }}>
+              <FaClock style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
               <input
                 type="time"
                 value={horaInicio}
                 onChange={(e) => setHoraInicio(e.target.value)}
                 disabled={loading}
-                className={inputStyles}
+                style={inputStyles}
               />
             </div>
 
-            <div className="relative flex items-center flex-1">
-              <FaClock className={iconStyles} />
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', flex: 1 }}>
+              <FaClock style={{ position: 'absolute', left: '12px', color: 'rgb(146, 117, 60)', fontSize: '16px' }} />
               <input
                 type="time"
                 value={horaEncerramento}
                 onChange={(e) => setHoraEncerramento(e.target.value)}
                 disabled={loading}
-                className={inputStyles}
+                style={inputStyles}
               />
             </div>
           </div>
@@ -251,13 +326,25 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 mt-2 bg-[rgb(146,117,60)] text-white border-none rounded-lg text-base font-bold cursor-pointer transition-all hover:bg-[rgb(166,137,80)] hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+            style={{
+              width: '100%',
+              padding: '16px',
+              marginTop: '8px',
+              backgroundColor: 'rgb(146, 117, 60)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 700,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.7 : 1,
+            }}
           >
             {loading ? 'Enviando...' : 'Confirmar'}
           </button>
         </form>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 };
 
