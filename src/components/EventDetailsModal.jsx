@@ -110,12 +110,15 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const inputStyles = {
     width: "100%",
     padding: "12px 12px 12px 44px",
-    backgroundColor: "rgba(35, 34, 34, 0.8)",
-    border: "2px solid rgba(146, 117, 60, 0.3)",
+    backgroundColor: "rgba(35, 34, 34, 0.95)",
+    border: "2px solid rgba(146, 117, 60, 0.5)",
     borderRadius: "8px",
-    color: "rgb(177, 169, 169)",
-    fontSize: "14px",
+    color: "rgb(220, 220, 220)",
+    fontSize: "16px",
     outline: "none",
+    WebkitAppearance: "none",
+    MozAppearance: "none",
+    appearance: "none",
   };
 
   const inputSmallStyles = {
@@ -124,6 +127,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
     textAlign: "center",
     textTransform: "uppercase",
   };
+
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
   return (
     <div
@@ -246,8 +251,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           </div>
 
           {/* Número e Complemento */}
-          <div style={{ display: "flex", gap: "16px" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", width: "100px" }}>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center", width: isMobile ? "45%" : "100px", minWidth: "80px" }}>
               <FaHashtag style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "14px" }} />
               <input
                 type="text"
@@ -259,7 +264,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               />
             </div>
 
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1 }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
               <FaHome style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
               <input
                 type="text"
@@ -273,8 +278,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           </div>
 
           {/* Bairro e UF */}
-          <div style={{ display: "flex", gap: "16px" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1 }}>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
               <FaBuilding
                 style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }}
               />
@@ -288,7 +293,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               />
             </div>
 
-            <div style={{ width: "80px" }}>
+            <div style={{ width: isMobile ? "100%" : "80px" }}>
               <input
                 type="text"
                 placeholder="UF"
@@ -324,39 +329,48 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           </div>
 
           {/* Data do evento */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <FaCalendar style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-            <input
-              type="date"
-              value={dataEvento}
-              onChange={(e) => setDataEvento(e.target.value)}
-              disabled={loading}
-              style={inputStyles}
-            />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>Data do evento</label>
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <FaCalendar style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+              <input
+                type="date"
+                value={dataEvento}
+                onChange={(e) => setDataEvento(e.target.value)}
+                disabled={loading}
+                style={{ ...inputStyles, colorScheme: "dark" }}
+              />
+            </div>
           </div>
 
           {/* Horários */}
-          <div style={{ display: "flex", gap: "16px" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1 }}>
-              <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-              <input
-                type="time"
-                value={horaInicio}
-                onChange={(e) => setHoraInicio(e.target.value)}
-                disabled={loading}
-                style={inputStyles}
-              />
+          <div style={{ display: "flex", gap: "12px", flexDirection: isMobile ? "column" : "row" }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
+              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora início</label>
+              <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
+                <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="time"
+                  value={horaInicio}
+                  onChange={(e) => setHoraInicio(e.target.value)}
+                  disabled={loading}
+                  style={{ ...inputStyles, colorScheme: "dark" }}
+                />
+              </div>
             </div>
 
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1 }}>
-              <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-              <input
-                type="time"
-                value={horaEncerramento}
-                onChange={(e) => setHoraEncerramento(e.target.value)}
-                disabled={loading}
-                style={inputStyles}
-              />
+            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
+              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora encerramento</label>
+              <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
+                <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="time"
+                  value={horaEncerramento}
+                  onChange={(e) => setHoraEncerramento(e.target.value)}
+                  disabled={loading}
+                  style={{ ...inputStyles, colorScheme: "dark" }}
+                />
+              </div>
             </div>
           </div>
 
