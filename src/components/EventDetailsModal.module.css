@@ -1,0 +1,169 @@
+.modalContent {
+  background: rgba(30, 29, 29, 0.98) !important;
+  border: 1px solid rgba(146, 117, 60, 0.3) !important;
+  border-radius: 16px !important;
+  max-width: 500px !important;
+  width: 95% !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalTitle {
+  color: rgb(146, 117, 60) !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.inputGroupSmall {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80px;
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  color: rgb(146, 117, 60);
+  font-size: 1rem;
+  z-index: 1;
+}
+
+.inputGroup input,
+.inputGroupSmall input {
+  width: 100%;
+  padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+  background: rgba(35, 34, 34, 0.8);
+  border: 2px solid rgba(146, 117, 60, 0.3);
+  border-radius: 8px;
+  color: rgb(177, 169, 169);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.inputGroupSmall input {
+  padding-left: 0.9rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.inputGroup input:focus,
+.inputGroupSmall input:focus {
+  outline: none;
+  border-color: rgb(146, 117, 60);
+  background: rgba(35, 34, 34, 1);
+}
+
+.inputGroup input::placeholder {
+  color: rgba(177, 169, 169, 0.6);
+}
+
+.inputGroup input:disabled,
+.inputGroupSmall input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(146, 117, 60, 0.4);
+}
+
+.divider span {
+  color: rgb(146, 117, 60);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background: rgb(146, 117, 60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  background: rgb(166, 137, 80);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(146, 117, 60, 0.4);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.loadingText {
+  position: absolute;
+  right: 1rem;
+  color: rgb(146, 117, 60);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 1rem !important;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .inputGroupSmall {
+    width: 100%;
+  }
+
+  .inputGroupSmall input {
+    text-align: left;
+    padding-left: 2.8rem;
+  }
+}

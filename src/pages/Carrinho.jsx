@@ -4,11 +4,14 @@ import { supabase } from '../integrations/supabase/client';
 import classes from './Carrinho.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
+import EventDetailsModal from '../components/EventDetailsModal';
 
 function Carrinho() {
   const { cartItems, removeFromCart } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [sendingQuote, setSendingQuote] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -109,15 +112,23 @@ function Carrinho() {
   };
 
 
-  const handleGoToPayment = async () => {
+  const handleOpenEventModal = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      alert('Você precisa fazer login para continuar com o pagamento.');
+      alert('Você precisa fazer login para enviar o orçamento.');
       navigate('/Login/', { state: { redirectTo: '/Carrinho/' } });
       return;
     }
+    
+    setShowEventModal(true);
+  };
 
+  const handleConfirmEvent = async (eventDetails) => {
+    setSendingQuote(true);
+    
+    const { data: { session } } = await supabase.auth.getSession();
+    
     const totalAmount = new Intl.NumberFormat('pt-BR', { 
       style: 'currency', 
       currency: 'BRL', 
@@ -171,6 +182,27 @@ function Carrinho() {
           doc.line(20, yPosition, 190, yPosition);
           yPosition += 10;
         });
+
+        // Dados do evento
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        doc.text('DADOS DO EVENTO', 20, yPosition);
+        yPosition += 8;
+        
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(10);
+        doc.text(`Endereço: ${eventDetails.rua}, ${eventDetails.bairro}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`${eventDetails.cidade} - ${eventDetails.uf}, CEP: ${eventDetails.cep}`, 25, yPosition);
+        yPosition += 5;
+        const dataEventoFormatada = new Date(eventDetails.dataEvento + 'T00:00:00').toLocaleDateString('pt-BR');
+        doc.text(`Data do evento: ${dataEventoFormatada}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}`, 25, yPosition);
+        
+        yPosition += 10;
+        doc.line(20, yPosition, 190, yPosition);
+        yPosition += 10;
         
         const totalValue = cartItems.reduce((acc, item) => {
           const valorNumerico = parseFloat(
@@ -213,28 +245,34 @@ function Carrinho() {
           cartItems,
           totalAmount,
           pdfBase64,
+          eventDetails,
         },
       });
 
       if (response.error) {
         console.error('Erro ao enviar email:', response.error);
+        alert('Erro ao enviar orçamento. Tente novamente.');
       } else {
         console.log('Email enviado com sucesso!');
+        alert('Orçamento enviado com sucesso!');
+        setShowEventModal(false);
       }
     } catch (error) {
       console.error('Erro ao processar envio de email:', error);
+      alert('Erro ao enviar orçamento. Tente novamente.');
+    } finally {
+      setSendingQuote(false);
     }
-
-    navigate('/SelectPaymentMethod/', {
-      state: {
-        cartItems,
-        totalAmount
-      }
-    });
   };
 
   return (
     <>
+      <EventDetailsModal
+        open={showEventModal}
+        onClose={() => setShowEventModal(false)}
+        onConfirm={handleConfirmEvent}
+        loading={sendingQuote}
+      />
       <main>
   <section className={classes.carrinho}>
     <header className={classes.navCarrinho}>
@@ -347,7 +385,7 @@ function Carrinho() {
                   <button onClick={handleGeneratePDF} className={classes.downloadPdf}>
                     <i className="fas fa-file-pdf"></i> Baixar Orçamento PDF
                   </button>
-                  <button onClick={handleGoToPayment} className={classes.pagamento}>Ir para pagamento</button>
+                  <button onClick={handleOpenEventModal} className={classes.pagamento}>Enviar orçamento</button>
                   <Link to={"/Pacotes/"} className={classes.continuar}>Continuar comprando</Link>
                 </nav>
               </div>
