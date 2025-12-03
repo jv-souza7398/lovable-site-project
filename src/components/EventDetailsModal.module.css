@@ -6,6 +6,7 @@
   width: 95% !important;
   max-height: 90vh;
   overflow-y: auto;
+  z-index: 100 !important;
 }
 
 .modalTitle {
