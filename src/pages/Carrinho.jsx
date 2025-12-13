@@ -15,6 +15,10 @@ function Carrinho() {
   const [sendingQuote, setSendingQuote] = useState(false);
   const navigate = useNavigate();
 
+  const packageItems = cartItems.filter((item) => item && item.item);
+  const drinkItems = cartItems.filter((item) => item && !item.item && item.img);
+  const totalItems = cartItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
+
   useEffect(() => {
     const checkUser = async () => {
       const {
@@ -42,16 +46,14 @@ function Carrinho() {
     );
   }
 
-  const packageItems = cartItems.filter(item => item.type !== 'drink');
-  const drinkItems = cartItems.filter(item => item.type === 'drink');
-
   if (!cartItems || cartItems.length === 0) {
     return (
       <header className={classes.navCarrinho}>
-        <h1>O carrinho está vazio.</h1>;
+        <h1>O carrinho está vazio.</h1>
       </header>
     );
   }
+
 
   const openWhatsApp = (eventDetails, totalAmount, userName) => {
     const phoneNumber = "5511910465650";
@@ -268,91 +270,105 @@ function Carrinho() {
 
             <section className={classes.produtos} data-aos="fade-up">
               <div className={classes.itens}>
-                {packageItems.map((item, index) => (
-                  <article key={`pkg-${index}`} className={classes.articleProdutos}>
-                    <p className={classes.quantidadeItens}>PACOTE {index + 1} </p>
-                    <div className={classes.itemContent}>
-                      <figure className={classes.imgItem}>
-                        <img src={item.item.img} alt={`Imagem do item ${item.item.title}`} />
-                      </figure>
+                {packageItems
+                  .filter((item) => item && item.item && item.item.img)
+                  .map((item, index) => (
+                    <article key={`pkg-${index}`} className={classes.articleProdutos}>
+                      <p className={classes.quantidadeItens}>PACOTE {index + 1} </p>
+                      <div className={classes.itemContent}>
+                        <figure className={classes.imgItem}>
+                          <img src={item.item.img} alt={`Imagem do item ${item.item.title}`} />
+                        </figure>
 
-                      <section className={classes.infoSection}>
-                        <div className={classes.infoPacote}>
-                          <div className={classes.info}>
-                            <h3>
-                              <strong>{item.item.title}</strong>
-                            </h3>
+                        <section className={classes.infoSection}>
+                          <div className={classes.infoPacote}>
+                            <div className={classes.info}>
+                              <h3>
+                                <strong>{item.item.title}</strong>
+                              </h3>
+                              <p>
+                                Horário: <span>{item.horario} Horas</span>
+                              </p>
+                              <p>
+                                Nº Bartenders: <span>{item.bartenders} Bartenders</span>
+                              </p>
+                              <p>
+                                Nº Convidados: <span>{item.convidados} Convidados</span>
+                              </p>
+                            </div>
+                            <div className={classes.buttons}>
+                              <button
+                                type="button"
+                                className={`${classes.btn} ${classes.btnPrimary}`}
+                                title="Remover item"
+                                onClick={() => removeFromCart(cartItems.indexOf(item))}
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className={classes.preco}>
                             <p>
-                              Horário: <span>{item.horario} Horas</span>
-                            </p>
-                            <p>
-                              Nº Bartenders: <span>{item.bartenders} Bartenders</span>
-                            </p>
-                            <p>
-                              Nº Convidados: <span>{item.convidados} Convidados</span>
+                              <strong>R${item.valorTotalFormatado}</strong>
                             </p>
                           </div>
-                          <div className={classes.buttons}>
-                            <button
-                              type="button"
-                              className={`${classes.btn} ${classes.btnPrimary}`}
-                              title="Remover item"
-                              onClick={() => removeFromCart(cartItems.indexOf(item))}
-                            >
-                              <i className="fas fa-trash"></i>
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className={classes.preco}>
-                          <p>
-                            <strong>R${item.valorTotalFormatado}</strong>
-                          </p>
-                        </div>
-                      </section>
-                    </div>
-                  </article>
-                ))}
+                        </section>
+                      </div>
+                    </article>
+                  ))}
 
                 {drinkItems.length > 0 && (
                   <div className={classes.drinksSection}>
                     <p className={classes.quantidadeItens}>DRINKS SELECIONADOS</p>
-                    {drinkItems.map((drink, index) => (
-                      <article key={`drink-${drink.id}`} className={classes.articleDrink}>
-                        <div className={classes.drinkContent}>
-                          <figure className={classes.imgDrink}>
-                            <img src={drink.img} alt={drink.title} />
-                          </figure>
-                          <div className={classes.drinkInfo}>
-                            <h4>{drink.title}</h4>
-                            <p>{drink.description}</p>
-                            <div className={classes.quantityControls}>
-                              <button 
-                                onClick={() => updateQuantity(cartItems.indexOf(drink), (drink.quantity || 1) - 1)}
-                                aria-label="Diminuir quantidade"
-                              >
-                                -
-                              </button>
-                              <span>{drink.quantity || 1}</span>
-                              <button 
-                                onClick={() => updateQuantity(cartItems.indexOf(drink), (drink.quantity || 1) + 1)}
-                                aria-label="Aumentar quantidade"
-                              >
-                                +
-                              </button>
+                    {drinkItems
+                      .filter((drink) => drink && drink.img)
+                      .map((drink) => (
+                        <article key={`drink-${drink.id}`} className={classes.articleDrink}>
+                          <div className={classes.drinkContent}>
+                            <figure className={classes.imgDrink}>
+                              <img src={drink.img} alt={drink.title} />
+                            </figure>
+                            <div className={classes.drinkInfo}>
+                              <h4>{drink.title}</h4>
+                              <p>{drink.description}</p>
+                              <div className={classes.quantityControls}>
+                                <button
+                                  onClick={() =>
+                                    updateQuantity(
+                                      cartItems.indexOf(drink),
+                                      (drink.quantity || 1) - 1,
+                                    )
+                                  }
+                                  aria-label="Diminuir quantidade"
+                                >
+                                  -
+                                </button>
+                                <span>{drink.quantity || 1}</span>
+                                <button
+                                  onClick={() =>
+                                    updateQuantity(
+                                      cartItems.indexOf(drink),
+                                      (drink.quantity || 1) + 1,
+                                    )
+                                  }
+                                  aria-label="Aumentar quantidade"
+                                >
+                                  +
+                                </button>
+                              </div>
                             </div>
+                            <button
+                              type="button"
+                              className={classes.removeDrink}
+                              title="Remover drink"
+                              onClick={() => removeFromCart(cartItems.indexOf(drink))}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
                           </div>
-                          <button
-                            type="button"
-                            className={classes.removeDrink}
-                            title="Remover drink"
-                            onClick={() => removeFromCart(cartItems.indexOf(drink))}
-                          >
-                            <i className="fas fa-trash"></i>
-                          </button>
-                        </div>
-                      </article>
-                    ))}
+                        </article>
+                      ))}
                   </div>
                 )}
               </div>
@@ -364,50 +380,16 @@ function Carrinho() {
                   <div className={classes.cardBody}>
                     <ul className={classes.listGroup}>
                       <li className={classes.listGroupItem}>
-                        <p>Produtos</p>
-                        {/* Somar o total dos pacotes */}
-                        <span>
-                          {new Intl.NumberFormat("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                            minimumFractionDigits: 2,
-                          }).format(
-                            cartItems.reduce((acc, item) => {
-                              // Remove o "R$", pontos e vírgulas, e converte para número
-                              const valorNumerico = parseFloat(
-                                item.valorTotalFormatado
-                                  .replace("R$", "")
-                                  .replace(/\./g, "") // Remove pontos de milhar
-                                  .replace(",", "."), // Substitui vírgula por ponto para decimais
-                              );
-                              return acc + valorNumerico;
-                            }, 0),
-                          )}
-                        </span>
+                        <p>Itens no carrinho</p>
+                        <span>{totalItems}</span>
                       </li>
                       <li className={classes.listGroupItem}>
                         <p>Frete</p>
                         <span>A ser negociado</span>
                       </li>
                       <li className={classes.listGroupItemTotal}>
-                        <h4>Total</h4>
-                        <span>
-                          {new Intl.NumberFormat("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                            minimumFractionDigits: 2,
-                          }).format(
-                            cartItems.reduce((acc, item) => {
-                              const valorNumerico = parseFloat(
-                                item.valorTotalFormatado
-                                  .replace("R$", "")
-                                  .replace(/\./g, "")
-                                  .replace(",", "."),
-                              );
-                              return acc + valorNumerico;
-                            }, 0),
-                          )}
-                        </span>
+                        <h4>Total de itens</h4>
+                        <span>{totalItems}</span>
                       </li>
                     </ul>
 
