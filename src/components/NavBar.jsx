@@ -2,12 +2,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import classes from './NavBar.module.css'
 import { AccountContext } from '../contexts/AccountContext'
+import { CartContext } from '../contexts/CartContext'
 
 import logo from '../assets/Vincci.jpg'
 
 function Navbar() {
   const navigate = useNavigate();
   const { AccountItems } = useContext(AccountContext);
+  const { getTotalDrinkCount } = useContext(CartContext);
+  const totalDrinks = getTotalDrinkCount ? getTotalDrinkCount() : 0;
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleAccountClick = (e) => {
@@ -55,8 +58,12 @@ function Navbar() {
         {/* Ícones Desktop */}
         <div className={classes.servicos}>
           <a href="#" onClick={handleAccountClick}><i className="bi bi-person"></i></a>
-          <Link to={"/Carrinho/"}><i className="bi bi-cart"></i></Link>    
+          <Link to={"/Carrinho/"} className={classes.cartWrapper}>
+            <i className="bi bi-cart"></i>
+            {totalDrinks > 0 && <span className={classes.cartBadge}>{totalDrinks}</span>}
+          </Link>
         </div>
+
 
         {/* Menu Mobile */}
         <div className={`${classes.mobileMenu} ${menuOpen ? classes.mobileMenuOpen : ''}`}>
@@ -71,10 +78,12 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <Link to={"/Carrinho/"} onClick={() => setMenuOpen(false)}>
+              <Link to={"/Carrinho/"} onClick={() => setMenuOpen(false)} className={classes.cartWrapper}>
                 <i className="bi bi-cart"></i> CARRINHO
+                {totalDrinks > 0 && <span className={classes.cartBadge}>{totalDrinks}</span>}
               </Link>
             </li>
+
           </ul>
         </div>
       </nav>

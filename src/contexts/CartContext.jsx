@@ -77,8 +77,8 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
-  const getDrinkItems = () => cartItems.filter(item => item.type === 'drink');
-  const getPackageItems = () => cartItems.filter(item => item.type !== 'drink');
+  const getDrinkItems = () => cartItems;
+  const getPackageItems = () => [];
   const getTotalDrinkCount = () => getDrinkItems().reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   return (
