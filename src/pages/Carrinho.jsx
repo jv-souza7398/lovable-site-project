@@ -8,7 +8,7 @@ import EventDetailsModal from "../components/EventDetailsModal";
 import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
-  const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEventModal, setShowEventModal] = useState(false);
@@ -41,6 +41,9 @@ function Carrinho() {
       </header>
     );
   }
+
+  const packageItems = cartItems.filter(item => item.type !== 'drink');
+  const drinkItems = cartItems.filter(item => item.type === 'drink');
 
   if (!cartItems || cartItems.length === 0) {
     return (
@@ -265,9 +268,9 @@ function Carrinho() {
 
             <section className={classes.produtos} data-aos="fade-up">
               <div className={classes.itens}>
-                {cartItems.map((item, index) => (
-                  <article key={index} className={classes.articleProdutos}>
-                    <p className={classes.quantidadeItens}>ITEM {index + 1} </p>
+                {packageItems.map((item, index) => (
+                  <article key={`pkg-${index}`} className={classes.articleProdutos}>
+                    <p className={classes.quantidadeItens}>PACOTE {index + 1} </p>
                     <div className={classes.itemContent}>
                       <figure className={classes.imgItem}>
                         <img src={item.item.img} alt={`Imagem do item ${item.item.title}`} />
@@ -294,7 +297,7 @@ function Carrinho() {
                               type="button"
                               className={`${classes.btn} ${classes.btnPrimary}`}
                               title="Remover item"
-                              onClick={() => removeFromCart(index)}
+                              onClick={() => removeFromCart(cartItems.indexOf(item))}
                             >
                               <i className="fas fa-trash"></i>
                             </button>
@@ -310,6 +313,48 @@ function Carrinho() {
                     </div>
                   </article>
                 ))}
+
+                {drinkItems.length > 0 && (
+                  <div className={classes.drinksSection}>
+                    <p className={classes.quantidadeItens}>DRINKS SELECIONADOS</p>
+                    {drinkItems.map((drink, index) => (
+                      <article key={`drink-${drink.id}`} className={classes.articleDrink}>
+                        <div className={classes.drinkContent}>
+                          <figure className={classes.imgDrink}>
+                            <img src={drink.img} alt={drink.title} />
+                          </figure>
+                          <div className={classes.drinkInfo}>
+                            <h4>{drink.title}</h4>
+                            <p>{drink.description}</p>
+                            <div className={classes.quantityControls}>
+                              <button 
+                                onClick={() => updateQuantity(cartItems.indexOf(drink), (drink.quantity || 1) - 1)}
+                                aria-label="Diminuir quantidade"
+                              >
+                                -
+                              </button>
+                              <span>{drink.quantity || 1}</span>
+                              <button 
+                                onClick={() => updateQuantity(cartItems.indexOf(drink), (drink.quantity || 1) + 1)}
+                                aria-label="Aumentar quantidade"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            className={classes.removeDrink}
+                            title="Remover drink"
+                            onClick={() => removeFromCart(cartItems.indexOf(drink))}
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
               </div>
               <article className={classes.articleSumario}>
                 <section className={classes.card}>
