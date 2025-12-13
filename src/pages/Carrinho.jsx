@@ -16,10 +16,9 @@ function Carrinho() {
   const [sendingQuote, setSendingQuote] = useState(false);
   const navigate = useNavigate();
 
+  const drinkItems = cartItems.filter((item) => item && item.type === "drink");
   const packageItems = cartItems.filter((item) => item && item.item);
-  const drinkItems = cartItems.filter((item) => item && !item.item && item.img);
-  const totalItems = cartItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
-  console.log('[Carrinho] packageItems:', packageItems, 'drinkItems:', drinkItems, 'totalItems:', totalItems);
+  const totalItems = drinkItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
 
 
   useEffect(() => {
@@ -49,7 +48,7 @@ function Carrinho() {
     );
   }
 
-  if (!cartItems || cartItems.length === 0) {
+  if (!drinkItems || drinkItems.length === 0) {
     return (
       <header className={classes.navCarrinho}>
         <h1>O carrinho está vazio.</h1>
@@ -57,11 +56,10 @@ function Carrinho() {
     );
   }
 
-
   const openWhatsApp = (eventDetails, totalAmount, userName) => {
     const phoneNumber = "5511910465650";
     const dataEventoFormatada = new Date(eventDetails.dataEvento + "T00:00:00").toLocaleDateString("pt-BR");
-    
+
     let message = `Olá! Gostaria de finalizar meu orçamento.\n\n`;
     message += `*Nome:* ${userName}\n`;
     message += `*Total:* ${totalAmount}\n\n`;
@@ -71,16 +69,13 @@ function Carrinho() {
     message += `📍 CEP: ${eventDetails.cep}\n`;
     message += `📅 Data: ${dataEventoFormatada}\n`;
     message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n\n`;
-    message += `*Pacotes selecionados:*\n`;
-    
-    cartItems.forEach((item, index) => {
-      message += `\n${index + 1}. ${item.item.title}\n`;
-      message += `   • Horário: ${item.horario}h\n`;
-      message += `   • Bartenders: ${item.bartenders}\n`;
-      message += `   • Convidados: ${item.convidados}\n`;
-      message += `   • Valor: R$ ${item.valorTotalFormatado}\n`;
+    message += `*Drinks selecionados:*\n`;
+
+    drinkItems.forEach((item, index) => {
+      message += `\n${index + 1}. ${item.title}\n`;
+      message += `   • Quantidade: ${item.quantity || 1}\n`;
     });
-    
+
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
@@ -115,14 +110,8 @@ function Carrinho() {
       style: "currency",
       currency: "BRL",
       minimumFractionDigits: 2,
-    }).format(
-      cartItems.reduce((acc, item) => {
-        const valorNumerico = parseFloat(
-          item.valorTotalFormatado.replace("R$", "").replace(/\./g, "").replace(",", "."),
-        );
-        return acc + valorNumerico;
-      }, 0),
-    );
+    }).format(0);
+
 
     // Gerar PDF em base64 e enviar email
     try {
@@ -188,12 +177,7 @@ function Carrinho() {
         doc.line(20, yPosition, 190, yPosition);
         yPosition += 10;
 
-        const totalValue = cartItems.reduce((acc, item) => {
-          const valorNumerico = parseFloat(
-            item.valorTotalFormatado.replace("R$", "").replace(/\./g, "").replace(",", "."),
-          );
-          return acc + valorNumerico;
-        }, 0);
+        const totalValue = 0;
 
         const totalFormatado = new Intl.NumberFormat("pt-BR", {
           style: "currency",
@@ -223,7 +207,7 @@ function Carrinho() {
         body: {
           userEmail: session.user.email,
           userName,
-          cartItems,
+          cartItems: drinkItems,
           totalAmount,
           pdfBase64,
           eventDetails,
@@ -273,107 +257,55 @@ function Carrinho() {
 
             <section className={classes.produtos} data-aos="fade-up">
               <div className={classes.itens}>
-                {packageItems
-                  .filter((item) => item && item.item && item.item.img)
-                  .map((item, index) => (
-                    <article key={`pkg-${index}`} className={classes.articleProdutos}>
-                      <p className={classes.quantidadeItens}>PACOTE {index + 1} </p>
-                      <div className={classes.itemContent}>
-                        <figure className={classes.imgItem}>
-                          <img src={item.item.img} alt={`Imagem do item ${item.item.title}`} />
+                <div className={classes.drinksSection}>
+                  <p className={classes.quantidadeItens}>DRINKS SELECIONADOS</p>
+                  {drinkItems.map((drink, index) => (
+                    <article key={`drink-${drink.id}-${index}`} className={classes.articleDrink}>
+                      <div className={classes.drinkContent}>
+                        <figure className={classes.imgDrink}>
+                          <img src={drink.img} alt={drink.title} />
                         </figure>
-
-                        <section className={classes.infoSection}>
-                          <div className={classes.infoPacote}>
-                            <div className={classes.info}>
-                              <h3>
-                                <strong>{item.item.title}</strong>
-                              </h3>
-                              <p>
-                                Horário: <span>{item.horario} Horas</span>
-                              </p>
-                              <p>
-                                Nº Bartenders: <span>{item.bartenders} Bartenders</span>
-                              </p>
-                              <p>
-                                Nº Convidados: <span>{item.convidados} Convidados</span>
-                              </p>
-                            </div>
-                            <div className={classes.buttons}>
-                              <button
-                                type="button"
-                                className={`${classes.btn} ${classes.btnPrimary}`}
-                                title="Remover item"
-                                onClick={() => removeFromCart(cartItems.indexOf(item))}
-                              >
-                                <i className="fas fa-trash"></i>
-                              </button>
-                            </div>
+                        <div className={classes.drinkInfo}>
+                          <h4>{drink.title}</h4>
+                          <p>{drink.description}</p>
+                          <div className={classes.quantityControls}>
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  cartItems.indexOf(drink),
+                                  (drink.quantity || 1) - 1,
+                                )
+                              }
+                              aria-label="Diminuir quantidade"
+                            >
+                              -
+                            </button>
+                            <span>{drink.quantity || 1}</span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  cartItems.indexOf(drink),
+                                  (drink.quantity || 1) + 1,
+                                )
+                              }
+                              aria-label="Aumentar quantidade"
+                            >
+                              +
+                            </button>
                           </div>
-
-                          <div className={classes.preco}>
-                            <p>
-                              <strong>R${item.valorTotalFormatado}</strong>
-                            </p>
-                          </div>
-                        </section>
+                        </div>
+                        <button
+                          type="button"
+                          className={classes.removeDrink}
+                          title="Remover drink"
+                          onClick={() => removeFromCart(cartItems.indexOf(drink))}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
                       </div>
                     </article>
                   ))}
-
-                {drinkItems.length > 0 && (
-                  <div className={classes.drinksSection}>
-                    <p className={classes.quantidadeItens}>DRINKS SELECIONADOS</p>
-                    {drinkItems
-                      .filter((drink) => drink && drink.img)
-                      .map((drink) => (
-                        <article key={`drink-${drink.id}`} className={classes.articleDrink}>
-                          <div className={classes.drinkContent}>
-                            <figure className={classes.imgDrink}>
-                              <img src={drink.img} alt={drink.title} />
-                            </figure>
-                            <div className={classes.drinkInfo}>
-                              <h4>{drink.title}</h4>
-                              <p>{drink.description}</p>
-                              <div className={classes.quantityControls}>
-                                <button
-                                  onClick={() =>
-                                    updateQuantity(
-                                      cartItems.indexOf(drink),
-                                      (drink.quantity || 1) - 1,
-                                    )
-                                  }
-                                  aria-label="Diminuir quantidade"
-                                >
-                                  -
-                                </button>
-                                <span>{drink.quantity || 1}</span>
-                                <button
-                                  onClick={() =>
-                                    updateQuantity(
-                                      cartItems.indexOf(drink),
-                                      (drink.quantity || 1) + 1,
-                                    )
-                                  }
-                                  aria-label="Aumentar quantidade"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                            <button
-                              type="button"
-                              className={classes.removeDrink}
-                              title="Remover drink"
-                              onClick={() => removeFromCart(cartItems.indexOf(drink))}
-                            >
-                              <i className="fas fa-trash"></i>
-                            </button>
-                          </div>
-                        </article>
-                      ))}
-                  </div>
-                )}
+                </div>
               </div>
               <article className={classes.articleSumario}>
                 <section className={classes.card}>
