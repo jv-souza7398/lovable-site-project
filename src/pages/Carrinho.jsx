@@ -16,8 +16,7 @@ function Carrinho() {
   const [sendingQuote, setSendingQuote] = useState(false);
   const navigate = useNavigate();
 
-  const drinkItems = cartItems.filter((item) => item && item.type === "drink");
-  const packageItems = cartItems.filter((item) => item && item.item);
+  const drinkItems = cartItems || [];
   const totalItems = drinkItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
 
 

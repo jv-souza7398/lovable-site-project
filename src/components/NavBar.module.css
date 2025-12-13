@@ -91,12 +91,36 @@ margin-right: 11rem;
 .servicos{
   display: flex;
   gap: 1rem;
-  
+  position: relative;
 }
 .servicos i{
   font-size: 1.3rem;
   color: aliceblue;
 }
+
+.cartWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -0.4rem;
+  right: -0.6rem;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  background-color: rgb(183, 143, 63);
+  color: black;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+}
+
 
 /* Botão Hambúrguer */
 .hamburger {
@@ -243,10 +267,16 @@ margin-right: 11rem;
   .servicos {
     display: none;
   }
-  
-  .mobileMenu {
-    display: block;
+
+  .cartWrapper {
+    position: relative;
   }
+
+  .cartBadge {
+    top: 0.2rem;
+    right: 1.2rem;
+  }
+
 }
 
 @media (max-width: 480px) {
