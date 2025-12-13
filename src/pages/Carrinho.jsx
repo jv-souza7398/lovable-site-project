@@ -5,6 +5,7 @@ import classes from "./Carrinho.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import EventDetailsModal from "../components/EventDetailsModal";
+import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
   const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
@@ -49,65 +50,33 @@ function Carrinho() {
     );
   }
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF();
-
-    // Título
-    doc.setFontSize(20);
-    doc.text("ORÇAMENTO", 105, 20, { align: "center" });
-
-    // Data
-    doc.setFontSize(10);
-    const dataAtual = new Date().toLocaleDateString("pt-BR");
-    doc.text(`Data: ${dataAtual}`, 20, 35);
-
-    // Linha separadora
-    doc.line(20, 40, 190, 40);
-
-    // Itens do carrinho
-    let yPosition = 50;
-    doc.setFontSize(12);
-
+  const openWhatsApp = (eventDetails, totalAmount, userName) => {
+    const phoneNumber = "5511910465650";
+    const dataEventoFormatada = new Date(eventDetails.dataEvento + "T00:00:00").toLocaleDateString("pt-BR");
+    
+    let message = `Olá! Gostaria de finalizar meu orçamento.\n\n`;
+    message += `*Nome:* ${userName}\n`;
+    message += `*Total:* ${totalAmount}\n\n`;
+    message += `*Dados do Evento:*\n`;
+    message += `📍 ${eventDetails.rua}, ${eventDetails.numero}${eventDetails.complemento ? ` - ${eventDetails.complemento}` : ""}\n`;
+    message += `📍 ${eventDetails.bairro}, ${eventDetails.cidade} - ${eventDetails.uf}\n`;
+    message += `📍 CEP: ${eventDetails.cep}\n`;
+    message += `📅 Data: ${dataEventoFormatada}\n`;
+    message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n\n`;
+    message += `*Pacotes selecionados:*\n`;
+    
     cartItems.forEach((item, index) => {
-      // Título do item
-      doc.setFont(undefined, "bold");
-      doc.text(`ITEM ${index + 1}: ${item.item.title}`, 20, yPosition);
-
-      // Detalhes do item
-      doc.setFont(undefined, "normal");
-      doc.setFontSize(10);
-      yPosition += 7;
-      doc.text(`Horário: ${item.horario} Horas`, 25, yPosition);
-      yPosition += 5;
-      doc.text(`Nº Bartenders: ${item.bartenders}`, 25, yPosition);
-      yPosition += 5;
-      doc.text(`Nº Convidados: ${item.convidados}`, 25, yPosition);
-      yPosition += 5;
-      doc.text(`Valor: R$ ${item.valorTotalFormatado}`, 25, yPosition);
-
-      yPosition += 10;
-      doc.line(20, yPosition, 190, yPosition);
-      yPosition += 10;
+      message += `\n${index + 1}. ${item.item.title}\n`;
+      message += `   • Horário: ${item.horario}h\n`;
+      message += `   • Bartenders: ${item.bartenders}\n`;
+      message += `   • Convidados: ${item.convidados}\n`;
+      message += `   • Valor: R$ ${item.valorTotalFormatado}\n`;
     });
-
-    // Total
-    const totalAmount = cartItems.reduce((acc, item) => {
-      const valorNumerico = parseFloat(item.valorTotalFormatado.replace("R$", "").replace(/\./g, "").replace(",", "."));
-      return acc + valorNumerico;
-    }, 0);
-
-    const totalFormatado = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 2,
-    }).format(totalAmount);
-
-    doc.setFontSize(14);
-    doc.setFont(undefined, "bold");
-    doc.text(`TOTAL: ${totalFormatado}`, 105, yPosition, { align: "center" });
-
-    // Salvar PDF
-    doc.save(`orcamento-${dataAtual.replace(/\//g, "-")}.pdf`);
+    
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, "_blank");
   };
 
   const handleOpenEventModal = async () => {
@@ -258,7 +227,10 @@ function Carrinho() {
         alert("Erro ao enviar orçamento. Tente novamente.");
       } else {
         console.log("Email enviado com sucesso!");
-        alert("Orçamento enviado com sucesso! Entraremos em contato em breve.");
+        
+        // Open WhatsApp after successful email
+        openWhatsApp(eventDetails, totalAmount, userName);
+        
         setShowEventModal(false);
         clearCart();
       }
@@ -272,6 +244,7 @@ function Carrinho() {
 
   return (
     <>
+      <CartStepsFrame />
       <EventDetailsModal
         open={showEventModal}
         onClose={() => setShowEventModal(false)}
@@ -394,9 +367,6 @@ function Carrinho() {
                     </ul>
 
                     <nav className={classes.navLinks}>
-                      <button onClick={handleGeneratePDF} className={classes.downloadPdf}>
-                        <i className="fas fa-file-pdf"></i> Baixar Orçamento PDF
-                      </button>
                       <button onClick={handleOpenEventModal} className={classes.pagamento}>
                         Enviar orçamento
                       </button>
