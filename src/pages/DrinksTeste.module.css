@@ -1,0 +1,191 @@
+.navDrinks {
+  width: 100%;
+  height: 24rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.412), rgba(20, 20, 20, 1)), url(../assets/drink6.jpg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navDrinks h1 {
+  font-size: 5rem;
+  letter-spacing: 1px;
+  font-style: italic;
+  color: rgb(183, 143, 63);
+}
+
+.section {
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.996);
+  padding: 3rem 0;
+}
+
+.carouselSection {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto 4rem;
+}
+
+.categoryTitle {
+  font-size: 2.5rem;
+  color: rgb(169, 176, 165);
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+.carouselWrapper {
+  position: relative;
+  padding: 0 3rem;
+}
+
+.carousel {
+  width: 100%;
+}
+
+.carouselContent {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carouselItem {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding-left: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .carouselItem {
+    flex: 0 0 calc(100% / 6);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .carouselItem {
+    flex: 0 0 calc(100% / 4);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .carouselItem {
+    flex: 0 0 calc(100% / 2);
+  }
+}
+
+@media (max-width: 479px) {
+  .carouselItem {
+    flex: 0 0 80%;
+  }
+}
+
+.drinkCard {
+  height: 16rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-align: center;
+  border: 1px solid rgba(118, 123, 58, 0.4);
+  background-color: rgba(22, 22, 22, 0.862);
+  box-shadow: 5px 5px 10px rgba(118, 123, 58, 0.4);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.drinkCard:hover {
+  transform: translateY(-5px);
+}
+
+.drinkCard img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.drinkCard h2 {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: rgb(217, 220, 222);
+  padding: 0 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drinkCard p {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(183, 143, 63);
+  margin: 0.3rem 0.5rem;
+}
+
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(183, 143, 63, 0.9) !important;
+  border: none !important;
+  color: black !important;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 10;
+}
+
+.carouselButton:hover {
+  background-color: rgb(183, 143, 63) !important;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .navDrinks h1 {
+    font-size: 4rem;
+  }
+
+  .categoryTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navDrinks {
+    height: 18rem;
+  }
+
+  .navDrinks h1 {
+    font-size: 2.5rem;
+  }
+
+  .categoryTitle {
+    font-size: 1.8rem;
+  }
+
+  .carouselWrapper {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navDrinks {
+    height: 14rem;
+  }
+
+  .navDrinks h1 {
+    font-size: 1.8rem;
+  }
+
+  .categoryTitle {
+    font-size: 1.5rem;
+  }
+
+  .carouselSection {
+    width: 95%;
+  }
+
+  .drinkCard {
+    height: 14rem;
+  }
+
+  .drinkCard img {
+    height: 8rem;
+  }
+}
