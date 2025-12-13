@@ -36,8 +36,9 @@ export const CartProvider = ({ children }) => {
   // Add drink item with quantity support
   const addDrinkToCart = (drink) => {
     setCartItems((prevItems) => {
+      console.log('[CartContext] addDrinkToCart called with', drink);
       const existingIndex = prevItems.findIndex(
-        (item) => item.type === 'drink' && item.id === drink.id
+        (item) => item && item.type === 'drink' && item.id === drink.id
       );
       
       if (existingIndex >= 0) {
@@ -46,10 +47,13 @@ export const CartProvider = ({ children }) => {
           ...updated[existingIndex],
           quantity: (updated[existingIndex].quantity || 1) + 1
         };
+        console.log('[CartContext] updated existing drink item', updated[existingIndex]);
         return updated;
       }
       
-      return [...prevItems, { ...drink, type: 'drink', quantity: 1 }];
+      const next = [...prevItems, { ...drink, type: 'drink', quantity: 1 }];
+      console.log('[CartContext] added new drink item. Cart now:', next);
+      return next;
     });
   };
 

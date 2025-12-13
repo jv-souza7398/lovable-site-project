@@ -9,6 +9,7 @@ import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
+  console.log('[Carrinho] cartItems at render:', cartItems);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEventModal, setShowEventModal] = useState(false);
@@ -18,6 +19,8 @@ function Carrinho() {
   const packageItems = cartItems.filter((item) => item && item.item);
   const drinkItems = cartItems.filter((item) => item && !item.item && item.img);
   const totalItems = cartItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
+  console.log('[Carrinho] packageItems:', packageItems, 'drinkItems:', drinkItems, 'totalItems:', totalItems);
+
 
   useEffect(() => {
     const checkUser = async () => {
