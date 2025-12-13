@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaTimes, FaShoppingCart, FaClipboardList, FaWhatsapp } from "react-icons/fa";
 
 const CartStepsFrame = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const hasSeenFrame = localStorage.getItem("vincci_cart_steps_seen");
-    if (!hasSeenFrame) {
-      setIsVisible(true);
-    }
-  }, []);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleClose = () => {
-    localStorage.setItem("vincci_cart_steps_seen", "true");
     setIsVisible(false);
   };
 
