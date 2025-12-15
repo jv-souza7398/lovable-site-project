@@ -70,23 +70,17 @@ const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
   return (
     <div className={classes.overlay} onClick={onClose} role="dialog" aria-modal="true">
       <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
-        {/* Desktop close button */}
-        <button
-          className={classes.closeButton}
-          onClick={onClose}
-          aria-label="Fechar modal"
-        >
-          <X size={24} />
-        </button>
-
-        {/* Mobile close button - subtle top right */}
-        <button
-          className={classes.mobileCloseBtn}
-          onClick={onClose}
-          aria-label="Fechar modal"
-        >
-          <X size={18} />
-        </button>
+        {/* Header with close button */}
+        <div className={classes.modalHeader}>
+          <span className={classes.headerTitle}>{drink.title}</span>
+          <button
+            className={classes.headerCloseBtn}
+            onClick={onClose}
+            aria-label="Fechar modal"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
         <div className={classes.content}>
           {/* Left side - Video */}
