@@ -143,16 +143,23 @@
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  padding: 0.4rem 0.8rem;
+  padding: 0.35rem 0.6rem;
   margin: auto 0.5rem 0.5rem;
+  width: calc(100% - 1rem);
+  max-width: calc(100% - 1rem);
+  box-sizing: border-box;
   border: 1px solid rgb(183, 143, 63);
   background: transparent;
   color: rgb(183, 143, 63);
   font-size: 0.75rem;
   font-weight: 600;
+  line-height: 1;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .addButton:hover {

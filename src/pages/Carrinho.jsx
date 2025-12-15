@@ -130,20 +130,14 @@ function Carrinho() {
         let yPosition = 50;
         doc.setFontSize(12);
 
-        cartItems.forEach((item, index) => {
+        drinkItems.forEach((item, index) => {
           doc.setFont(undefined, "bold");
-          doc.text(`ITEM ${index + 1}: ${item.item.title}`, 20, yPosition);
+          doc.text(`ITEM ${index + 1}: ${item.title}`, 20, yPosition);
 
           doc.setFont(undefined, "normal");
           doc.setFontSize(10);
           yPosition += 7;
-          doc.text(`Horário: ${item.horario} Horas`, 25, yPosition);
-          yPosition += 5;
-          doc.text(`Nº Bartenders: ${item.bartenders}`, 25, yPosition);
-          yPosition += 5;
-          doc.text(`Nº Convidados: ${item.convidados}`, 25, yPosition);
-          yPosition += 5;
-          doc.text(`Valor: R$ ${item.valorTotalFormatado}`, 25, yPosition);
+          doc.text(`Quantidade: ${item.quantity || 1}`, 25, yPosition);
 
           yPosition += 10;
           doc.line(20, yPosition, 190, yPosition);

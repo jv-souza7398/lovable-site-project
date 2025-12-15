@@ -50,8 +50,13 @@ const DrinkCard = ({ item }) => {
       <h2>{item.title}</h2>
       <p>{item.description}</p>
       <button 
+        type="button"
         className={`${classes.addButton} ${added ? classes.added : ''}`}
-        onClick={handleAdd}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleAdd();
+        }}
         aria-label={`Adicionar ${item.title} ao carrinho`}
       >
         {added ? <Check size={16} /> : <Plus size={16} />}
