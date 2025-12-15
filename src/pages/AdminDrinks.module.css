@@ -333,6 +333,16 @@
   flex-wrap: wrap;
 }
 
+.caracteristicaItem input {
+  color: #fff !important;
+  background: #333 !important;
+  border: 1px solid #555 !important;
+}
+
+.caracteristicaItem input::placeholder {
+  color: #888 !important;
+}
+
 .caractNome {
   flex: 1;
   min-width: 120px;
@@ -411,6 +421,13 @@
 
 .ingredienteItem input {
   flex: 1;
+  color: #fff !important;
+  background: #333 !important;
+  border: 1px solid #555 !important;
+}
+
+.ingredienteItem input::placeholder {
+  color: #888 !important;
 }
 
 /* Form Actions */
