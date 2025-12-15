@@ -13,28 +13,217 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from '../components/ui/carousel';
+import DrinkDetailsModal from '../components/DrinkDetailsModal';
 
 const drinksSemAlcool = [
-  { id: 'sa-1', img: drink10, title: "Mocktail Tropical", description: "Refrescante e saboroso" },
-  { id: 'sa-2', img: drink11, title: "Virgin Mojito", description: "Clássico sem álcool" },
-  { id: 'sa-3', img: drink8, title: "Fruit Punch", description: "Mix de frutas tropicais" },
-  { id: 'sa-4', img: drink9, title: "Lemonade Especial", description: "Limonada premium" },
-  { id: 'sa-5', img: drink10, title: "Smoothie Mix", description: "Vitaminas naturais" },
-  { id: 'sa-6', img: drink11, title: "Mocktail Sunset", description: "Visual impressionante" },
-  { id: 'sa-7', img: drink8, title: "Chá Gelado Premium", description: "Infusão especial" },
+  { 
+    id: 'sa-1', 
+    img: drink10, 
+    title: "Mocktail Tropical", 
+    description: "Refrescante e saboroso",
+    descricao: "Um drink tropical refrescante, perfeito para dias quentes. Combina frutas exóticas com um toque cítrico especial.",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 4, max: 5 },
+      { nome: "Acidez", nivel: 2, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 5, max: 5 }
+    ],
+    ingredientes: ["Suco de Maracujá", "Água de Coco", "Hortelã", "Limão", "Xarope de Açúcar"]
+  },
+  { 
+    id: 'sa-2', 
+    img: drink11, 
+    title: "Virgin Mojito", 
+    description: "Clássico sem álcool",
+    descricao: "A versão sem álcool do clássico cubano. Refrescante com notas de hortelã e lima.",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 3, max: 5 },
+      { nome: "Acidez", nivel: 3, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 5, max: 5 }
+    ],
+    ingredientes: ["Água com Gás", "Hortelã Fresca", "Limão", "Açúcar Demerara"]
+  },
+  { 
+    id: 'sa-3', 
+    img: drink8, 
+    title: "Fruit Punch", 
+    description: "Mix de frutas tropicais",
+    descricao: "Um punch vibrante com mix de frutas tropicais. Perfeito para celebrações.",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 5, max: 5 },
+      { nome: "Acidez", nivel: 2, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ],
+    ingredientes: ["Suco de Laranja", "Suco de Abacaxi", "Grenadine", "Ginger Ale"]
+  },
+  { 
+    id: 'sa-4', 
+    img: drink9, 
+    title: "Lemonade Especial", 
+    description: "Limonada premium",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 4, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 5, max: 5 }
+    ]
+  },
+  { 
+    id: 'sa-5', 
+    img: drink10, 
+    title: "Smoothie Mix", 
+    description: "Vitaminas naturais",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 4, max: 5 },
+      { nome: "Acidez", nivel: 1, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 3, max: 5 }
+    ]
+  },
+  { 
+    id: 'sa-6', 
+    img: drink11, 
+    title: "Mocktail Sunset", 
+    description: "Visual impressionante",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 3, max: 5 },
+      { nome: "Acidez", nivel: 2, max: 5 },
+      { nome: "Amargor", nivel: 0, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ]
+  },
+  { 
+    id: 'sa-7', 
+    img: drink8, 
+    title: "Chá Gelado Premium", 
+    description: "Infusão especial",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 1, max: 5 },
+      { nome: "Amargor", nivel: 2, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 0, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ]
+  },
 ];
 
 const drinksPadroes = [
-  { id: 'dp-1', img: drink8, title: "Caipirinha Clássica", description: "Tradição brasileira" },
-  { id: 'dp-2', img: drink9, title: "Mojito", description: "Refrescante cubano" },
-  { id: 'dp-3', img: drink10, title: "Margarita", description: "Clássico mexicano" },
-  { id: 'dp-4', img: drink11, title: "Moscow Mule", description: "Vodka e gengibre" },
-  { id: 'dp-5', img: drink8, title: "Gin Tônica", description: "Elegância britânica" },
-  { id: 'dp-6', img: drink9, title: "Whisky Sour", description: "Sofisticado" },
-  { id: 'dp-7', img: drink10, title: "Negroni", description: "Italiano autêntico" },
+  { 
+    id: 'dp-1', 
+    img: drink8, 
+    title: "Caipirinha Clássica", 
+    description: "Tradição brasileira",
+    descricao: "O drink mais famoso do Brasil. Cachaça, limão e açúcar em perfeita harmonia.",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 4, max: 5 },
+      { nome: "Amargor", nivel: 1, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 4, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ],
+    ingredientes: ["Cachaça", "Limão", "Açúcar", "Gelo"]
+  },
+  { 
+    id: 'dp-2', 
+    img: drink9, 
+    title: "Mojito", 
+    description: "Refrescante cubano",
+    descricao: "Clássico cubano com rum, hortelã fresca e um toque de limão.",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 3, max: 5 },
+      { nome: "Acidez", nivel: 3, max: 5 },
+      { nome: "Amargor", nivel: 1, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 3, max: 5 },
+      { nome: "Refrescância", nivel: 5, max: 5 }
+    ],
+    ingredientes: ["Rum Branco", "Hortelã", "Limão", "Açúcar", "Água com Gás"]
+  },
+  { 
+    id: 'dp-3', 
+    img: drink10, 
+    title: "Margarita", 
+    description: "Clássico mexicano",
+    descricao: "O icônico coquetel mexicano com tequila, triple sec e limão.",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 4, max: 5 },
+      { nome: "Amargor", nivel: 1, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 4, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ],
+    ingredientes: ["Tequila", "Triple Sec", "Suco de Limão", "Sal"]
+  },
+  { 
+    id: 'dp-4', 
+    img: drink11, 
+    title: "Moscow Mule", 
+    description: "Vodka e gengibre",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 2, max: 5 },
+      { nome: "Amargor", nivel: 1, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 3, max: 5 },
+      { nome: "Refrescância", nivel: 5, max: 5 }
+    ],
+    ingredientes: ["Vodka", "Cerveja de Gengibre", "Limão", "Gelo"]
+  },
+  { 
+    id: 'dp-5', 
+    img: drink8, 
+    title: "Gin Tônica", 
+    description: "Elegância britânica",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 1, max: 5 },
+      { nome: "Acidez", nivel: 2, max: 5 },
+      { nome: "Amargor", nivel: 3, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 3, max: 5 },
+      { nome: "Refrescância", nivel: 4, max: 5 }
+    ],
+    ingredientes: ["Gin", "Água Tônica", "Limão", "Especiarias"]
+  },
+  { 
+    id: 'dp-6', 
+    img: drink9, 
+    title: "Whisky Sour", 
+    description: "Sofisticado",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 2, max: 5 },
+      { nome: "Acidez", nivel: 4, max: 5 },
+      { nome: "Amargor", nivel: 2, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 4, max: 5 },
+      { nome: "Refrescância", nivel: 2, max: 5 }
+    ],
+    ingredientes: ["Whisky", "Suco de Limão", "Xarope Simples", "Clara de Ovo"]
+  },
+  { 
+    id: 'dp-7', 
+    img: drink10, 
+    title: "Negroni", 
+    description: "Italiano autêntico",
+    caracteristicas: [
+      { nome: "Doçura", nivel: 1, max: 5 },
+      { nome: "Acidez", nivel: 1, max: 5 },
+      { nome: "Amargor", nivel: 5, max: 5 },
+      { nome: "Teor Alcoólico", nivel: 5, max: 5 },
+      { nome: "Refrescância", nivel: 2, max: 5 }
+    ],
+    ingredientes: ["Gin", "Campari", "Vermute Rosso", "Casca de Laranja"]
+  },
 ];
 
-const DrinkCard = ({ item }) => {
+const DrinkCard = ({ item, onImageClick }) => {
   const { addDrinkToCart } = useContext(CartContext);
   const [added, setAdded] = useState(false);
 
@@ -46,7 +235,12 @@ const DrinkCard = ({ item }) => {
 
   return (
     <div className={classes.drinkCard}>
-      <img src={item.img} alt={item.title} />
+      <img 
+        src={item.img} 
+        alt={item.title} 
+        onClick={() => onImageClick(item)}
+        style={{ cursor: 'pointer' }}
+      />
       <h2>{item.title}</h2>
       <p>{item.description}</p>
       <button 
@@ -66,7 +260,7 @@ const DrinkCard = ({ item }) => {
   );
 };
 
-const DrinkCarousel = ({ title, items }) => (
+const DrinkCarousel = ({ title, items, onDrinkClick }) => (
   <div className={classes.carouselSection}>
     <h2 className={classes.categoryTitle}>{title}</h2>
     <div className={classes.carouselWrapper}>
@@ -80,7 +274,7 @@ const DrinkCarousel = ({ title, items }) => (
         <CarouselContent className={classes.carouselContent}>
           {items.map((item) => (
             <CarouselItem key={item.id} className={classes.carouselItem}>
-              <DrinkCard item={item} />
+              <DrinkCard item={item} onImageClick={onDrinkClick} />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -92,15 +286,34 @@ const DrinkCarousel = ({ title, items }) => (
 );
 
 function DrinksTeste() {
+  const [selectedDrink, setSelectedDrink] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDrinkClick = (drink) => {
+    setSelectedDrink(drink);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDrink(null);
+  };
+
   return (
     <>
       <div className={classes.navDrinks}>
         <h1>DRINKS - TESTE</h1>
       </div>
       <section className={classes.section}>
-        <DrinkCarousel title="DRINKS SEM ÁLCOOL" items={drinksSemAlcool} />
-        <DrinkCarousel title="DRINKS PADRÕES" items={drinksPadroes} />
+        <DrinkCarousel title="DRINKS SEM ÁLCOOL" items={drinksSemAlcool} onDrinkClick={handleDrinkClick} />
+        <DrinkCarousel title="DRINKS PADRÕES" items={drinksPadroes} onDrinkClick={handleDrinkClick} />
       </section>
+
+      <DrinkDetailsModal
+        drink={selectedDrink}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 }
