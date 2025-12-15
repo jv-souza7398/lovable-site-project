@@ -66,6 +66,14 @@ function Navbar() {
         </div>
 
 
+        {/* Overlay Mobile */}
+        {menuOpen && (
+          <div 
+            className={classes.overlay} 
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+
         {/* Menu Mobile */}
         <div className={`${classes.mobileMenu} ${menuOpen ? classes.mobileMenuOpen : ''}`}>
           <ul>
