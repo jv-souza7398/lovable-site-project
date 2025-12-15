@@ -48,6 +48,7 @@ function Navbar() {
           <ul>
             <Link to={"#"}><i className="bi bi-search"></i></Link>
             <li><Link to={"/"}>HOME</Link></li>
+            <li><Link to={"/drinks-teste/"}>DRINKS</Link></li>
             <li><Link to={"/Pacotes/"}>PACOTES</Link></li>
             <Link to={"#"}><img src={logo} className={classes.logoImg}/></Link>
             <li><Link to={"/sobre/"}>SOBRE NÓS</Link></li>   
@@ -69,10 +70,10 @@ function Navbar() {
         <div className={`${classes.mobileMenu} ${menuOpen ? classes.mobileMenuOpen : ''}`}>
           <ul>
             <li><Link to={"/"} onClick={() => setMenuOpen(false)}>HOME</Link></li>
+            <li><Link to={"/drinks-teste/"} onClick={() => setMenuOpen(false)}>DRINKS</Link></li>
             <li><Link to={"/Pacotes/"} onClick={() => setMenuOpen(false)}>PACOTES</Link></li>
             <li><Link to={"/sobre/"} onClick={() => setMenuOpen(false)}>SOBRE NÓS</Link></li>
             <li><Link to={"/fale-conosco/"} onClick={() => setMenuOpen(false)}>FALE CONOSCO</Link></li>
-            <li>
               <a href="#" onClick={(e) => { handleAccountClick(e); setMenuOpen(false); }}>
                 <i className="bi bi-person"></i> MINHA CONTA
               </a>
