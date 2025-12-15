@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import classes from './DrinksTeste.module.css';
 import drink8 from '../assets/drink8.jpg';
 import drink9 from '../assets/drink9.jpg';
 import drink10 from '../assets/drink10.jpg';
 import drink11 from '../assets/drink11.jpg';
 import { CartContext } from '../contexts/CartContext';
-import { Plus, Check } from 'lucide-react';
+import { Plus, Check, Loader2 } from 'lucide-react';
 import { 
   Carousel, 
   CarouselContent, 
@@ -14,6 +14,7 @@ import {
   CarouselPrevious 
 } from '../components/ui/carousel';
 import DrinkDetailsModal from '../components/DrinkDetailsModal';
+import { supabase } from '@/integrations/supabase/client';
 
 const drinksSemAlcool = [
   { 
@@ -285,9 +286,53 @@ const DrinkCarousel = ({ title, items, onDrinkClick }) => (
   </div>
 );
 
+// Helper function to map database drinks to component format
+const mapDrinkFromDB = (dbDrink) => ({
+  id: dbDrink.id,
+  img: dbDrink.imagem_url,
+  title: dbDrink.nome,
+  description: dbDrink.descricao?.substring(0, 50) + (dbDrink.descricao?.length > 50 ? '...' : ''),
+  descricao: dbDrink.descricao,
+  videoUrl: dbDrink.video_url,
+  caracteristicas: (dbDrink.caracteristicas || []).map(c => ({
+    nome: c.nome,
+    nivel: c.nivel,
+    max: 5
+  })),
+  ingredientes: dbDrink.ingredientes || []
+});
+
 function DrinksTeste() {
   const [selectedDrink, setSelectedDrink] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dbDrinksSemAlcool, setDbDrinksSemAlcool] = useState([]);
+  const [dbDrinksPadrao, setDbDrinksPadrao] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDrinks = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('drinks')
+        .select('*')
+        .order('nome');
+
+      if (!error && data && data.length > 0) {
+        const semAlcool = data
+          .filter(d => d.categoria === 'drinks-sem-alcool')
+          .map(mapDrinkFromDB);
+        const padrao = data
+          .filter(d => d.categoria === 'drinks-padrao')
+          .map(mapDrinkFromDB);
+        
+        setDbDrinksSemAlcool(semAlcool);
+        setDbDrinksPadrao(padrao);
+      }
+      setLoading(false);
+    };
+
+    fetchDrinks();
+  }, []);
 
   const handleDrinkClick = (drink) => {
     setSelectedDrink(drink);
@@ -299,15 +344,26 @@ function DrinksTeste() {
     setSelectedDrink(null);
   };
 
+  // Use database drinks if available, otherwise fallback to hardcoded
+  const displaySemAlcool = dbDrinksSemAlcool.length > 0 ? dbDrinksSemAlcool : drinksSemAlcool;
+  const displayPadrao = dbDrinksPadrao.length > 0 ? dbDrinksPadrao : drinksPadroes;
+
   return (
     <>
       <div className={classes.navDrinks}>
         <h1>DRINKS - TESTE</h1>
       </div>
-      <section className={classes.section}>
-        <DrinkCarousel title="DRINKS SEM ÁLCOOL" items={drinksSemAlcool} onDrinkClick={handleDrinkClick} />
-        <DrinkCarousel title="DRINKS PADRÕES" items={drinksPadroes} onDrinkClick={handleDrinkClick} />
-      </section>
+      {loading ? (
+        <div className={classes.loadingState}>
+          <Loader2 className="animate-spin" size={32} />
+          <p>Carregando drinks...</p>
+        </div>
+      ) : (
+        <section className={classes.section}>
+          <DrinkCarousel title="DRINKS SEM ÁLCOOL" items={displaySemAlcool} onDrinkClick={handleDrinkClick} />
+          <DrinkCarousel title="DRINKS PADRÕES" items={displayPadrao} onDrinkClick={handleDrinkClick} />
+        </section>
+      )}
 
       <DrinkDetailsModal
         drink={selectedDrink}

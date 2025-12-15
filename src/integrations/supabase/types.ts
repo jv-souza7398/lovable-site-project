@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      drinks: {
+        Row: {
+          caracteristicas: Json | null
+          categoria: string
+          created_at: string
+          descricao: string
+          id: string
+          imagem_url: string
+          ingredientes: string[] | null
+          nome: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          caracteristicas?: Json | null
+          categoria: string
+          created_at?: string
+          descricao: string
+          id?: string
+          imagem_url: string
+          ingredientes?: string[] | null
+          nome: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          caracteristicas?: Json | null
+          categoria?: string
+          created_at?: string
+          descricao?: string
+          id?: string
+          imagem_url?: string
+          ingredientes?: string[] | null
+          nome?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           cpf: string | null

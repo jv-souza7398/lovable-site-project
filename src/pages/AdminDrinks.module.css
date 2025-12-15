@@ -1,0 +1,352 @@
+.container {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  transition: background 0.2s;
+}
+
+.backLink:hover {
+  background: hsl(var(--accent));
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.subtitle {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.newBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loadingState,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.drinksList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.drinkCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.drinkCard:hover {
+  box-shadow: 0 4px 20px hsl(var(--foreground) / 0.1);
+  transform: translateY(-2px);
+}
+
+.drinkImage {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.drinkImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drinkInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.drinkInfo h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categoria {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  background: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+  border-radius: 20px;
+}
+
+.drinkActions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.deleteBtn {
+  color: hsl(var(--destructive));
+}
+
+.deleteBtn:hover {
+  background: hsl(var(--destructive) / 0.1);
+}
+
+/* Dialog */
+.dialogContent {
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.sectionHint {
+  font-size: 0.8rem;
+  color: hsl(var(--muted-foreground));
+  margin: -0.5rem 0 0.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.imagePreview {
+  margin-top: 0.5rem;
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoPreview {
+  margin-top: 0.5rem;
+  aspect-ratio: 16/9;
+  max-width: 280px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+}
+
+.videoPreview iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Caracteristicas */
+.caracteristicasList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.caracteristicaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: hsl(var(--muted));
+  border-radius: 8px;
+}
+
+.caractNome {
+  flex: 1;
+  max-width: 150px;
+}
+
+.caractNivel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.slider {
+  flex: 1;
+  max-width: 100px;
+  accent-color: hsl(var(--primary));
+}
+
+.previewCircles {
+  display: flex;
+  gap: 4px;
+}
+
+.previewCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--primary));
+  background: transparent;
+}
+
+.previewCircle.filled {
+  background: hsl(var(--primary));
+}
+
+.removeBtn {
+  color: hsl(var(--destructive));
+  flex-shrink: 0;
+}
+
+.removeBtn:hover {
+  background: hsl(var(--destructive) / 0.1);
+}
+
+.addBtn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Ingredientes */
+.ingredientesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ingredienteItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ingredienteItem input {
+  flex: 1;
+}
+
+/* Form Actions */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .newBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .drinksList {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dialogContent {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+
+  .caracteristicaItem {
+    flex-wrap: wrap;
+  }
+
+  .caractNome {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .caractNivel {
+    flex: 1;
+  }
+}
