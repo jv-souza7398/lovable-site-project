@@ -1,7 +1,9 @@
 .container {
   min-height: 100vh;
-  background: hsl(var(--background));
+  background: #1a1a1a;
   padding: 2rem;
+  padding-top: 6rem;
+  color: #fff;
 }
 
 .header {
@@ -10,7 +12,9 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid rgba(183, 143, 63, 0.3);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .headerLeft {
@@ -23,35 +27,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
-  background: hsl(var(--muted));
-  color: hsl(var(--foreground));
+  background: rgba(183, 143, 63, 0.15);
+  color: rgb(183, 143, 63);
   transition: background 0.2s;
+  flex-shrink: 0;
 }
 
 .backLink:hover {
-  background: hsl(var(--accent));
+  background: rgba(183, 143, 63, 0.3);
 }
 
 .title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: hsl(var(--foreground));
+  color: rgb(183, 143, 63);
   margin: 0;
+  line-height: 1.2;
 }
 
 .subtitle {
-  color: hsl(var(--muted-foreground));
-  font-size: 0.9rem;
-  margin: 0;
+  color: #999;
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0;
 }
 
 .newBtn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: rgb(183, 143, 63) !important;
+  color: #000 !important;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.newBtn:hover {
+  background: rgb(212, 175, 55) !important;
 }
 
 .loadingState,
@@ -62,12 +78,18 @@
   justify-content: center;
   padding: 4rem 2rem;
   gap: 1rem;
-  color: hsl(var(--muted-foreground));
+  color: #999;
+}
+
+.emptyState button {
+  background: rgb(183, 143, 63) !important;
+  color: #000 !important;
+  font-weight: 600;
 }
 
 .drinksList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.25rem;
 }
 
@@ -76,14 +98,15 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
+  background: #222;
+  border: 1px solid rgba(183, 143, 63, 0.2);
   border-radius: 12px;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
 }
 
 .drinkCard:hover {
-  box-shadow: 0 4px 20px hsl(var(--foreground) / 0.1);
+  border-color: rgba(183, 143, 63, 0.5);
+  box-shadow: 0 4px 20px rgba(183, 143, 63, 0.15);
   transform: translateY(-2px);
 }
 
@@ -93,6 +116,7 @@
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
+  background: #333;
 }
 
 .drinkImage img {
@@ -109,39 +133,63 @@
 .drinkInfo h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: hsl(var(--foreground));
-  margin: 0 0 0.25rem;
+  color: #fff;
+  margin: 0 0 0.35rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .categoria {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   padding: 0.2rem 0.6rem;
-  background: hsl(var(--primary) / 0.15);
-  color: hsl(var(--primary));
+  background: rgba(183, 143, 63, 0.2);
+  color: rgb(183, 143, 63);
   border-radius: 20px;
+  display: inline-block;
 }
 
 .drinkActions {
   display: flex;
   gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.drinkActions button {
+  color: #999;
+}
+
+.drinkActions button:hover {
+  color: rgb(183, 143, 63);
+  background: rgba(183, 143, 63, 0.1);
 }
 
 .deleteBtn {
-  color: hsl(var(--destructive));
+  color: #e74c3c !important;
 }
 
 .deleteBtn:hover {
-  background: hsl(var(--destructive) / 0.1);
+  background: rgba(231, 76, 60, 0.1) !important;
+  color: #e74c3c !important;
 }
 
 /* Dialog */
 .dialogContent {
-  max-width: 900px;
+  max-width: 900px !important;
+  width: 95vw !important;
   max-height: 90vh;
   overflow-y: auto;
+  background: #1a1a1a !important;
+  border: 1px solid rgba(183, 143, 63, 0.3) !important;
+  color: #fff !important;
+}
+
+.dialogContent h2 {
+  color: rgb(183, 143, 63) !important;
+}
+
+.dialogContent p {
+  color: #999 !important;
 }
 
 /* Form */
@@ -149,6 +197,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-top: 1rem;
 }
 
 .formGrid {
@@ -166,15 +215,15 @@
 .sectionTitle {
   font-size: 1rem;
   font-weight: 600;
-  color: hsl(var(--foreground));
+  color: rgb(183, 143, 63);
   margin: 0;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid rgba(183, 143, 63, 0.2);
 }
 
 .sectionHint {
   font-size: 0.8rem;
-  color: hsl(var(--muted-foreground));
+  color: #888;
   margin: -0.5rem 0 0.5rem;
 }
 
@@ -184,13 +233,37 @@
   gap: 0.5rem;
 }
 
+.field label {
+  color: #ccc;
+  font-size: 0.875rem;
+}
+
+.field input,
+.field textarea {
+  background: #2a2a2a !important;
+  border: 1px solid #444 !important;
+  color: #fff !important;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: rgb(183, 143, 63) !important;
+  outline: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #666 !important;
+}
+
 .imagePreview {
   margin-top: 0.5rem;
   width: 120px;
   height: 80px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid #444;
+  background: #333;
 }
 
 .imagePreview img {
@@ -205,7 +278,7 @@
   max-width: 280px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid #444;
 }
 
 .videoPreview iframe {
@@ -226,12 +299,14 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: hsl(var(--muted));
+  background: #2a2a2a;
   border-radius: 8px;
+  flex-wrap: wrap;
 }
 
 .caractNome {
   flex: 1;
+  min-width: 120px;
   max-width: 150px;
 }
 
@@ -240,12 +315,14 @@
   align-items: center;
   gap: 0.75rem;
   flex: 1;
+  min-width: 150px;
 }
 
 .slider {
   flex: 1;
   max-width: 100px;
-  accent-color: hsl(var(--primary));
+  accent-color: rgb(183, 143, 63);
+  cursor: pointer;
 }
 
 .previewCircles {
@@ -254,24 +331,25 @@
 }
 
 .previewCircle {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 2px solid hsl(var(--primary));
+  border: 2px solid rgb(183, 143, 63);
   background: transparent;
+  display: inline-block;
 }
 
 .previewCircle.filled {
-  background: hsl(var(--primary));
+  background: rgb(183, 143, 63);
 }
 
 .removeBtn {
-  color: hsl(var(--destructive));
+  color: #e74c3c !important;
   flex-shrink: 0;
 }
 
 .removeBtn:hover {
-  background: hsl(var(--destructive) / 0.1);
+  background: rgba(231, 76, 60, 0.1) !important;
 }
 
 .addBtn {
@@ -279,6 +357,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: transparent !important;
+  border: 1px solid rgba(183, 143, 63, 0.5) !important;
+  color: rgb(183, 143, 63) !important;
+}
+
+.addBtn:hover {
+  background: rgba(183, 143, 63, 0.1) !important;
+  border-color: rgb(183, 143, 63) !important;
 }
 
 /* Ingredientes */
@@ -304,19 +390,54 @@
   justify-content: flex-end;
   gap: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid hsl(var(--border));
+  border-top: 1px solid rgba(183, 143, 63, 0.2);
+}
+
+.formActions button:first-child {
+  background: transparent !important;
+  border: 1px solid #666 !important;
+  color: #ccc !important;
+}
+
+.formActions button:first-child:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.formActions button:last-child {
+  background: rgb(183, 143, 63) !important;
+  color: #000 !important;
+  font-weight: 600;
+}
+
+.formActions button:last-child:hover {
+  background: rgb(212, 175, 55) !important;
+}
+
+/* Select Trigger Fix */
+.field [data-radix-select-trigger] {
+  background: #2a2a2a !important;
+  border: 1px solid #444 !important;
+  color: #fff !important;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+    padding-top: 5rem;
   }
 
   .header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .headerLeft {
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 1.25rem;
   }
 
   .newBtn {
@@ -330,23 +451,53 @@
 
   .formGrid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .dialogContent {
-    max-width: 100%;
-    margin: 0.5rem;
+    margin: 0 !important;
+    max-height: 95vh;
+    border-radius: 12px !important;
   }
 
   .caracteristicaItem {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .caractNome {
     max-width: 100%;
-    flex: 1 1 100%;
   }
 
   .caractNivel {
-    flex: 1;
+    justify-content: space-between;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .formActions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+    padding-top: 4.5rem;
+  }
+
+  .drinkCard {
+    padding: 0.75rem;
+  }
+
+  .drinkImage {
+    width: 56px;
+    height: 56px;
+  }
+
+  .drinkInfo h3 {
+    font-size: 0.9rem;
   }
 }
