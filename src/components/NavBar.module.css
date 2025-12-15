@@ -156,7 +156,6 @@ margin-right: 11rem;
 
 /* Menu Mobile */
 .mobileMenu {
-  display: none;
   position: fixed;
   top: 0;
   right: -100%;
@@ -166,13 +165,15 @@ margin-right: 11rem;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.98), rgba(40, 40, 40, 0.98));
   backdrop-filter: blur(10px);
   transition: right 0.3s ease;
-  z-index: 1000;
+  z-index: 999;
   padding-top: 80px;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+  display: none;
 }
 
 .mobileMenuOpen {
   right: 0;
+  display: block;
 }
 
 .mobileMenu ul {
