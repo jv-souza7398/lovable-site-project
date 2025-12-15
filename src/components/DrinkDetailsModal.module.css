@@ -62,26 +62,44 @@
   background: rgba(146, 117, 60, 0.6);
 }
 
-.closeButton {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(146, 117, 60, 0.5);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+/* Modal Header */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(146, 117, 60, 0.4);
+}
+
+.headerTitle {
+  color: rgb(183, 143, 63);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerCloseBtn {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(146, 117, 60, 0.2);
+  border: 1px solid rgba(146, 117, 60, 0.5);
   color: rgb(183, 143, 63);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
-.closeButton:hover {
-  background: rgba(146, 117, 60, 0.3);
+.headerCloseBtn:hover {
+  background: rgba(146, 117, 60, 0.4);
   transform: rotate(90deg);
 }
 
@@ -311,29 +329,7 @@
   color: #fff !important;
 }
 
-/* Mobile Close Button - Top Right */
-.mobileCloseBtn {
-  display: none;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(183, 143, 63, 0.4);
-  color: rgba(255, 255, 255, 0.8);
-  cursor: pointer;
-  z-index: 20;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.mobileCloseBtn:hover {
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-}
+/* Mobile Header Adjustments */
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
@@ -392,12 +388,17 @@
     height: 16px;
   }
 
-  .closeButton {
-    display: none;
+  .modalHeader {
+    padding: 0.5rem 0.75rem;
   }
 
-  .mobileCloseBtn {
-    display: flex;
+  .headerTitle {
+    font-size: 0.85rem;
+  }
+
+  .headerCloseBtn {
+    width: 28px;
+    height: 28px;
   }
 
   .addButton {
