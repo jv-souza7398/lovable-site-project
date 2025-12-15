@@ -77,6 +77,11 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
+  // Force-sync cart from an external source (e.g. localStorage recovery)
+  const hydrateCart = (items) => {
+    setCartItems(Array.isArray(items) ? items : []);
+  };
+
   const getDrinkItems = () => cartItems;
   const getPackageItems = () => [];
   const getTotalDrinkCount = () => getDrinkItems().reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -89,6 +94,7 @@ export const CartProvider = ({ children }) => {
       updateQuantity,
       removeFromCart, 
       clearCart,
+      hydrateCart,
       getDrinkItems,
       getPackageItems,
       getTotalDrinkCount

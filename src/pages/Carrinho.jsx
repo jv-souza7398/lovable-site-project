@@ -8,13 +8,32 @@ import EventDetailsModal from "../components/EventDetailsModal";
 import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
-  const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, updateQuantity, hydrateCart } = useContext(CartContext);
   console.log('[Carrinho] cartItems at render:', cartItems);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEventModal, setShowEventModal] = useState(false);
   const [sendingQuote, setSendingQuote] = useState(false);
   const navigate = useNavigate();
+
+  // If for any reason context comes empty, recover from localStorage
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("vincci_cart") || "[]");
+      const hasContextItems = Array.isArray(cartItems) && cartItems.length > 0;
+      const hasStoredItems = Array.isArray(stored) && stored.length > 0;
+
+      console.log("[Carrinho] hasContextItems=", hasContextItems, "hasStoredItems=", hasStoredItems);
+
+      if (!hasContextItems && hasStoredItems && typeof hydrateCart === "function") {
+        console.log("[Carrinho] hydrating cart from localStorage", stored);
+        hydrateCart(stored);
+      }
+    } catch (e) {
+      console.warn("[Carrinho] failed to hydrate cart from localStorage", e);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const drinkItems = cartItems || [];
   const totalItems = drinkItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
