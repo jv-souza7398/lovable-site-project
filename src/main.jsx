@@ -22,6 +22,7 @@ import ProcessPayment from './pages/ProcessPayment.jsx'
 import ProcessPixPayment from './pages/ProcessPixPayment.jsx'
 import Billing from './pages/Billing.jsx'
 import Completion from './pages/Completion.jsx'
+import AdminDrinks from './pages/AdminDrinks.jsx'
 
 import {register} from 'swiper/element/bundle'
 register()
@@ -112,6 +113,10 @@ const router=createBrowserRouter([
         {
           path:"/Minha-Conta/",
           element:<Account/>
+        },
+        {
+          path:"/admin/drinks/",
+          element:<AdminDrinks/>
         }
     ]
   }
