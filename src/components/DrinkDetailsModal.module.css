@@ -278,10 +278,10 @@
   gap: 0.5rem;
   padding: 1rem 1.5rem;
   margin-top: auto;
-  background: rgb(146, 117, 60);
+  background: rgb(146, 117, 60) !important;
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: #fff !important;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -293,16 +293,22 @@
 
 .addButton span {
   flex-shrink: 0;
+  color: #fff !important;
+}
+
+.addButton svg {
+  color: #fff !important;
 }
 
 .addButton:hover {
-  background: rgb(166, 137, 80);
+  background: rgb(166, 137, 80) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(146, 117, 60, 0.4);
 }
 
 .addButton.added {
-  background: #22c55e;
+  background: #22c55e !important;
+  color: #fff !important;
 }
 
 /* Responsive - Mobile */
