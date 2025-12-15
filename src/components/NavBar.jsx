@@ -74,6 +74,7 @@ function Navbar() {
             <li><Link to={"/Pacotes/"} onClick={() => setMenuOpen(false)}>PACOTES</Link></li>
             <li><Link to={"/sobre/"} onClick={() => setMenuOpen(false)}>SOBRE NÓS</Link></li>
             <li><Link to={"/fale-conosco/"} onClick={() => setMenuOpen(false)}>FALE CONOSCO</Link></li>
+            <li>
               <a href="#" onClick={(e) => { handleAccountClick(e); setMenuOpen(false); }}>
                 <i className="bi bi-person"></i> MINHA CONTA
               </a>
