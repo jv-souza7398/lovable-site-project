@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import drink3 from '../assets/drink7.jpg';
 import drink2 from '../assets/drink6.jpg';
 import drink1 from '../assets/drink10.jpg';
@@ -9,10 +9,21 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from 'react-modal';
-import { FaPlay } from 'react-icons/fa'; // Ícone de play
+import { FaPlay } from 'react-icons/fa';
+import { Plus, Check, Loader2 } from 'lucide-react';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import LazyLoad from 'react-lazy-load';
+import { supabase } from '@/integrations/supabase/client';
+import { CartContext } from '../contexts/CartContext';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from '../components/ui/carousel';
+import DrinkDetailsModal from '../components/DrinkDetailsModal';
 
 // Custom Arrows for Slider
 const CustomPrevArrow = (props) => {
@@ -37,8 +48,66 @@ const CustomNextArrow = (props) => {
   );
 };
 
+// Helper function to map database drinks to component format
+const mapDrinkFromDB = (dbDrink) => ({
+  id: dbDrink.id,
+  img: dbDrink.imagem_url,
+  title: dbDrink.nome,
+  description: dbDrink.descricao?.substring(0, 50) + (dbDrink.descricao?.length > 50 ? '...' : ''),
+  descricao: dbDrink.descricao,
+  videoUrl: dbDrink.video_url,
+  caracteristicas: (dbDrink.caracteristicas || []).map(c => ({
+    nome: c.nome,
+    nivel: c.nivel,
+    max: 5
+  })),
+  ingredientes: dbDrink.ingredientes || []
+});
+
+// DrinkCard component for carousel
+const DrinkCard = ({ item, onImageClick }) => {
+  const { addDrinkToCart } = useContext(CartContext);
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    addDrinkToCart(item);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 500);
+  };
+
+  return (
+    <div className={classes.drinkCard}>
+      <img 
+        src={item.img} 
+        alt={item.title} 
+        onClick={() => onImageClick(item)}
+        style={{ cursor: 'pointer' }}
+      />
+      <h2>{item.title}</h2>
+      <p>{item.description}</p>
+      <button 
+        type="button"
+        className={`${classes.addButton} ${added ? classes.added : ''}`}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleAdd();
+        }}
+        aria-label={`Adicionar ${item.title} ao carrinho`}
+      >
+        {added ? <Check size={16} /> : <Plus size={16} />}
+        <span>{added ? 'Adicionado' : 'Adicionar'}</span>
+      </button>
+    </div>
+  );
+};
+
 function Home() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [highlightedDrinks, setHighlightedDrinks] = useState([]);
+  const [loadingDrinks, setLoadingDrinks] = useState(true);
+  const [selectedDrink, setSelectedDrink] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const settings = {
     dots: false,
@@ -61,11 +130,40 @@ function Home() {
   
   const closeModal = () => setModalIsOpen(false);
 
+  const handleDrinkClick = (drink) => {
+    setSelectedDrink(drink);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDrink(null);
+  };
+
+  // Fetch highlighted drinks
+  useEffect(() => {
+    const fetchHighlightedDrinks = async () => {
+      setLoadingDrinks(true);
+      const { data, error } = await supabase
+        .from('drinks')
+        .select('*')
+        .eq('destacar_home', true)
+        .order('nome');
+
+      if (!error && data) {
+        setHighlightedDrinks(data.map(mapDrinkFromDB));
+      }
+      setLoadingDrinks(false);
+    };
+
+    fetchHighlightedDrinks();
+  }, []);
+
   // EFFEITO DE APARECER 
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Duração da animação em milissegundos
-      easing: 'ease-in-out', // Tipo de easing
+      duration: 1000,
+      easing: 'ease-in-out',
     });
   }, []);
   return (
@@ -189,46 +287,43 @@ function Home() {
       {/* Packages Section */}
       <section className={classes.sectionPacotes}>
   <div className={classes.pacoteTitle} data-aos="fade-up" data-aos-delay="200">
-    <h1>Pacotes <span>________</span></h1>
-    <h2>Encontre o pacote de drinks ideal para a sua festa</h2>
+    <h1>Drinks <span>________</span></h1>
+    <h2>Encontre o drink ideal para a sua festa</h2>
   </div>
-  <div className={classes.sectionContainer} data-aos="fade-left" data-aos-delay="200">
-    <div className={classes.pacotes}>
-          <LazyLoad>
-              <img src={drink1} alt="Pacote 1" />
-         </LazyLoad>
-      <h2>Drinks sem álcool</h2>
-      <p>Bartenders para festas, São Paulo</p>
-      <div className={classes.pacotePreco}>
-        <p>A partir de R$550,00</p>
-      </div>
-      <Link to="/Pacotes/">SAIBA MAIS</Link>
+  
+  {loadingDrinks ? (
+    <div className={classes.loadingDrinks}>
+      <Loader2 className="animate-spin" size={32} />
+      <p>Carregando drinks...</p>
     </div>
-    <div className={classes.pacotes}>
-        <LazyLoad>
-              <img src={drink2} alt="Pacote 2" />
-          </LazyLoad>
-      <h2>Barman + lista de compras</h2>
-      <p>Bartenders para festas, São Paulo</p>
-      <div className={classes.pacotePreco}>
-        <p>A partir de R$1.689,99</p>
-      </div>
-      <Link to="/Pacotes/">SAIBA MAIS</Link>
+  ) : highlightedDrinks.length > 0 ? (
+    <div className={classes.drinksCarouselWrapper} data-aos="fade-left" data-aos-delay="200">
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        className={classes.drinksCarousel}
+      >
+        <CarouselContent className={classes.carouselContent}>
+          {highlightedDrinks.map((drink) => (
+            <CarouselItem key={drink.id} className={classes.carouselItem}>
+              <DrinkCard item={drink} onImageClick={handleDrinkClick} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className={classes.carouselButton} />
+        <CarouselNext className={classes.carouselButton} />
+      </Carousel>
     </div>
-    <div className={classes.pacotes}>
-    <LazyLoad>
-                <img src={drink3} alt="Pacote 3" />
-              </LazyLoad>
-      <h2>Drinks com e sem álcool</h2>
-      <p>Bartenders para festas, São Paulo</p>
-      <div className={classes.pacotePreco}>
-        <p>A partir de R$550,00</p>
-      </div>
-      <Link to="/Pacotes/">SAIBA MAIS</Link>
+  ) : (
+    <div className={classes.emptyDrinks}>
+      <p>Nenhum drink em destaque no momento.</p>
     </div>
-  </div>
+  )}
+  
   <div className={classes.maispacote}>
-    <Link to="/Pacotes/">VEJA MAIS PACOTES PARA FESTAS</Link>
+    <Link to="/Drinks/">VEJA MAIS DRINKS PARA SUA FESTA</Link>
   </div>
 </section>
 
@@ -306,6 +401,12 @@ function Home() {
 
 
       </main>
+
+      <DrinkDetailsModal
+        drink={selectedDrink}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 }

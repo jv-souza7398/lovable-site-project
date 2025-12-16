@@ -20,6 +20,7 @@ export type Database = {
           categoria: string
           created_at: string
           descricao: string
+          destacar_home: boolean
           id: string
           imagem_url: string
           ingredientes: string[] | null
@@ -32,6 +33,7 @@ export type Database = {
           categoria: string
           created_at?: string
           descricao: string
+          destacar_home?: boolean
           id?: string
           imagem_url: string
           ingredientes?: string[] | null
@@ -44,6 +46,7 @@ export type Database = {
           categoria?: string
           created_at?: string
           descricao?: string
+          destacar_home?: boolean
           id?: string
           imagem_url?: string
           ingredientes?: string[] | null
