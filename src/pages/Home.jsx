@@ -150,10 +150,20 @@ function Home() {
         .eq('destacar_home', true)
         .order('nome');
 
-      if (!error && data) {
-        setHighlightedDrinks(data.map(mapDrinkFromDB));
-      }
-      setLoadingDrinks(false);
+       if (!error && data) {
+         setHighlightedDrinks(data.map(mapDrinkFromDB));
+
+         // Os elementos do carrossel são renderizados APÓS o fetch.
+         // Sem refresh, o AOS pode manter o bloco com opacity: 0.
+         requestAnimationFrame(() => {
+           try {
+             AOS.refresh();
+           } catch {
+             // ignore
+           }
+         });
+       }
+       setLoadingDrinks(false);
     };
 
     fetchHighlightedDrinks();
@@ -166,6 +176,20 @@ function Home() {
       easing: 'ease-in-out',
     });
   }, []);
+
+  // Quando os drinks chegam (renderizam depois do fetch), o AOS precisa re-varrer
+  // os elementos com data-aos; senão eles podem ficar invisíveis (opacity: 0).
+  useEffect(() => {
+    if (loadingDrinks) return;
+
+    requestAnimationFrame(() => {
+      try {
+        AOS.refreshHard();
+      } catch {
+        // ignore
+      }
+    });
+  }, [loadingDrinks, highlightedDrinks.length]);
   return (
     <>
       {/* Slider Section */}
