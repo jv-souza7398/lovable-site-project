@@ -72,13 +72,12 @@ const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
       <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
         {/* Header with close button */}
         <div className={classes.modalHeader}>
-          <span className={classes.headerTitle}>{drink.title}</span>
           <button
             className={classes.headerCloseBtn}
             onClick={onClose}
             aria-label="Fechar modal"
           >
-            <X size={20} />
+            <X size={20} color="#b78f3f" />
           </button>
         </div>
 

@@ -66,21 +66,10 @@
 .modalHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
+  justify-content: flex-end;
+  padding: 0.5rem 0.75rem;
   background: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid rgba(146, 117, 60, 0.4);
-}
-
-.headerTitle {
-  color: rgb(183, 143, 63);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .headerCloseBtn {
@@ -95,6 +84,11 @@
   color: rgb(183, 143, 63);
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.headerCloseBtn svg {
+  display: block;
   flex-shrink: 0;
 }
 
@@ -390,10 +384,6 @@
 
   .modalHeader {
     padding: 0.5rem 0.75rem;
-  }
-
-  .headerTitle {
-    font-size: 0.85rem;
   }
 
   .headerCloseBtn {
