@@ -370,10 +370,11 @@ color: black;
   transform: translateY(-5px);
 }
 
-/* PACOTES  */
+/* PACOTES / DRINKS SECTION */
 .sectionPacotes{
  background-color:rgb(0, 0, 0) ; 
- height: 50rem;
+ min-height: 50rem;
+ padding-bottom: 3rem;
 }
 .pacoteTitle{
   width: 90%;
@@ -487,8 +488,134 @@ opacity: 1;
   color:    rgb(146, 117, 60);
 }
 
+/* Drinks Carousel Styles */
+.loadingDrinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  color: #999;
+}
 
-/* WhyUs.module.css */
+.loadingDrinks svg {
+  color: rgb(183, 143, 63);
+}
+
+.emptyDrinks {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 2rem;
+  color: #888;
+}
+
+.drinksCarouselWrapper {
+  width: 85%;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.drinksCarousel {
+  width: 100%;
+}
+
+.carouselContent {
+  display: flex;
+  gap: 1rem;
+}
+
+.carouselItem {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 280px;
+}
+
+.drinkCard {
+  background-color: rgba(22, 22, 22, 0.862);
+  border-radius: 0.7rem;
+  text-align: center;
+  border: 1px solid transparent;
+  box-shadow: 10px 10px 10px rgba(84, 87, 45, 0.242);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.drinkCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(146, 117, 60, 0.2);
+}
+
+.drinkCard img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 0.7rem 0.7rem 0 0;
+  transition: transform 0.3s ease;
+}
+
+.drinkCard img:hover {
+  transform: scale(1.02);
+}
+
+.drinkCard h2 {
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  padding: 0 1rem;
+}
+
+.drinkCard p {
+  font-size: 0.9rem;
+  color: gray;
+  margin: 0.4rem 1rem 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: rgb(204, 149, 40);
+  border: 1px solid transparent;
+  color: black;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.8rem;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  width: calc(100% - 2rem);
+  margin: 0 1rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.addButton:hover {
+  opacity: 1;
+  background-color: rgb(220, 170, 60);
+}
+
+.addButton.added {
+  background-color: #27ae60;
+  color: white;
+}
+
+.carouselButton {
+  background: rgba(146, 117, 60, 0.9) !important;
+  border: none !important;
+  color: black !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.carouselButton:hover {
+  background: rgb(204, 149, 40) !important;
+}
+
+.carouselButton:disabled {
+  opacity: 0.3 !important;
+}
 /* CARDS  */
 .section {
   display: flex;
@@ -906,6 +1033,7 @@ display: flex;
   
   .sectionPacotes {
     height: auto;
+    min-height: auto;
   }
   
   .pacoteTitle {
@@ -925,6 +1053,25 @@ display: flex;
   
   .maispacote a {
     width: 80%;
+  }
+
+  /* Carousel responsive */
+  .drinksCarouselWrapper {
+    width: 95%;
+  }
+
+  .carouselItem {
+    flex: 0 0 calc(50% - 0.5rem);
+    min-width: 240px;
+  }
+
+  .drinkCard img {
+    height: 12rem;
+  }
+
+  .carouselButton {
+    width: 35px !important;
+    height: 35px !important;
   }
   
   .container {
@@ -1066,6 +1213,26 @@ display: flex;
   
   .pacotes h2 {
     font-size: 1.2rem;
+  }
+
+  /* Carousel responsive mobile */
+  .carouselItem {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .drinkCard h2 {
+    font-size: 1rem;
+  }
+
+  .addButton {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .carouselButton {
+    width: 32px !important;
+    height: 32px !important;
   }
   
   .sobre h3 {

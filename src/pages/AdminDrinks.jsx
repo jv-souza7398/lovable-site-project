@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -56,6 +57,7 @@ const DrinkForm = ({ drink, onSave, onCancel, isLoading }) => {
     categoria: '',
     caracteristicas: [],
     ingredientes: [],
+    destacar_home: false,
   });
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const DrinkForm = ({ drink, onSave, onCancel, isLoading }) => {
         categoria: drink.categoria || '',
         caracteristicas: drink.caracteristicas || [],
         ingredientes: drink.ingredientes || [],
+        destacar_home: drink.destacar_home || false,
       });
     }
   }, [drink]);
@@ -210,6 +213,22 @@ const DrinkForm = ({ drink, onSave, onCancel, isLoading }) => {
                 <SelectItem value="drinks-padrao">Drinks Padrões</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          <div className={styles.field}>
+            <div className={styles.checkboxField}>
+              <Checkbox
+                id="destacar_home"
+                checked={formData.destacar_home}
+                onCheckedChange={(checked) => handleChange('destacar_home', checked)}
+              />
+              <Label htmlFor="destacar_home" className={styles.checkboxLabel}>
+                Destacar na home?
+              </Label>
+            </div>
+            <p className={styles.fieldHint}>
+              Se marcado, este drink aparecerá no carrossel de destaques da página inicial
+            </p>
           </div>
 
           <div className={styles.field}>
