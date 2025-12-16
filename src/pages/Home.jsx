@@ -336,8 +336,8 @@ function Home() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className={classes.carouselButton} />
-        <CarouselNext className={classes.carouselButton} />
+        <CarouselPrevious className={`${classes.carouselButton} -left-4 md:-left-12`} />
+        <CarouselNext className={`${classes.carouselButton} -right-4 md:-right-12`} />
       </Carousel>
     </div>
   ) : (

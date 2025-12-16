@@ -515,11 +515,11 @@ opacity: 1;
   max-width: 1400px;
   margin: 2rem auto;
   position: relative;
-  padding: 0 3rem;
 }
 
 .drinksCarousel {
   width: 100%;
+  position: relative;
 }
 
 .carouselContent {
@@ -633,15 +633,14 @@ opacity: 1;
 }
 
 .carouselButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: rgba(146, 117, 60, 0.9) !important;
   border: none !important;
   color: black !important;
   width: 2.5rem !important;
   height: 2.5rem !important;
   z-index: 10;
+  left: auto !important;
+  right: auto !important;
 }
 
 .carouselButton:hover {
@@ -656,10 +655,6 @@ opacity: 1;
 @media (max-width: 1023px) {
   .carouselButton {
     display: none !important;
-  }
-
-  .drinksCarouselWrapper {
-    padding: 0 1rem;
   }
 }
 /* CARDS  */
