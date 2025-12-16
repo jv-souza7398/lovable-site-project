@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import classes from "./DrinksTeste.module.css";
+import classes from "./Drinks.module.css";
 import drink8 from "../assets/drink8.jpg";
 import drink9 from "../assets/drink9.jpg";
 import drink10 from "../assets/drink10.jpg";

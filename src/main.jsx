@@ -9,7 +9,7 @@ import FaleConosco from './pages/faleConosco.jsx'
 import Sobre from './pages/Sobre.jsx'
 import PoliticaPrivacidade from './pages/PoliticaPrivacidade.jsx'
 import Pacotes from './pages/Pacotes.jsx'
-import DrinksTeste from './pages/DrinksTeste.jsx'
+import Drinks from './pages/Drinks.jsx'
 import Images from './pages/images.jsx'
 import Account from './pages/Account.jsx'
 import Identificacao from './pages/Identificacao.jsx'
@@ -63,8 +63,8 @@ const router=createBrowserRouter([
           element:<Pacotes/>
         },
         {
-          path:"/drinks-teste/",
-          element:<DrinksTeste/>
+          path:"/drinks/",
+          element:<Drinks/>
         },
         {
           path:"/images/",

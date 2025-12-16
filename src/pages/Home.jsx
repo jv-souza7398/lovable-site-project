@@ -347,7 +347,7 @@ function Home() {
   )}
   
   <div className={classes.maispacote}>
-    <Link to="/Drinks/">VEJA MAIS DRINKS PARA SUA FESTA</Link>
+    <Link to="/drinks/">VEJA MAIS DRINKS PARA SUA FESTA</Link>
   </div>
 </section>
 
