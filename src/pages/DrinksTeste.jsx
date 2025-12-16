@@ -305,11 +305,13 @@ function DrinksTeste() {
       const { data, error } = await supabase.from("drinks").select("*").order("nome");
 
       if (!error && data && data.length > 0) {
+        const allMapped = data.map(mapDrinkFromDB);
         const semAlcool = data.filter((d) => d.categoria === "drinks-sem-alcool").map(mapDrinkFromDB);
         const padrao = data.filter((d) => d.categoria === "drinks-padrao").map(mapDrinkFromDB);
 
-        setDbDrinksSemAlcool(semAlcool);
-        setDbDrinksPadrao(padrao);
+        // Se não houver drinks em uma categoria, exibe todos os drinks do banco
+        setDbDrinksSemAlcool(semAlcool.length > 0 ? semAlcool : allMapped);
+        setDbDrinksPadrao(padrao.length > 0 ? padrao : allMapped);
       }
       setLoading(false);
     };
