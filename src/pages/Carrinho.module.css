@@ -18,6 +18,22 @@
    font-style:italic;
   color: rgb(146, 117, 60);
 }
+.navCarrinho .continuarComprando {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid rgb(146, 117, 60);
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+}
+.navCarrinho .continuarComprando:hover {
+  background: rgb(146, 117, 60);
+  color: black;
+}
 .carrinhoContent{
   padding:1rem 2rem;
   display: flex;
