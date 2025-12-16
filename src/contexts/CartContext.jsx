@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 
 export const CartContext = createContext();
 
@@ -8,26 +8,47 @@ const CART_STORAGE_KEY = 'vincci_cart';
 const loadCartFromStorage = () => {
   try {
     const stored = localStorage.getItem(CART_STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch {
+    console.log('[CartContext] loadCartFromStorage raw:', stored);
+    if (!stored) return [];
+    const parsed = JSON.parse(stored);
+    console.log('[CartContext] loadCartFromStorage parsed:', parsed);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    console.error('[CartContext] Error loading from localStorage:', e);
     return [];
   }
 };
 
 const saveCartToStorage = (items) => {
   try {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  } catch {
-    console.error('Failed to save cart to localStorage');
+    const toSave = Array.isArray(items) ? items : [];
+    console.log('[CartContext] saveCartToStorage:', toSave);
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(toSave));
+  } catch (e) {
+    console.error('[CartContext] Failed to save cart to localStorage:', e);
   }
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(() => loadCartFromStorage());
+  const [cartItems, setCartItems] = useState([]);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  // Hydrate cart from localStorage on mount
   useEffect(() => {
-    saveCartToStorage(cartItems);
-  }, [cartItems]);
+    const stored = loadCartFromStorage();
+    console.log('[CartContext] Initial hydration, stored items:', stored);
+    if (stored.length > 0) {
+      setCartItems(stored);
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Save to localStorage whenever cartItems changes (but only after hydration)
+  useEffect(() => {
+    if (isHydrated) {
+      saveCartToStorage(cartItems);
+    }
+  }, [cartItems, isHydrated]);
 
   const addToCart = (item) => {
     setCartItems((prevItems) => [...prevItems, item]);
