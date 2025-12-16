@@ -11,9 +11,13 @@ import {
   FaTimes,
   FaWhatsapp,
   FaTruck,
+  FaUsers,
+  FaArrowRight,
+  FaArrowLeft,
 } from "react-icons/fa";
 
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
+  const [step, setStep] = useState(1);
   const [cep, setCep] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
@@ -24,6 +28,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [dataEvento, setDataEvento] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaEncerramento, setHoraEncerramento] = useState("");
+  const [estimativaConvidados, setEstimativaConvidados] = useState("");
   const [loadingCep, setLoadingCep] = useState(false);
   const [error, setError] = useState("");
   const [showFreightPopup, setShowFreightPopup] = useState(false);
@@ -59,15 +64,31 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
     }
   };
 
+  const handleNextStep = (e) => {
+    e.preventDefault();
+    
+    if (!cep || !rua || !numero || !uf || !bairro || !cidade) {
+      setError("Por favor, preencha todos os campos obrigatórios do endereço.");
+      return;
+    }
+    
+    setError("");
+    setStep(2);
+  };
+
+  const handlePreviousStep = () => {
+    setError("");
+    setStep(1);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!cep || !rua || !numero || !uf || !bairro || !cidade || !dataEvento || !horaInicio || !horaEncerramento) {
+    if (!dataEvento || !horaInicio || !horaEncerramento || !estimativaConvidados) {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
-    // Store the event data and show freight popup
     setEventData({
       cep,
       rua,
@@ -79,6 +100,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
       dataEvento,
       horaInicio,
       horaEncerramento,
+      estimativaConvidados,
     });
     setShowFreightPopup(true);
   };
@@ -130,6 +152,15 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
 
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
+  const guestOptions = [
+    "Até 50 convidados",
+    "51 a 100 convidados",
+    "101 a 150 convidados",
+    "151 a 200 convidados",
+    "201 a 300 convidados",
+    "Mais de 300 convidados",
+  ];
+
   return (
     <div
       style={{
@@ -177,6 +208,28 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           <FaTimes />
         </button>
 
+        {/* Step Indicator */}
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+          <div
+            style={{
+              width: "40px",
+              height: "4px",
+              borderRadius: "2px",
+              backgroundColor: step >= 1 ? "rgb(146, 117, 60)" : "rgba(146, 117, 60, 0.3)",
+              transition: "background-color 0.3s ease",
+            }}
+          />
+          <div
+            style={{
+              width: "40px",
+              height: "4px",
+              borderRadius: "2px",
+              backgroundColor: step >= 2 ? "rgb(146, 117, 60)" : "rgba(146, 117, 60, 0.3)",
+              transition: "background-color 0.3s ease",
+            }}
+          />
+        </div>
+
         {/* Header */}
         <h2
           style={{
@@ -187,7 +240,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
             marginBottom: "8px",
           }}
         >
-          Dados do Evento
+          {step === 1 ? "Endereço do Evento" : "Detalhes do Evento"}
         </h2>
         <p
           style={{
@@ -197,203 +250,294 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
             marginBottom: "20px",
           }}
         >
-          Preencha os dados do local e data do evento
+          {step === 1 
+            ? "Preencha o endereço onde será realizado o evento" 
+            : "Informe a data, horário e estimativa de convidados"}
         </p>
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {error && (
-            <p
-              style={{
-                color: "#ef4444",
-                backgroundColor: "rgba(239, 68, 68, 0.1)",
-                padding: "12px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                textAlign: "center",
-              }}
-            >
-              {error}
-            </p>
-          )}
-
-          {/* CEP */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <FaMapMarkerAlt
-              style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }}
-            />
-            <input
-              type="text"
-              placeholder="CEP"
-              value={formatCep(cep)}
-              onChange={handleCepChange}
-              maxLength={9}
-              disabled={loading || loadingCep}
-              style={inputStyles}
-            />
-            {loadingCep && (
-              <span style={{ position: "absolute", right: "12px", color: "rgb(146, 117, 60)", fontSize: "12px" }}>
-                Buscando...
-              </span>
+        {/* Step 1: Address */}
+        {step === 1 && (
+          <form onSubmit={handleNextStep} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {error && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  backgroundColor: "rgba(239, 68, 68, 0.1)",
+                  padding: "12px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                {error}
+              </p>
             )}
-          </div>
 
-          {/* Rua */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <FaRoad style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-            <input
-              type="text"
-              placeholder="Rua"
-              value={rua}
-              onChange={(e) => setRua(e.target.value)}
-              disabled={loading}
-              style={inputStyles}
-            />
-          </div>
-
-          {/* Número e Complemento */}
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", width: isMobile ? "45%" : "100px", minWidth: "80px" }}>
-              <FaHashtag style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "14px" }} />
-              <input
-                type="text"
-                placeholder="Nº"
-                value={numero}
-                onChange={(e) => setNumero(e.target.value)}
-                disabled={loading}
-                style={{ ...inputStyles, paddingLeft: "36px", textAlign: "center" }}
-              />
-            </div>
-
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
-              <FaHome style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-              <input
-                type="text"
-                placeholder="Complemento (opcional)"
-                value={complemento}
-                onChange={(e) => setComplemento(e.target.value)}
-                disabled={loading}
-                style={inputStyles}
-              />
-            </div>
-          </div>
-
-          {/* Bairro e UF */}
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
-              <FaBuilding
+            {/* CEP */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <FaMapMarkerAlt
                 style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }}
               />
               <input
                 type="text"
-                placeholder="Bairro"
-                value={bairro}
-                onChange={(e) => setBairro(e.target.value)}
+                placeholder="CEP"
+                value={formatCep(cep)}
+                onChange={handleCepChange}
+                maxLength={9}
+                disabled={loading || loadingCep}
+                style={inputStyles}
+              />
+              {loadingCep && (
+                <span style={{ position: "absolute", right: "12px", color: "rgb(146, 117, 60)", fontSize: "12px" }}>
+                  Buscando...
+                </span>
+              )}
+            </div>
+
+            {/* Rua */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <FaRoad style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
+              <input
+                type="text"
+                placeholder="Rua"
+                value={rua}
+                onChange={(e) => setRua(e.target.value)}
                 disabled={loading}
                 style={inputStyles}
               />
             </div>
 
-            <div style={{ width: isMobile ? "100%" : "80px" }}>
+            {/* Número e Complemento */}
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div style={{ position: "relative", display: "flex", alignItems: "center", width: isMobile ? "45%" : "100px", minWidth: "80px" }}>
+                <FaHashtag style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "14px" }} />
+                <input
+                  type="text"
+                  placeholder="Nº"
+                  value={numero}
+                  onChange={(e) => setNumero(e.target.value)}
+                  disabled={loading}
+                  style={{ ...inputStyles, paddingLeft: "36px", textAlign: "center" }}
+                />
+              </div>
+
+              <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
+                <FaHome style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
+                <input
+                  type="text"
+                  placeholder="Complemento (opcional)"
+                  value={complemento}
+                  onChange={(e) => setComplemento(e.target.value)}
+                  disabled={loading}
+                  style={inputStyles}
+                />
+              </div>
+            </div>
+
+            {/* Bairro e UF */}
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, minWidth: isMobile ? "100%" : "auto" }}>
+                <FaBuilding
+                  style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }}
+                />
+                <input
+                  type="text"
+                  placeholder="Bairro"
+                  value={bairro}
+                  onChange={(e) => setBairro(e.target.value)}
+                  disabled={loading}
+                  style={inputStyles}
+                />
+              </div>
+
+              <div style={{ width: isMobile ? "100%" : "80px" }}>
+                <input
+                  type="text"
+                  placeholder="UF"
+                  value={uf}
+                  onChange={(e) => setUf(e.target.value)}
+                  maxLength={2}
+                  disabled={loading}
+                  style={inputSmallStyles}
+                />
+              </div>
+            </div>
+
+            {/* Cidade */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <FaCity style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
               <input
                 type="text"
-                placeholder="UF"
-                value={uf}
-                onChange={(e) => setUf(e.target.value)}
-                maxLength={2}
+                placeholder="Cidade"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
                 disabled={loading}
-                style={inputSmallStyles}
+                style={inputStyles}
               />
             </div>
-          </div>
 
-          {/* Cidade */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <FaCity style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px" }} />
-            <input
-              type="text"
-              placeholder="Cidade"
-              value={cidade}
-              onChange={(e) => setCidade(e.target.value)}
+            <button
+              type="submit"
               disabled={loading}
-              style={inputStyles}
-            />
-          </div>
+              style={{
+                width: "100%",
+                padding: "16px",
+                marginTop: "8px",
+                backgroundColor: "rgb(146, 117, 60)",
+                color: "white",
+                border: "none",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: 700,
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.7 : 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              Próximo <FaArrowRight />
+            </button>
+          </form>
+        )}
 
-          {/* Divisória */}
-          <div style={{ display: "flex", alignItems: "center", margin: "16px 0", gap: "16px" }}>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(146, 117, 60, 0.4)" }} />
-            <span style={{ color: "rgb(146, 117, 60)", fontSize: "14px", fontWeight: 600, whiteSpace: "nowrap" }}>
-              Detalhes do evento
-            </span>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(146, 117, 60, 0.4)" }} />
-          </div>
+        {/* Step 2: Event Details */}
+        {step === 2 && (
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {error && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  backgroundColor: "rgba(239, 68, 68, 0.1)",
+                  padding: "12px",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                {error}
+              </p>
+            )}
 
-          {/* Data do evento */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>Data do evento</label>
-            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-              <FaCalendar style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
-              <input
-                type="date"
-                value={dataEvento}
-                onChange={(e) => setDataEvento(e.target.value)}
+            {/* Data do evento */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>Data do evento</label>
+              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <FaCalendar style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="date"
+                  value={dataEvento}
+                  onChange={(e) => setDataEvento(e.target.value)}
+                  disabled={loading}
+                  style={{ ...inputStyles, colorScheme: "dark" }}
+                />
+              </div>
+            </div>
+
+            {/* Horários */}
+            <div style={{ display: "flex", gap: "12px", flexDirection: isMobile ? "column" : "row" }}>
+              <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
+                <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora início</label>
+                <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
+                  <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                  <input
+                    type="time"
+                    value={horaInicio}
+                    onChange={(e) => setHoraInicio(e.target.value)}
+                    disabled={loading}
+                    style={{ ...inputStyles, colorScheme: "dark" }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
+                <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora encerramento</label>
+                <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
+                  <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                  <input
+                    type="time"
+                    value={horaEncerramento}
+                    onChange={(e) => setHoraEncerramento(e.target.value)}
+                    disabled={loading}
+                    style={{ ...inputStyles, colorScheme: "dark" }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Estimativa de convidados */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>
+                Estimativa de convidados
+              </label>
+              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <FaUsers style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <select
+                  value={estimativaConvidados}
+                  onChange={(e) => setEstimativaConvidados(e.target.value)}
+                  disabled={loading}
+                  style={{
+                    ...inputStyles,
+                    cursor: "pointer",
+                    backgroundColor: "rgba(35, 34, 34, 0.95)",
+                  }}
+                >
+                  <option value="" disabled>Selecione a estimativa</option>
+                  {guestOptions.map((option) => (
+                    <option key={option} value={option} style={{ backgroundColor: "#232222", color: "#dcdcdc" }}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div style={{ display: "flex", gap: "12px", marginTop: "8px" }}>
+              <button
+                type="button"
+                onClick={handlePreviousStep}
                 disabled={loading}
-                style={{ ...inputStyles, colorScheme: "dark" }}
-              />
+                style={{
+                  flex: 1,
+                  padding: "16px",
+                  backgroundColor: "transparent",
+                  border: "2px solid rgba(146, 117, 60, 0.5)",
+                  borderRadius: "8px",
+                  color: "rgb(177, 169, 169)",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaArrowLeft /> Voltar
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  padding: "16px",
+                  backgroundColor: "rgb(146, 117, 60)",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.7 : 1,
+                }}
+              >
+                {loading ? "Enviando..." : "Confirmar"}
+              </button>
             </div>
-          </div>
-
-          {/* Horários */}
-          <div style={{ display: "flex", gap: "12px", flexDirection: isMobile ? "column" : "row" }}>
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
-              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora início</label>
-              <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
-                <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
-                <input
-                  type="time"
-                  value={horaInicio}
-                  onChange={(e) => setHoraInicio(e.target.value)}
-                  disabled={loading}
-                  style={{ ...inputStyles, colorScheme: "dark" }}
-                />
-              </div>
-            </div>
-
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1, flexDirection: "column" }}>
-              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px", alignSelf: "flex-start" }}>Hora encerramento</label>
-              <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center" }}>
-                <FaClock style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
-                <input
-                  type="time"
-                  value={horaEncerramento}
-                  onChange={(e) => setHoraEncerramento(e.target.value)}
-                  disabled={loading}
-                  style={{ ...inputStyles, colorScheme: "dark" }}
-                />
-              </div>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "16px",
-              marginTop: "8px",
-              backgroundColor: "rgb(146, 117, 60)",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "16px",
-              fontWeight: 700,
-              cursor: loading ? "not-allowed" : "pointer",
-              opacity: loading ? 0.7 : 1,
-            }}
-          >
-            {loading ? "Enviando..." : "Confirmar"}
-          </button>
-        </form>
+          </form>
+        )}
       </div>
 
       {/* Freight Confirmation Popup */}
@@ -499,7 +643,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
                 style={{
                   flex: 1,
                   padding: "14px",
-                  backgroundColor: "rgb(146, 117, 60)",
+                  backgroundColor: "#25D366",
                   border: "none",
                   borderRadius: "8px",
                   color: "white",
@@ -507,9 +651,13 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
                   fontWeight: 700,
                   cursor: loading ? "not-allowed" : "pointer",
                   opacity: loading ? 0.7 : 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
                 }}
               >
-                {loading ? "Enviando..." : "Confirmar"}
+                <FaWhatsapp /> Continuar
               </button>
             </div>
           </div>
