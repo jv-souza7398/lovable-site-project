@@ -11,14 +11,12 @@ const corsHeaders = {
 };
 
 interface CartItem {
-  item: {
-    title: string;
-    img: string;
-  };
-  horario: string;
-  bartenders: string;
-  convidados: string;
-  valorTotalFormatado: string;
+  id: string;
+  title: string;
+  img: string;
+  description?: string;
+  quantity?: number;
+  type?: string;
 }
 
 interface EventDetails {
@@ -150,15 +148,11 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
     <tr>
       <td style="padding: 16px; border-bottom: 1px solid #e5e5e5;">
         <div style="font-weight: 600; color: #92753c; margin-bottom: 8px;">
-          Item ${index + 1}: ${item.item.title}
+          ${index + 1}. ${item.title}
         </div>
         <div style="color: #666; font-size: 14px; line-height: 1.6;">
-          <div>⏰ Horário: ${item.horario} Horas</div>
-          <div>👨‍🍳 Bartenders: ${item.bartenders}</div>
-          <div>👥 Convidados: ${item.convidados}</div>
-          <div style="font-weight: 600; color: #333; margin-top: 8px;">
-            💰 Valor: R$ ${item.valorTotalFormatado}
-          </div>
+          <div>🍹 Quantidade: ${item.quantity || 1}</div>
+          ${item.description ? `<div style="margin-top: 4px; font-style: italic;">${item.description}</div>` : ''}
         </div>
       </td>
     </tr>
