@@ -265,29 +265,7 @@ function Carrinho() {
                           <h4>{drink.title}</h4>
                           <p>{drink.description}</p>
                           <div className={classes.quantityControls}>
-                            <button
-                              onClick={() =>
-                                updateQuantity(
-                                  cartItems.indexOf(drink),
-                                  (drink.quantity || 1) - 1,
-                                )
-                              }
-                              aria-label="Diminuir quantidade"
-                            >
-                              -
-                            </button>
-                            <span>{drink.quantity || 1}</span>
-                            <button
-                              onClick={() =>
-                                updateQuantity(
-                                  cartItems.indexOf(drink),
-                                  (drink.quantity || 1) + 1,
-                                )
-                              }
-                              aria-label="Aumentar quantidade"
-                            >
-                              +
-                            </button>
+                            <span>{drink.quantity || 1}x</span>
                           </div>
                         </div>
                         <button
