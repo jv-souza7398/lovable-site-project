@@ -3,6 +3,7 @@ import { useContext, useState } from 'react'
 import classes from './NavBar.module.css'
 import { AccountContext } from '../contexts/AccountContext'
 import { CartContext } from '../contexts/CartContext'
+import { ChevronDown } from 'lucide-react'
 
 import logo from '../assets/Vincci.jpg'
 
@@ -12,6 +13,8 @@ function Navbar() {
   const { getTotalDrinkCount } = useContext(CartContext);
   const totalDrinks = getTotalDrinkCount ? getTotalDrinkCount() : 0;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
   const handleAccountClick = (e) => {
     e.preventDefault();
@@ -49,10 +52,20 @@ function Navbar() {
             <Link to={"#"}><i className="bi bi-search"></i></Link>
             <li><Link to={"/"}>HOME</Link></li>
             <li><Link to={"/drinks/"}>DRINKS</Link></li>
-            <li><Link to={"/Pacotes/"}>PACOTES</Link></li>
             <Link to={"#"}><img src={logo} className={classes.logoImg}/></Link>
-            <li><Link to={"/sobre/"}>SOBRE NÓS</Link></li>   
-            <li><Link to={"/fale-conosco/"}>FALE CONOSCO</Link></li>
+            <li 
+              className={classes.dropdownContainer}
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <span className={classes.dropdownTrigger}>
+                SAIBA MAIS <ChevronDown size={16} className={`${classes.chevron} ${dropdownOpen ? classes.chevronOpen : ''}`} />
+              </span>
+              <div className={`${classes.dropdown} ${dropdownOpen ? classes.dropdownVisible : ''}`}>
+                <Link to={"/sobre/"}>SOBRE NÓS</Link>
+                <Link to={"/fale-conosco/"}>FALE CONOSCO</Link>
+              </div>
+            </li>
           </ul>
         </div> 
 
@@ -79,9 +92,18 @@ function Navbar() {
           <ul>
             <li><Link to={"/"} onClick={() => setMenuOpen(false)}>HOME</Link></li>
             <li><Link to={"/drinks/"} onClick={() => setMenuOpen(false)}>DRINKS</Link></li>
-            <li><Link to={"/Pacotes/"} onClick={() => setMenuOpen(false)}>PACOTES</Link></li>
-            <li><Link to={"/sobre/"} onClick={() => setMenuOpen(false)}>SOBRE NÓS</Link></li>
-            <li><Link to={"/fale-conosco/"} onClick={() => setMenuOpen(false)}>FALE CONOSCO</Link></li>
+            <li 
+              className={classes.mobileDropdownContainer}
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+            >
+              <span className={classes.mobileDropdownTrigger}>
+                SAIBA MAIS <ChevronDown size={16} className={`${classes.chevron} ${mobileDropdownOpen ? classes.chevronOpen : ''}`} />
+              </span>
+              <div className={`${classes.mobileDropdown} ${mobileDropdownOpen ? classes.mobileDropdownVisible : ''}`}>
+                <Link to={"/sobre/"} onClick={() => setMenuOpen(false)}>SOBRE NÓS</Link>
+                <Link to={"/fale-conosco/"} onClick={() => setMenuOpen(false)}>FALE CONOSCO</Link>
+              </div>
+            </li>
             <li>
               <a href="#" onClick={(e) => { handleAccountClick(e); setMenuOpen(false); }}>
                 <i className="bi bi-person"></i> MINHA CONTA
