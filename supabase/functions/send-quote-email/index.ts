@@ -30,6 +30,7 @@ interface EventDetails {
   dataEvento: string;
   horaInicio: string;
   horaEncerramento: string;
+  estimativaConvidados?: string;
 }
 
 interface QuoteEmailRequest {
@@ -182,9 +183,12 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
                 <div style="margin-bottom: 8px;">
                   <strong style="color: #333;">📅 Data do Evento:</strong> ${formatEventDate(eventDetails.dataEvento)}
                 </div>
-                <div>
+                <div style="margin-bottom: 8px;">
                   <strong style="color: #333;">🕐 Horário:</strong> ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}
                 </div>
+                ${eventDetails.estimativaConvidados ? `<div>
+                  <strong style="color: #333;">👥 Convidados:</strong> ${eventDetails.estimativaConvidados}
+                </div>` : ''}
               </div>
             </td>
           </tr>

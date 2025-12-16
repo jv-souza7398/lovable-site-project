@@ -70,7 +70,8 @@ function Carrinho() {
     message += `📍 ${eventDetails.bairro}, ${eventDetails.cidade} - ${eventDetails.uf}\n`;
     message += `📍 CEP: ${eventDetails.cep}\n`;
     message += `📅 Data: ${dataEventoFormatada}\n`;
-    message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n\n`;
+    message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n`;
+    message += `👥 Convidados: ${eventDetails.estimativaConvidados}\n\n`;
     message += `*Drinks selecionados:*\n`;
 
     drinkItems.forEach((item, index) => {
@@ -168,6 +169,8 @@ function Carrinho() {
         doc.text(`Data do evento: ${dataEventoFormatada}`, 25, yPosition);
         yPosition += 5;
         doc.text(`Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`Estimativa de convidados: ${eventDetails.estimativaConvidados}`, 25, yPosition);
 
         yPosition += 10;
         doc.line(20, yPosition, 190, yPosition);
