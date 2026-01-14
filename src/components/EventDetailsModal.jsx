@@ -14,6 +14,8 @@ import {
   FaUsers,
   FaArrowRight,
   FaArrowLeft,
+  FaMinus,
+  FaPlus,
 } from "react-icons/fa";
 
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
@@ -463,17 +465,64 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>
                 Estimativa de convidados
               </label>
-              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-                <FaUsers style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
-                <input
-                  type="number"
-                  min="1"
-                  placeholder="Ex: 100"
-                  value={estimativaConvidados}
-                  onChange={(e) => setEstimativaConvidados(e.target.value)}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <button
+                  type="button"
+                  onClick={() => setEstimativaConvidados(prev => Math.max(1, (parseInt(prev) || 0) - 10).toString())}
+                  disabled={loading || !estimativaConvidados || parseInt(estimativaConvidados) <= 1}
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    backgroundColor: "rgba(146, 117, 60, 0.2)",
+                    border: "2px solid rgba(146, 117, 60, 0.5)",
+                    borderRadius: "8px",
+                    color: "rgb(146, 117, 60)",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <FaMinus size={14} />
+                </button>
+                <div style={{ position: "relative", display: "flex", alignItems: "center", flex: 1 }}>
+                  <FaUsers style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="Ex: 100"
+                    value={estimativaConvidados}
+                    onChange={(e) => setEstimativaConvidados(e.target.value)}
+                    disabled={loading}
+                    style={{
+                      ...inputStyles,
+                      textAlign: "center",
+                      MozAppearance: "textfield",
+                      WebkitAppearance: "none",
+                    }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEstimativaConvidados(prev => ((parseInt(prev) || 0) + 10).toString())}
                   disabled={loading}
-                  style={inputStyles}
-                />
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    backgroundColor: "rgba(146, 117, 60, 0.2)",
+                    border: "2px solid rgba(146, 117, 60, 0.5)",
+                    borderRadius: "8px",
+                    color: "rgb(146, 117, 60)",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <FaPlus size={14} />
+                </button>
               </div>
             </div>
 
