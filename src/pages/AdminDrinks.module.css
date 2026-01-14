@@ -360,13 +360,13 @@
 }
 
 .caracteristicaItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(120px, 150px) 1fr auto;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
   background: #2a2a2a;
   border-radius: 8px;
-  flex-wrap: wrap;
 }
 
 .caracteristicaItem input {
@@ -380,22 +380,18 @@
 }
 
 .caractNome {
-  flex: 1;
-  min-width: 120px;
-  max-width: 150px;
+  width: 100%;
 }
 
 .caractNivel {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  flex: 1;
-  min-width: 150px;
 }
 
 .slider {
-  flex: 1;
-  max-width: 100px;
+  width: 80px;
+  flex-shrink: 0;
   accent-color: rgb(183, 143, 63);
   cursor: pointer;
 }
@@ -403,6 +399,7 @@
 .previewCircles {
   display: flex;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .previewCircle {
@@ -421,6 +418,7 @@
 .removeBtn {
   color: #e74c3c !important;
   flex-shrink: 0;
+  justify-self: end;
 }
 
 .removeBtn:hover {
