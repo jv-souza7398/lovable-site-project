@@ -152,14 +152,6 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
 
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
-  const guestOptions = [
-    "Até 50 convidados",
-    "51 a 100 convidados",
-    "101 a 150 convidados",
-    "151 a 200 convidados",
-    "201 a 300 convidados",
-    "Mais de 300 convidados",
-  ];
 
   return (
     <div
@@ -473,23 +465,15 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               </label>
               <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                 <FaUsers style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
-                <select
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="Ex: 100"
                   value={estimativaConvidados}
                   onChange={(e) => setEstimativaConvidados(e.target.value)}
                   disabled={loading}
-                  style={{
-                    ...inputStyles,
-                    cursor: "pointer",
-                    backgroundColor: "rgba(35, 34, 34, 0.95)",
-                  }}
-                >
-                  <option value="" disabled>Selecione a estimativa</option>
-                  {guestOptions.map((option) => (
-                    <option key={option} value={option} style={{ backgroundColor: "#232222", color: "#dcdcdc" }}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                  style={inputStyles}
+                />
               </div>
             </div>
 
