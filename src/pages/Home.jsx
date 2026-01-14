@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Modal from 'react-modal';
-import { FaPlay } from 'react-icons/fa';
 import { Plus, Check, Loader2 } from 'lucide-react';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
@@ -103,7 +101,6 @@ const DrinkCard = ({ item, onImageClick }) => {
 };
 
 function Home() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [highlightedDrinks, setHighlightedDrinks] = useState([]);
   const [loadingDrinks, setLoadingDrinks] = useState(true);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -122,13 +119,6 @@ function Home() {
     nextArrow: <CustomNextArrow />,
     draggable: true,
   };
-
-  const openModal = () => {
-    console.log("Modal aberto");
-    setModalIsOpen(true);
-  };
-  
-  const closeModal = () => setModalIsOpen(false);
 
   const handleDrinkClick = (drink) => {
     setSelectedDrink(drink);
@@ -224,34 +214,7 @@ function Home() {
           <h1>Bem Vindo Ao <span>Vincci PUB</span></h1>
           <h3>Deliciosos Drinks</h3>
           <div className={classes.btn}>
-            <Link to="#">Nossos Serviços</Link>
-            <Link to="/Pacotes/">Faça Seu Pedido</Link>
-          </div>
-        </div>
-
-        {/* Video Section */}
-        <div className={classes.video}>
-          <div className={classes.videoContainer}>
-          <div className={classes.iconContainer}>
-            <div className={classes.bola}></div>
-            <FaPlay className={classes.playIcon} onClick={openModal} />
-          </div>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              shouldCloseOnOverlayClick={true}
-              className={classes.videoModal}
-              overlayClassName={classes.videoModalOverlay}
-              contentLabel="Video Modal"
-            >
-              <button onClick={closeModal} className={classes.closeButton}>X</button>
-              <iframe
-                src="https://www.youtube.com/embed/LXb3EKWsInQ"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </Modal>
+            <Link to="/sobre">Saiba Mais</Link>
           </div>
         </div>
       </div>
