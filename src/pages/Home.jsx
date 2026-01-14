@@ -273,46 +273,49 @@ function Home() {
 </section>
       {/* Packages Section */}
       <section className={classes.sectionPacotes}>
-  <div className={classes.pacoteTitle} data-aos="fade-up" data-aos-delay="200">
-    <h1>Drinks <span>________</span></h1>
-    <h2>Encontre o drink ideal para a sua festa</h2>
-  </div>
-  
-  {loadingDrinks ? (
-    <div className={classes.loadingDrinks}>
-      <Loader2 className="animate-spin" size={32} />
-      <p>Carregando drinks...</p>
-    </div>
-  ) : highlightedDrinks.length > 0 ? (
-    <div className={classes.drinksCarouselWrapper} data-aos="fade-left" data-aos-delay="200">
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className={classes.drinksCarousel}
-      >
-        <CarouselContent className={classes.carouselContent}>
-          {highlightedDrinks.map((drink) => (
-            <CarouselItem key={drink.id} className={classes.carouselItem}>
-              <DrinkCard item={drink} onImageClick={handleDrinkClick} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className={`${classes.carouselButton} -left-4 md:-left-12`} />
-        <CarouselNext className={`${classes.carouselButton} -right-4 md:-right-12`} />
-      </Carousel>
-    </div>
-  ) : (
-    <div className={classes.emptyDrinks}>
-      <p>Nenhum drink em destaque no momento.</p>
-    </div>
-  )}
-  
-  <div className={classes.maispacote}>
-    <Link to="/drinks/">VEJA MAIS DRINKS PARA SUA FESTA</Link>
-  </div>
-</section>
+        <div className={classes.pacoteTitle} data-aos="fade-up" data-aos-delay="200">
+          <h1>Coquetéis <span>________</span></h1>
+          <h2>[TEXTO A DEFINIR - aguardando Vini/Henrique]</h2>
+        </div>
+        
+        {loadingDrinks ? (
+          <div className={classes.loadingDrinks}>
+            <Loader2 className="animate-spin" size={32} />
+            <p>Carregando coquetéis...</p>
+          </div>
+        ) : highlightedDrinks.length > 0 ? (
+          <div className={classes.drinksCarouselWrapper} data-aos="fade-left" data-aos-delay="200">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className={classes.drinksCarousel}
+            >
+              <CarouselContent>
+                {highlightedDrinks.map((drink) => (
+                  <CarouselItem 
+                    key={drink.id} 
+                    className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4"
+                  >
+                    <DrinkCard item={drink} onImageClick={handleDrinkClick} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className={classes.carouselButton} />
+              <CarouselNext className={classes.carouselButton} />
+            </Carousel>
+          </div>
+        ) : (
+          <div className={classes.emptyDrinks}>
+            <p>Nenhum coquetel em destaque no momento.</p>
+          </div>
+        )}
+        
+        <div className={classes.maispacote}>
+          <Link to="/drinks/">VEJA MAIS COQUETÉIS PARA SUA FESTA</Link>
+        </div>
+      </section>
 
 
 

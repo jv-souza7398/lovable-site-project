@@ -510,51 +510,19 @@ opacity: 1;
   color: #888;
 }
 
+/* Drinks Carousel - Fixed Layout */
 .drinksCarouselWrapper {
-  width: 90%;
+  width: calc(100% - 8rem);
   max-width: 1400px;
   margin: 2rem auto;
   position: relative;
+  padding: 0 1rem;
 }
 
 .drinksCarousel {
   width: 100%;
   position: relative;
-}
-
-.carouselContent {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.carouselItem {
-  flex: 0 0 auto;
-  min-width: 0;
-  padding-left: 1rem;
-}
-
-@media (min-width: 1024px) {
-  .carouselItem {
-    flex: 0 0 calc(100% / 4);
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .carouselItem {
-    flex: 0 0 calc(100% / 3);
-  }
-}
-
-@media (min-width: 480px) and (max-width: 767px) {
-  .carouselItem {
-    flex: 0 0 calc(100% / 2);
-  }
-}
-
-@media (max-width: 479px) {
-  .carouselItem {
-    flex: 0 0 85%;
-  }
+  overflow: visible;
 }
 
 .drinkCard {
@@ -632,15 +600,17 @@ opacity: 1;
   color: white;
 }
 
+/* Carousel Navigation Buttons */
 .carouselButton {
-  background: rgba(146, 117, 60, 0.9) !important;
+  background: rgba(146, 117, 60, 0.95) !important;
   border: none !important;
   color: black !important;
   width: 2.5rem !important;
   height: 2.5rem !important;
   z-index: 10;
-  left: auto !important;
-  right: auto !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
 }
 
 .carouselButton:hover {
@@ -651,10 +621,22 @@ opacity: 1;
   opacity: 0.3 !important;
 }
 
-/* Hide carousel arrows on mobile/tablet */
+/* Hide carousel arrows on mobile/tablet - use swipe instead */
 @media (max-width: 1023px) {
   .carouselButton {
     display: none !important;
+  }
+  
+  .drinksCarouselWrapper {
+    width: 95%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .drinksCarouselWrapper {
+    width: 100%;
+    padding: 0 1rem;
   }
 }
 /* CARDS  */
