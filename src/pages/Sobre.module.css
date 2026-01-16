@@ -557,3 +557,55 @@
     font-size: 0.9rem;
   }
 }
+
+/* Desktop/Notebook - Fontes maiores */
+@media (min-width: 1200px) {
+  .heroContent h1 {
+    font-size: 5rem;
+  }
+
+  .heroContent p {
+    font-size: 1.6rem;
+  }
+
+  .historyContent h2,
+  .servicesHeader h2,
+  .valuesContent h2,
+  .ctaContent h2 {
+    font-size: 3rem;
+  }
+
+  .historyContent p,
+  .servicesHeader p,
+  .ctaContent > p {
+    font-size: 1.3rem;
+  }
+
+  .serviceCard h4 {
+    font-size: 1.4rem;
+  }
+
+  .serviceCard p {
+    font-size: 1.1rem;
+  }
+
+  .valueCard h4 {
+    font-size: 1.3rem;
+  }
+
+  .valueCard p {
+    font-size: 1.05rem;
+  }
+
+  .badge {
+    font-size: 1.1rem;
+  }
+
+  .ctaButton {
+    font-size: 1.4rem;
+  }
+
+  .contactItem {
+    font-size: 1.25rem;
+  }
+}
