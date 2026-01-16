@@ -420,7 +420,6 @@ function Home() {
             <h1>
               Coquetéis <span>________</span>
             </h1>
-            <h2>[TEXTO A DEFINIR - aguardando Vini/Henrique]</h2>
           </div>
 
           {loadingDrinks ? (
