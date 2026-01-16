@@ -4,7 +4,7 @@ import drink2 from '../assets/drink6.jpg';
 import drink1 from '../assets/drink10.jpg';
 import drink4 from '../assets/drink1.jpeg';
 import classes from './Home.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -220,6 +220,7 @@ const DrinkCard = ({ item, onImageClick }) => {
 };
 
 function Home() {
+  const navigate = useNavigate();
   const [highlightedDrinks, setHighlightedDrinks] = useState([]);
   const [loadingDrinks, setLoadingDrinks] = useState(true);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -368,10 +369,15 @@ function Home() {
       <section className={classes.section}>
         <div className={classes.sectionTitle} data-aos="fade-up">
           <h1>Serviços <span>________</span></h1>
-          <h2>Drinks com e sem álcool</h2>
         </div>
         <div className={classes.container}>
-          <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
+          <div 
+            className={classes.cardItem} 
+            data-aos="fade-up" 
+            data-aos-delay="100"
+            onClick={() => navigate('/sobre#servicos')}
+            style={{ cursor: 'pointer' }}
+          >
             <span><i className="bi bi-cup-straw"></i></span>
             <h4>Bar de caipirinhas</h4>
             <p>Diversas outras combinações de Frutas e Especiarias para Caipirinhas que agradarão todos os seus convidados!</p>
