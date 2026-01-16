@@ -1,6 +1,6 @@
 /* Sobre Page Styles */
 .sobrePage {
-  background-color: #141414;
+  background: linear-gradient(180deg, #3C2A1E 0%, #8B7D6F 50%, #A8A5A1 100%);
   min-height: 100vh;
 }
 
@@ -8,10 +8,7 @@
 .heroSection {
   height: 60vh;
   min-height: 400px;
-  background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(20, 20, 20, 0.95)), url('../assets/drink5.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,9 +43,7 @@
 /* History Section */
 .historySection {
   padding: 6rem 2rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(20, 20, 20, 0.95)), url('../assets/drink6.jpg');
-  background-size: cover;
-  background-position: center;
+  background: transparent;
 }
 
 .historyContainer {
@@ -110,7 +105,7 @@
 /* Services Section */
 .servicesSection {
   padding: 6rem 2rem;
-  background: #1a1a1a;
+  background: transparent;
 }
 
 .servicesContainer {
@@ -208,9 +203,7 @@
 /* Values Section */
 .valuesSection {
   padding: 6rem 2rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.95), rgba(20, 20, 20, 0.98)), url('../assets/drink7.jpg');
-  background-size: cover;
-  background-position: center;
+  background: transparent;
 }
 
 .valuesContainer {
@@ -307,10 +300,7 @@
 .ctaSection {
   position: relative;
   padding: 6rem 2rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.85), rgba(20, 20, 20, 0.9)), url('../assets/drink8.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: transparent;
   text-align: center;
 }
 
