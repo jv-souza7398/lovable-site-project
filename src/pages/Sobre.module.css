@@ -22,11 +22,11 @@
 
 .heroContent h1 {
   font-size: 4rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #fff;
   margin-bottom: 1.5rem;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
 .heroContent h1 span {
@@ -36,7 +36,7 @@
 .heroContent p {
   font-size: 1.4rem;
   color: #aba7a7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
 }
 
@@ -76,18 +76,19 @@
   color: rgb(146, 117, 60);
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  font-weight: 600;
-  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
   border-radius: 8px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .historyContent h2 {
   font-size: 2.5rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 2rem;
+  letter-spacing: 1px;
 }
 
 .historyContent h2 span {
@@ -97,8 +98,8 @@
 .historyContent p {
   font-size: 1.1rem;
   color: #aba7a7;
-  font-family: 'Lato', sans-serif;
-  line-height: 1.8;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.9;
   margin-bottom: 1.5rem;
 }
 
@@ -120,10 +121,11 @@
 
 .servicesHeader h2 {
   font-size: 2.5rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 1rem;
+  letter-spacing: 1px;
 }
 
 .servicesHeader h2 span {
@@ -133,10 +135,10 @@
 .servicesHeader p {
   font-size: 1.1rem;
   color: #aba7a7;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .servicesGrid {
@@ -179,17 +181,18 @@
 
 .serviceCard h4 {
   font-size: 1.2rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
 }
 
 .serviceCard p {
   font-size: 0.95rem;
   color: #aba7a7;
-  font-family: 'Lato', sans-serif;
-  line-height: 1.6;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.7;
 }
 
 .servicesImage img {
@@ -217,10 +220,11 @@
 
 .valuesContent h2 {
   font-size: 2.5rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 3rem;
+  letter-spacing: 1px;
 }
 
 .valuesContent h2 span {
@@ -252,8 +256,8 @@
   top: 12px;
   right: 15px;
   font-size: 2rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: rgba(146, 117, 60, 0.3);
 }
 
@@ -275,17 +279,18 @@
 
 .valueCard h4 {
   font-size: 1.1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
 }
 
 .valueCard p {
   font-size: 0.9rem;
   color: #aba7a7;
-  font-family: 'Lato', sans-serif;
-  line-height: 1.5;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.6;
 }
 
 .valuesImage img {
@@ -322,10 +327,11 @@
 
 .ctaContent h2 {
   font-size: 2.5rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
   color: #f0ecec;
   margin-bottom: 1.5rem;
+  letter-spacing: 1px;
 }
 
 .ctaContent h2 span {
@@ -335,8 +341,8 @@
 .ctaContent > p {
   font-size: 1.1rem;
   color: #aba7a7;
-  font-family: 'Lato', sans-serif;
-  line-height: 1.7;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.8;
   margin-bottom: 2.5rem;
 }
 
@@ -344,14 +350,15 @@
   display: inline-block;
   background: rgb(146, 117, 60);
   color: #fff;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 1.2rem;
   padding: 1rem 3rem;
   border-radius: 50px;
   text-decoration: none;
   transition: all 0.3s ease;
   border: 2px solid rgb(146, 117, 60);
+  letter-spacing: 1px;
 }
 
 .ctaButton:hover {
@@ -374,8 +381,8 @@
   gap: 0.8rem;
   color: #aba7a7;
   text-decoration: none;
-  font-family: 'Lato', sans-serif;
-  font-size: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
   transition: color 0.3s ease;
 }
 
