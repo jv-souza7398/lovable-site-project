@@ -9,7 +9,8 @@ box-sizing: border-box;
   flex-direction: column;
   /* Background is now applied dynamically via inline style */
   min-height: 100vh;
-  transition: background 0.8s ease-in-out;
+  transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: background;
 }
 .homeContent {
   position: relative;
