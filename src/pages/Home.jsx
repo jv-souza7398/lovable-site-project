@@ -23,48 +23,122 @@ import {
 } from '../components/ui/carousel';
 import DrinkDetailsModal from '../components/DrinkDetailsModal';
 
-// Array of hero slider images
-const heroImages = [drink1, drink2, drink3];
+// Array of hero slider images with fallback colors
+const heroImages = [
+  { src: drink1, fallbackColor: 'rgb(139, 69, 46)' },  // Warm brown/orange
+  { src: drink2, fallbackColor: 'rgb(89, 54, 36)' },   // Dark brown
+  { src: drink3, fallbackColor: 'rgb(45, 35, 30)' },   // Deep brown
+];
 
-// Function to extract dominant color from bottom of image
-const extractBottomColor = (imageSrc) => {
+// Utility function to darken a color for better gradient blending
+const darkenColor = (r, g, b, factor = 0.7) => {
+  return {
+    r: Math.floor(r * factor),
+    g: Math.floor(g * factor),
+    b: Math.floor(b * factor)
+  };
+};
+
+// Utility function to desaturate a color (move towards gray)
+const desaturateColor = (r, g, b, factor = 0.8) => {
+  const gray = (r + g + b) / 3;
+  return {
+    r: Math.floor(r + (gray - r) * (1 - factor)),
+    g: Math.floor(g + (gray - g) * (1 - factor)),
+    b: Math.floor(b + (gray - b) * (1 - factor))
+  };
+};
+
+// Function to extract dominant color from bottom of image using weighted sampling
+const extractBottomColor = (imageData) => {
   return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = 'Anonymous';
+    
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      
-      // Analyze the bottom 15% of the image
-      const bottomHeight = Math.floor(img.height * 0.15);
-      const startY = img.height - bottomHeight;
-      const imageData = ctx.getImageData(0, startY, img.width, bottomHeight);
-      
-      // Calculate average color
-      let r = 0, g = 0, b = 0;
-      const pixels = imageData.data;
-      const pixelCount = pixels.length / 4;
-      
-      for (let i = 0; i < pixels.length; i += 4) {
-        r += pixels[i];
-        g += pixels[i + 1];
-        b += pixels[i + 2];
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Use smaller canvas for performance
+        const scale = Math.min(1, 200 / img.width);
+        canvas.width = Math.floor(img.width * scale);
+        canvas.height = Math.floor(img.height * scale);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Analyze the bottom 20% of the image
+        const bottomHeight = Math.floor(canvas.height * 0.20);
+        const startY = canvas.height - bottomHeight;
+        const pixelData = ctx.getImageData(0, startY, canvas.width, bottomHeight);
+        
+        // Use color bucketing for more accurate dominant color
+        const colorBuckets = {};
+        const pixels = pixelData.data;
+        
+        for (let i = 0; i < pixels.length; i += 4) {
+          // Round colors to reduce noise (bucket size of 16)
+          const r = Math.floor(pixels[i] / 16) * 16;
+          const g = Math.floor(pixels[i + 1] / 16) * 16;
+          const b = Math.floor(pixels[i + 2] / 16) * 16;
+          
+          // Skip very dark or very bright pixels
+          const brightness = (r + g + b) / 3;
+          if (brightness < 20 || brightness > 240) continue;
+          
+          const key = `${r},${g},${b}`;
+          colorBuckets[key] = (colorBuckets[key] || 0) + 1;
+        }
+        
+        // Find the most frequent color
+        let dominantColor = { r: 0, g: 0, b: 0 };
+        let maxCount = 0;
+        
+        for (const [key, count] of Object.entries(colorBuckets)) {
+          if (count > maxCount) {
+            maxCount = count;
+            const [r, g, b] = key.split(',').map(Number);
+            dominantColor = { r, g, b };
+          }
+        }
+        
+        // If no valid color found, calculate average
+        if (maxCount === 0) {
+          let rSum = 0, gSum = 0, bSum = 0;
+          const pixelCount = pixels.length / 4;
+          
+          for (let i = 0; i < pixels.length; i += 4) {
+            rSum += pixels[i];
+            gSum += pixels[i + 1];
+            bSum += pixels[i + 2];
+          }
+          
+          dominantColor = {
+            r: Math.floor(rSum / pixelCount),
+            g: Math.floor(gSum / pixelCount),
+            b: Math.floor(bSum / pixelCount)
+          };
+        }
+        
+        // Desaturate slightly and darken for better gradient blending
+        const desaturated = desaturateColor(dominantColor.r, dominantColor.g, dominantColor.b, 0.85);
+        const darkened = darkenColor(desaturated.r, desaturated.g, desaturated.b, 0.6);
+        
+        const finalColor = `rgb(${darkened.r}, ${darkened.g}, ${darkened.b})`;
+        console.log(`Extracted color for image: ${finalColor}`);
+        resolve(finalColor);
+        
+      } catch (error) {
+        console.warn('Error extracting color:', error);
+        resolve(imageData.fallbackColor || '#000000');
       }
-      
-      r = Math.floor(r / pixelCount);
-      g = Math.floor(g / pixelCount);
-      b = Math.floor(b / pixelCount);
-      
-      resolve(`rgb(${r}, ${g}, ${b})`);
     };
+    
     img.onerror = () => {
-      // Fallback color if image fails to load
-      resolve('#000000');
+      console.warn('Failed to load image for color extraction');
+      resolve(imageData.fallbackColor || '#000000');
     };
-    img.src = imageSrc;
+    
+    img.src = imageData.src;
   });
 };
 
@@ -252,7 +326,16 @@ function Home() {
   }, [loadingDrinks, highlightedDrinks.length]);
 
   // Dynamic gradient based on current slide color
-  const dynamicGradient = `linear-gradient(180deg, ${currentSlideColor} 0%, #0A0503 10%, #150903 25%, #190A03 35%, #482D20 55%, #8B7D6F 78%, #FFF5E9 100%)`;
+  // Creates a smooth transition from the image's dominant color to the site's original colors
+  const dynamicGradient = `linear-gradient(180deg, 
+    ${currentSlideColor} 0%, 
+    ${currentSlideColor}99 5%,
+    #0A0503 15%, 
+    #150903 30%, 
+    #190A03 40%, 
+    #482D20 55%, 
+    #8B7D6F 78%, 
+    #FFF5E9 100%)`;
 
   return (
     <>
@@ -260,27 +343,15 @@ function Home() {
       <main className={classes.home} style={{ background: dynamicGradient }}>
       <div className={classes.homeContent}>
         <Slider {...settings} className={classes.imgHome}>
-          <div className={classes.slide}>
-            <div className={classes.imgContainer}>
-            <LazyLoad>
-                  <img src={drink1} alt="Drink 1" className={classes.img} />
-                </LazyLoad>
-            </div>
-          </div>
-          <div className={classes.slide}>
-            <div className={classes.imgContainer}>
-            <LazyLoad>
-                  <img src={drink2} alt="Drink 2" className={classes.img} />
-                </LazyLoad>
-            </div>
-          </div>
-          <div className={classes.slide}>
-            <div className={classes.imgContainer}>
-            <LazyLoad>
-                  <img src={drink3} alt="Drink 3" className={classes.img} />
+          {heroImages.map((imageData, index) => (
+            <div className={classes.slide} key={index}>
+              <div className={classes.imgContainer}>
+                <LazyLoad>
+                  <img src={imageData.src} alt={`Drink ${index + 1}`} className={classes.img} />
                 </LazyLoad>
               </div>
-          </div>
+            </div>
+          ))}
         </Slider>
 
         {/* Content Section */}
