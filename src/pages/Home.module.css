@@ -695,13 +695,13 @@ opacity: 1;
   width: 90%;
   height: 15%;
   margin: 1rem 9rem 0;
-  padding-left: 30%;
+  padding-left: 15%;
   color: #f0ecec;
   
 }
 .sectionTitle h2{
   width: 30%;
- font-size: 2.2rem;
+ font-size: 1.48rem;
  color: rgb(146, 117, 60);
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
@@ -709,7 +709,7 @@ opacity: 1;
  margin-top: 0;
 }
 .sectionTitle h1{
- font-size: 1.32rem;
+ font-size: 1.85rem;
  text-align: start;
  margin-top: 0;
  margin-bottom: 0;
@@ -786,9 +786,6 @@ opacity: 1;
 .serviceDescription {
   flex: 1;
   padding: 2rem;
-  border-radius: 12px;
-  background-color: rgba(30, 30, 30, 0.5);
-  border: 1px solid rgba(146, 117, 60, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
