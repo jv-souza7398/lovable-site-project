@@ -35,7 +35,7 @@
   color: rgb(255, 255, 255);
   font-size: 1rem;
   font-family: 'Cormorant Garamond', serif;
-  border-radius: 50px;
+  border-radius: 0;
   cursor: pointer;
   transition: 0.3s;
   text-decoration: none;
@@ -315,7 +315,7 @@
   height: auto;
   text-align: center;
   background-color: rgb(146, 117, 60);
-  border-radius: 50px;
+  border-radius: 0;
   padding: 0.75rem 1rem;
   width: 100%;
   transition: all 0.3s ease;
@@ -338,7 +338,7 @@
   text-align: center;
   background-color: transparent;
   border: 2px solid rgb(146, 117, 60);
-  border-radius: 50px;
+  border-radius: 0;
   padding: 0.75rem 1rem;
   width: 100%;
   transition: all 0.3s ease;
