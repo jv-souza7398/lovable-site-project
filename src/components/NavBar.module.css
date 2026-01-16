@@ -16,6 +16,7 @@
 .logo{
   position: absolute;
   left: 5rem;
+  top: 5%;
   display: flex;
   align-items: center;
   height: 100%;
