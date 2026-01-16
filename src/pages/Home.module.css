@@ -142,8 +142,10 @@ box-sizing: border-box;
 }
 
 .btn {
-  width: auto;
+  width: 100%;
   margin-top: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .contentHome a {
