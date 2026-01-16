@@ -1,40 +1,40 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import classes from './Sobre.module.css';
-import drink1 from '../assets/drink11.jpg';
-import drink2 from '../assets/drink10.jpg';
-import drink3 from '../assets/drink3.jpeg';
-import drink4 from '../assets/drink8.jpg';
-import 'aos/dist/aos.css';
-import AOS from 'aos';
-import { 
-  FaGlassMartiniAlt, 
-  FaBuilding, 
-  FaHeart, 
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import classes from "./Sobre.module.css";
+import drink1 from "../assets/drink11.jpg";
+import drink2 from "../assets/drink10.jpg";
+import drink3 from "../assets/drink3.jpeg";
+import drink4 from "../assets/drink8.jpg";
+import "aos/dist/aos.css";
+import AOS from "aos";
+import {
+  FaGlassMartiniAlt,
+  FaBuilding,
+  FaHeart,
   FaBirthdayCake,
   FaStar,
   FaUserTie,
   FaLightbulb,
   FaSmile,
   FaPhone,
-  FaEnvelope
-} from 'react-icons/fa';
+  FaEnvelope,
+} from "react-icons/fa";
 
 function Sobre() {
   useEffect(() => {
     AOS.init({
       duration: 800,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
       once: true,
     });
 
     // Verificar se há hash na URL e fazer scroll para a seção
     const hash = window.location.hash;
-    if (hash === '#servicos') {
+    if (hash === "#servicos") {
       setTimeout(() => {
-        const element = document.getElementById('servicos');
+        const element = document.getElementById("servicos");
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }, 300);
     }
@@ -43,51 +43,51 @@ function Sobre() {
   const services = [
     {
       icon: FaGlassMartiniAlt,
-      title: 'Coquetéis Exclusivos',
-      description: 'Drinks personalizados e clássicos preparados com ingredientes premium e técnicas refinadas.'
+      title: "Coquetéis Exclusivos",
+      description: "Drinks personalizados e clássicos preparados com ingredientes premium e técnicas refinadas.",
     },
     {
       icon: FaBuilding,
-      title: 'Eventos Corporativos',
-      description: 'Confraternizações, lançamentos e eventos empresariais com serviço impecável.'
+      title: "Eventos Corporativos",
+      description: "Confraternizações, lançamentos e eventos empresariais com serviço impecável.",
     },
     {
       icon: FaHeart,
-      title: 'Casamentos',
-      description: 'Bartending elegante para tornar sua cerimônia ainda mais especial e memorável.'
+      title: "Casamentos",
+      description: "Bartending elegante para tornar sua cerimônia ainda mais especial e memorável.",
     },
     {
       icon: FaBirthdayCake,
-      title: 'Festas Privadas',
-      description: 'Aniversários, formaturas e celebrações íntimas com atendimento personalizado.'
-    }
+      title: "Festas Privadas",
+      description: "Aniversários, formaturas e celebrações íntimas com atendimento personalizado.",
+    },
   ];
 
   const values = [
     {
-      number: '01',
+      number: "01",
       icon: FaStar,
-      title: 'Qualidade',
-      description: 'Utilizamos apenas ingredientes premium e técnicas refinadas em cada drink.'
+      title: "Qualidade",
+      description: "Utilizamos apenas ingredientes premium e técnicas refinadas em cada drink.",
     },
     {
-      number: '02',
+      number: "02",
       icon: FaUserTie,
-      title: 'Profissionalismo',
-      description: 'Equipe altamente treinada, pontualidade e apresentação impecável.'
+      title: "Profissionalismo",
+      description: "Equipe altamente treinada, pontualidade e apresentação impecável.",
     },
     {
-      number: '03',
+      number: "03",
       icon: FaLightbulb,
-      title: 'Inovação',
-      description: 'Sempre atentos às tendências, criamos drinks autorais e experiências únicas.'
+      title: "Inovação",
+      description: "Sempre atentos às tendências, criamos drinks autorais e experiências únicas.",
     },
     {
-      number: '04',
+      number: "04",
       icon: FaSmile,
-      title: 'Satisfação',
-      description: 'Nosso foco está na experiência completa do cliente, do primeiro contato ao brinde final.'
-    }
+      title: "Satisfação",
+      description: "Nosso foco está na experiência completa do cliente, do primeiro contato ao brinde final.",
+    },
   ];
 
   return (
@@ -95,7 +95,9 @@ function Sobre() {
       {/* Hero Section */}
       <section className={classes.heroSection}>
         <div className={classes.heroContent}>
-          <h1 data-aos="fade-up">Sobre a <span>Vincci Bar</span></h1>
+          <h1 data-aos="fade-up">
+            Sobre a <span>Vincci Bar</span>
+          </h1>
           <p data-aos="fade-up" data-aos-delay="100">
             Excelência em serviços de bartending para eventos memoráveis
           </p>
@@ -110,22 +112,19 @@ function Sobre() {
             <span className={classes.badge}>Desde 2015</span>
           </div>
           <div className={classes.historyContent} data-aos="fade-left">
-            <h2>Uma Tradição de <span>Excelência</span></h2>
+            <h2>
+              Uma Tradição de <span>Excelência</span>
+            </h2>
+            <p>A Vincci nasce em 2021 como uma equipe de bar para eventos com um olhar autoral sobre a coquetelaria.</p>
             <p>
-              A Vincci Bar nasceu da paixão por criar experiências únicas através da 
-              arte da coquetelaria. Fundada em 2015, nossa missão sempre foi elevar 
-              o padrão dos serviços de bartending para eventos no Brasil.
+              Nosso trabalho também é parte da produção própria dos insumos que compõem cada coquetel — infusões,
+              xaropes, reduções e preparações desenvolvidas internamente, respeitando técnica, tempo e intenção. Esse
+              processo nos permite criar drinks com identidade, consistência e equilíbrio.
             </p>
             <p>
-              Ao longo dos anos, construímos uma reputação sólida baseada na qualidade 
-              dos nossos drinks, na elegância do nosso atendimento e no comprometimento 
-              com cada detalhe. Já participamos de mais de 500 eventos, sempre deixando 
-              nossa marca de excelência.
-            </p>
-            <p>
-              Nossa equipe é formada por bartenders certificados, com vasta experiência 
-              em eventos de alto padrão. Cada membro do time compartilha a mesma paixão 
-              por criar momentos memoráveis através de drinks excepcionais.
+              Cada carta é pensada de forma exclusiva, dialogando com o conceito do seu evento e com a experiência que
+              se deseja entregar. Mais do que servir bebidas, a Vincci propõe uma coquetelaria que valoriza criação,
+              precisão e presença.
             </p>
           </div>
         </div>
@@ -135,21 +134,18 @@ function Sobre() {
       <section id="servicos" className={classes.servicesSection}>
         <div className={classes.servicesContainer}>
           <div className={classes.servicesHeader} data-aos="fade-up">
-            <h2>Serviços <span>Premium</span></h2>
+            <h2>
+              Serviços <span>Premium</span>
+            </h2>
             <p>
-              Oferecemos uma experiência completa de bartending, desde a consultoria 
-              inicial até a execução impecável do seu evento. Conheça nossos serviços:
+              Oferecemos uma experiência completa de bartending, desde a consultoria inicial até a execução impecável do
+              seu evento. Conheça nossos serviços:
             </p>
           </div>
-          
+
           <div className={classes.servicesGrid}>
             {services.map((service, index) => (
-              <div 
-                key={index} 
-                className={classes.serviceCard}
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
+              <div key={index} className={classes.serviceCard} data-aos="fade-up" data-aos-delay={index * 100}>
                 <div className={classes.serviceIcon}>
                   <service.icon />
                 </div>
@@ -169,15 +165,12 @@ function Sobre() {
       <section className={classes.valuesSection}>
         <div className={classes.valuesContainer}>
           <div className={classes.valuesContent}>
-            <h2 data-aos="fade-up">O Que Nos <span>Define</span></h2>
+            <h2 data-aos="fade-up">
+              O Que Nos <span>Define</span>
+            </h2>
             <div className={classes.valuesGrid}>
               {values.map((value, index) => (
-                <div 
-                  key={index} 
-                  className={classes.valueCard}
-                  data-aos="fade-up"
-                  data-aos-delay={index * 100}
-                >
+                <div key={index} className={classes.valueCard} data-aos="fade-up" data-aos-delay={index * 100}>
                   <span className={classes.valueNumber}>{value.number}</span>
                   <div className={classes.valueIcon}>
                     <value.icon />
@@ -198,10 +191,12 @@ function Sobre() {
       <section className={classes.ctaSection}>
         <div className={classes.ctaOverlay}></div>
         <div className={classes.ctaContent} data-aos="zoom-in">
-          <h2>Pronto para <span>Elevar</span> seu Evento?</h2>
+          <h2>
+            Pronto para <span>Elevar</span> seu Evento?
+          </h2>
           <p>
-            Entre em contato conosco e descubra como podemos transformar 
-            sua próxima celebração em uma experiência inesquecível.
+            Entre em contato conosco e descubra como podemos transformar sua próxima celebração em uma experiência
+            inesquecível.
           </p>
           <Link to="/fale-conosco" className={classes.ctaButton}>
             Solicitar Orçamento
