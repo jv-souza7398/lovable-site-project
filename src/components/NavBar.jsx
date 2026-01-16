@@ -5,7 +5,7 @@ import { AccountContext } from '../contexts/AccountContext'
 import { CartContext } from '../contexts/CartContext'
 import { ChevronDown } from 'lucide-react'
 
-import logo from '../assets/Vincci.jpg'
+import logo from '../assets/logo-vincci-new.png'
 
 function Navbar() {
   const navigate = useNavigate();
@@ -31,8 +31,7 @@ function Navbar() {
     <div className={classes.content}>   
       <nav className={classes.navbarContent}>
         <div className={classes.logo}>
-          <span><img  src={logo} /></span>
-          <h1> VINCCI PUB</h1>
+          <Link to="/"><img src={logo} alt="Vincci Bar" /></Link>
         </div>
 
         {/* Botão Hambúrguer */}
@@ -52,7 +51,6 @@ function Navbar() {
             <Link to={"#"}><i className="bi bi-search"></i></Link>
             <li><Link to={"/"}>HOME</Link></li>
             <li><Link to={"/drinks/"}>DRINKS</Link></li>
-            <Link to={"#"}><img src={logo} className={classes.logoImg}/></Link>
             <li 
               className={classes.dropdownContainer}
               onMouseEnter={() => setDropdownOpen(true)}

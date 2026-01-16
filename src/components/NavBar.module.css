@@ -16,28 +16,17 @@
 .logo{
   position: sticky;
   display: flex;
- gap: 0.5rem;
- height: 100%;
- margin-right: 3rem;
-
-}
-.logo h1{
-  font-size: 1rem;
-  letter-spacing: 4px;
-  color: rgb(183, 143, 63) ;
-  cursor: pointer;
-  display: flex;
   align-items: center;
+  height: 100%;
+  margin-right: 3rem;
+}
 
-}
 .logo img{
-margin-bottom: 0.6rem;
-}
-.content img{
-  width: 4rem;
-  height: 3.5rem;
- margin-top: 1rem;
-  border-radius: 100%;
+  width: auto;
+  height: 3rem;
+  object-fit: contain;
+  border-radius: 0;
+  margin: 0;
 }
 .navbarContent{
 width: 100%;
