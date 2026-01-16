@@ -1,7 +1,7 @@
 import classes from './Footer.module.css'
 
 import { Link } from 'react-router-dom'
-import logo from '../assets/Vincci.jpg'
+import logo from '../assets/LOGO_VINCCI.png'
 
 function Footer() {
   return (

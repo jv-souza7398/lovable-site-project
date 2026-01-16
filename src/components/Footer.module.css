@@ -1,23 +1,23 @@
 .footer {
   width: 100%;
-  background-color: rgb(39, 44, 49);
-  color: white;
+  background-color: #FFF5E9;
+  color: #482D20;
 }
 
 .containerContatos {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   gap: 5rem;
   padding: 3rem 2rem;
 }
 
 .containerContatos h4 {
-  color: rgb(146, 117, 60);
+  color: #190A03;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .ContatosLinks {
@@ -27,18 +27,23 @@
 }
 
 .ContatosLinks a {
-  color: rgb(115, 114, 113);
+  color: #482D20;
   font-size: 0.9rem;
-  transition: 0.6s;
+  transition: 0.3s;
 }
 
 .ContatosLinks a:hover {
-  color: white;
+  color: #190A03;
+}
+
+.Imglogo {
+  display: flex;
+  align-items: center;
 }
 
 .Imglogo img {
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: auto;
 }
 
 .redesSociais {
@@ -47,10 +52,10 @@
 }
 
 .redesSociais h4 {
-  color: rgb(146, 117, 60);
+  color: #190A03;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .socialLinks {
@@ -63,16 +68,16 @@
 }
 
 .socialLinks a {
-  color: rgb(115, 114, 113);
+  color: #482D20;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: 0.6s;
+  transition: 0.3s;
 }
 
 .socialLinks a:hover {
-  color: white;
+  color: #190A03;
 }
 
 .socialLinks i {
