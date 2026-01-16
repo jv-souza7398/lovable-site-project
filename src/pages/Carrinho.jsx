@@ -242,10 +242,10 @@ function Carrinho() {
         onConfirm={handleConfirmEvent}
         loading={sendingQuote}
       />
-      <main>
-        <section className={classes.carrinho}>
+      <main className={classes.carrinho}>
+        <section>
           <header className={classes.navCarrinho}>
-            <h1>CARRINHO</h1>
+            <h1>Seu <span>Carrinho</span></h1>
           </header>
           <section className={classes.itemSection}>
             <div className={classes.carrinhoTitle} data-aos="fade-up">
