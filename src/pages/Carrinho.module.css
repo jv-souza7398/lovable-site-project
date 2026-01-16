@@ -1,23 +1,32 @@
-
+/* Carrinho Page - Seguindo padrão Sobre Nós */
+.carrinho {
+  background: linear-gradient(180deg, #190A03 0%, #190A03 25%, #482D20 50%, #8B7D6F 75%, #FFF5E9 100%);
+  min-height: 100vh;
+}
 
 .navCarrinho{
   width: 100%;
   height: 24rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.412),rgba(20,20,20,1)),url(../assets/drink3.jpeg);
-  background-position:center;
-  background-size: cover;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .navCarrinho h1{
   margin-bottom: 1rem;
-  font-size: 5rem;
-  letter-spacing: -2px;
-   font-style:italic;
+  font-size: 4rem;
+  letter-spacing: 3px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: #fff;
+}
+
+.navCarrinho h1 span {
   color: rgb(146, 117, 60);
 }
+
 .navCarrinho .continuarComprando {
   margin-top: 1rem;
   padding: 1rem 2rem;
@@ -25,15 +34,18 @@
   border: 2px solid rgb(146, 117, 60);
   color: rgb(255, 255, 255);
   font-size: 1rem;
-  border-radius: 0.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  border-radius: 50px;
   cursor: pointer;
   transition: 0.3s;
   text-decoration: none;
 }
+
 .navCarrinho .continuarComprando:hover {
   background: rgb(146, 117, 60);
-  color: black;
+  color: #fff;
 }
+
 .carrinhoContent{
   padding:1rem 2rem;
   display: flex;
@@ -41,17 +53,16 @@
   width: 90%;
   margin: 0 auto;
 }
+
 .carrinhoTitle{
   padding: 1rem;
 }
+
 .itemSection{
-  background: linear-gradient(rgba(22, 22, 22, 0.891),rgba(8, 5, 5, 0.275)), url(../assets/drink6.jpg);
-  background-position:center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: transparent;
   height: 100%;
   width: 100%;
-
+  padding-bottom: 4rem;
 }
 
 .produtos{
@@ -71,35 +82,41 @@
 }
 .carrinhoTitle h1{
   width: 40%;
- font-size: 2rem;
- color:  rgb(146, 117, 60);
-  font-family:cursive;
- margin:  1rem 1.6rem;
+  font-size: 2.5rem;
+  color: #f0ecec;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  margin: 1rem 1.6rem;
+  letter-spacing: 1px;
 }
+
 .carrinhoTitle span{
   width: 2rem;
   margin-left: 0.5rem;
   font-size: 2rem;
   position: relative;
   bottom: 0.5rem;
-  color:  rgb(146, 117, 60);
+  color: rgb(146, 117, 60);
   font-weight: 800;
 }
+
 .articleProdutos{
   width: 100%;
   min-height: 16.4rem;
   height: auto;
-  background-color: rgb(35, 34, 34);
-  border-radius: 0.6rem ;
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+  border-radius: 12px;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
+
 .quantidadeItens{
-  color:  rgb(146, 117, 60);
-  font-family: cursive;
+  color: #f0ecec;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 500;
   padding: 0.5rem 1rem 0;
 }
 .imgItem{
@@ -188,21 +205,25 @@
   width: 100%;
   max-width: 400px;
   height: fit-content;
-  background-color: rgb(30, 29, 29);
-  border-radius: 0.6rem;
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+  border-radius: 12px;
   position: sticky;
   top: 2rem;
 }
 
 .cardHeader{
-  border-bottom: 1px solid  rgb(146, 117, 60);
+  border-bottom: 1px solid rgba(146, 117, 60, 0.3);
 }
+
 .cardHeader h5{
-  color:  rgb(146, 117, 60);
-  font-family: cursive;
+  color: #f0ecec;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.4rem;
-  padding: 0.35rem 2rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
 }
+
 .cardBody{
   padding: 1rem 2rem;
 }
@@ -211,25 +232,32 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .listGroupItem{
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
 }
+
 .listGroupItem p{
   font-size: 1rem;
-  font-weight: 700;
-  color: rgb(177, 169, 169);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: #aba7a7;
 }
+
 .listGroupItem span{
   font-size: 1rem;
-  font-weight: 700;
-  color:  rgb(146, 117, 60);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: rgb(146, 117, 60);
 }
+
 .listGroupItem h4{
   font-size: 1.1rem;
-  color: rgb(177, 169, 169);
+  font-family: 'Cormorant Garamond', serif;
+  color: #aba7a7;
 }
 
 /* Total destacado */
@@ -286,37 +314,38 @@
   min-height: 2.5rem;
   height: auto;
   text-align: center;
-  background-color:  rgb(146, 117, 60);
-  border-radius: 0.6rem;
+  background-color: rgb(146, 117, 60);
+  border-radius: 50px;
   padding: 0.75rem 1rem;
   width: 100%;
-  opacity: 0.9;
-  transition: 0.5s;
-  border: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgb(146, 117, 60);
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Cormorant Garamond', serif;
   color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
+  font-size: 1rem;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
   word-wrap: break-word;
 }
+
 .continuar{
   min-height: 2.4rem;
   height: auto;
   text-align: center;
-  background-color: rgb(112, 85, 76);
-  border-radius: 0.6rem;
+  background-color: transparent;
+  border: 2px solid rgb(146, 117, 60);
+  border-radius: 50px;
   padding: 0.75rem 1rem;
   width: 100%;
-  opacity: 0.9;
-  transition: 0.5s;
-  color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  color: rgb(146, 117, 60);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 1rem;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -328,14 +357,17 @@
   box-shadow: 0 4px 8px rgba(60, 146, 100, 0.3);
 }
 .pagamento:hover{
-  opacity: 1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(146, 117, 60, 0.3);
+  background: transparent;
+  color: rgb(146, 117, 60);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
 }
+
 .continuar:hover{
-  opacity: 1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(112, 85, 76, 0.3);
+  background: rgb(146, 117, 60);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
 }
 
 /* RESPONSIVIDADE */
@@ -544,10 +576,16 @@
 }
 
 .articleDrink {
-  background-color: rgb(35, 34, 34);
-  border-radius: 0.5rem;
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+  border-radius: 12px;
   margin-bottom: 0.75rem;
   padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.articleDrink:hover {
+  border-color: rgb(146, 117, 60);
 }
 
 .drinkContent {
