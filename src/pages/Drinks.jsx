@@ -334,9 +334,9 @@ function DrinksTeste() {
   const displayPadrao = dbDrinksPadrao.length > 0 ? dbDrinksPadrao : drinksPadroes;
 
   return (
-    <>
+    <div className={classes.drinksPage}>
       <div className={classes.navDrinks}>
-        <h1>DRINKS</h1>
+        <h1>Nossos <span>Drinks</span></h1>
       </div>
       {loading ? (
         <div className={classes.loadingState}>
@@ -345,13 +345,13 @@ function DrinksTeste() {
         </div>
       ) : (
         <section className={classes.section}>
-          <DrinkCarousel title="DRINKS SEM ÁLCOOL" items={displaySemAlcool} onDrinkClick={handleDrinkClick} />
-          <DrinkCarousel title="DRINKS PADRÕES" items={displayPadrao} onDrinkClick={handleDrinkClick} />
+          <DrinkCarousel title="Drinks Sem Álcool" items={displaySemAlcool} onDrinkClick={handleDrinkClick} />
+          <DrinkCarousel title="Drinks Padrões" items={displayPadrao} onDrinkClick={handleDrinkClick} />
         </section>
       )}
 
       <DrinkDetailsModal drink={selectedDrink} isOpen={isModalOpen} onClose={handleCloseModal} />
-    </>
+    </div>
   );
 }
 
