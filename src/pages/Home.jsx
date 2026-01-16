@@ -356,8 +356,8 @@ function Home() {
 
         {/* Content Section */}
         <div className={classes.contentHome}>
-          <h1>Bem Vindo Ao <span>Vincci PUB</span></h1>
-          <h3>Deliciosos Drinks</h3>
+          <h1>Coquetelaria autoral</h1>
+          <h3>para eventos exclusivos</h3>
           <div className={classes.btn}>
             <Link to="/sobre">Saiba Mais</Link>
           </div>

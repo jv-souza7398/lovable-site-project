@@ -108,25 +108,28 @@ box-sizing: border-box;
   height: 100%;
   color: rgb(255, 255, 255);
   margin: 0 5rem;
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   position: absolute;
   z-index: 2;
 }
 
 .contentHome h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   letter-spacing: 2px;
+  margin-bottom: 0.25rem;
 }
 
 .contentHome h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 400;
   font-family: 'Cormorant Garamond', serif;
+  margin-top: 0;
 }
 
 .contentHome span {
@@ -135,7 +138,7 @@ box-sizing: border-box;
 }
 
 .btn {
-  width: 100%;
+  width: auto;
   margin-top: 2rem;
 }
 
@@ -143,10 +146,10 @@ box-sizing: border-box;
   height: 1rem;
   background-color: transparent;
   padding: 1rem 2rem;
-  border-radius: 3rem;
+  border-radius: 0;
   border: 2px solid rgb(146, 117, 60);
   color: rgb(255, 255, 255);
-  margin-left: 1rem;
+  margin-left: 0;
   transition: 1s;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
