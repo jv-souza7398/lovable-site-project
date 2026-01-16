@@ -118,9 +118,9 @@ box-sizing: border-box;
 }
 
 .contentHome h1 {
-  font-size: 3.2rem;
+  font-size: 2.4rem;
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 0;
@@ -128,7 +128,7 @@ box-sizing: border-box;
 }
 
 .contentHome h3 {
-  font-size: 2.1rem;
+  font-size: 1.55rem;
   font-weight: 300;
   font-family: 'Cormorant Garamond', serif;
   margin-top: 0.15rem;
@@ -136,7 +136,9 @@ box-sizing: border-box;
   text-transform: uppercase;
   opacity: 0.95;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  padding-left: 0.5rem;
+  padding-left: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .btn {
