@@ -27,6 +27,17 @@ function Sobre() {
       easing: 'ease-in-out',
       once: true,
     });
+
+    // Verificar se há hash na URL e fazer scroll para a seção
+    const hash = window.location.hash;
+    if (hash === '#servicos') {
+      setTimeout(() => {
+        const element = document.getElementById('servicos');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
   }, []);
 
   const services = [
