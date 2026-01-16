@@ -1,6 +1,6 @@
 /* Sobre Page Styles */
 .sobrePage {
-  background: linear-gradient(180deg, #190A03 0%, #482D20 33%, #8B7D6F 66%, #FFF5E9 100%);
+  background: linear-gradient(180deg, #190A03 0%, #190A03 25%, #482D20 50%, #8B7D6F 75%, #FFF5E9 100%);
   min-height: 100vh;
 }
 
