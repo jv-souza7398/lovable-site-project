@@ -1,153 +1,562 @@
-span{
+/* Sobre Page Styles */
+.sobrePage {
+  background-color: #141414;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.heroSection {
+  height: 60vh;
+  min-height: 400px;
+  background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(20, 20, 20, 0.95)), url('../assets/drink5.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.heroContent {
+  max-width: 800px;
+}
+
+.heroContent h1 {
+  font-size: 4rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.heroContent h1 span {
   color: rgb(146, 117, 60);
 }
-.navSobre{
-  display: flex;
-  flex-direction: column;
+
+.heroContent p {
+  font-size: 1.4rem;
+  color: #aba7a7;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+/* History Section */
+.historySection {
+  padding: 6rem 2rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(20, 20, 20, 0.95)), url('../assets/drink6.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.historyContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.historyImage {
+  position: relative;
+}
+
+.historyImage img {
   width: 100%;
-  height: 26rem;
-  background: linear-gradient(rgba(17, 17, 17, 0.655),rgba(20,20,20,1)),url(../assets/drink5.jpeg);
+  height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.badge {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid rgb(146, 117, 60);
+  color: rgb(146, 117, 60);
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 8px;
+  letter-spacing: 1px;
+}
+
+.historyContent h2 {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #f0ecec;
+  margin-bottom: 2rem;
+}
+
+.historyContent h2 span {
+  color: rgb(146, 117, 60);
+}
+
+.historyContent p {
+  font-size: 1.1rem;
+  color: #aba7a7;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Services Section */
+.servicesSection {
+  padding: 6rem 2rem;
+  background: #1a1a1a;
+}
+
+.servicesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.servicesHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.servicesHeader h2 {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #f0ecec;
+  margin-bottom: 1rem;
+}
+
+.servicesHeader h2 span {
+  color: rgb(146, 117, 60);
+}
+
+.servicesHeader p {
+  font-size: 1.1rem;
+  color: #aba7a7;
+  font-family: 'Lato', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.serviceCard {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.serviceCard:hover {
+  border-color: rgb(146, 117, 60);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.15);
+}
+
+.serviceIcon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1.5rem;
+  background: rgba(146, 117, 60, 0.15);
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
-.navSobre h1{
-  text-align: center;
-  font-size: 5rem;
-  letter-spacing: 1px;
-  font-style: italic;
+
+.serviceIcon svg {
+  font-size: 1.8rem;
   color: rgb(146, 117, 60);
 }
-.navSobre p{
-  text-align: center;
+
+.serviceCard h4 {
   font-size: 1.2rem;
-  font-weight: 500;
-  margin: 1rem 0  2rem 0;
-  color: white;
- 
-}
-
-.sobre{
-  background: linear-gradient(rgba(17, 17, 17, 0.655),rgba(20,20,20,1)),url(../assets/drink6.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.contentSobre{
-  display: flex;
-width: 100%;
-}
-
- .SobreInfo{
-  width: 50%;
-}
-
-
-.SobreInfo h3{
-  font-size: 2rem;
-  width: 20rem;
-  text-align: center;
-  margin: 2rem auto ;
-  color:#aba7a7;
   font-family: 'Montserrat', sans-serif;
-
-
-}
-.vivaHoje{
-  color:  rgb(222, 153, 16);
-}
-.SobreInfo p{
-  font-size: 1.4rem;
-  width: 35rem;
-  text-align:start;
-  margin: 0 auto;
-  font-weight: 600; 
-  color:#f0ecec;
   font-weight: 600;
-  font-size: 1.4rem;
-  font-family: 'Montserrat', sans-serif;
+  color: #f0ecec;
+  margin-bottom: 0.8rem;
 }
- img{
-  width: 50%;
-  border-radius: 0;
+
+.serviceCard p {
+  font-size: 0.95rem;
+  color: #aba7a7;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.6;
+}
+
+.servicesImage img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Values Section */
+.valuesSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.95), rgba(20, 20, 20, 0.98)), url('../assets/drink7.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.valuesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.valuesContent h2 {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #f0ecec;
+  margin-bottom: 3rem;
+}
+
+.valuesContent h2 span {
+  color: rgb(146, 117, 60);
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.valueCard {
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(146, 117, 60, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover {
+  border-color: rgba(146, 117, 60, 0.5);
+  background: rgba(35, 35, 35, 0.8);
+}
+
+.valueNumber {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: rgba(146, 117, 60, 0.3);
+}
+
+.valueIcon {
+  width: 50px;
+  height: 50px;
+  background: rgba(146, 117, 60, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.valueIcon svg {
+  font-size: 1.3rem;
+  color: rgb(146, 117, 60);
+}
+
+.valueCard h4 {
+  font-size: 1.1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #f0ecec;
+  margin-bottom: 0.5rem;
+}
+
+.valueCard p {
+  font-size: 0.9rem;
+  color: #aba7a7;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.5;
+}
+
+.valuesImage img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* CTA Section */
+.ctaSection {
+  position: relative;
+  padding: 6rem 2rem;
+  background: linear-gradient(rgba(17, 17, 17, 0.85), rgba(20, 20, 20, 0.9)), url('../assets/drink8.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.ctaOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.1) 0%, transparent 50%);
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.ctaContent h2 {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #f0ecec;
+  margin-bottom: 1.5rem;
+}
+
+.ctaContent h2 span {
+  color: rgb(146, 117, 60);
+}
+
+.ctaContent > p {
+  font-size: 1.1rem;
+  color: #aba7a7;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: rgb(146, 117, 60);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgb(146, 117, 60);
+}
+
+.ctaButton:hover {
+  background: transparent;
+  color: rgb(146, 117, 60);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
+}
+
+.ctaContact {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #aba7a7;
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.contactItem:hover {
+  color: rgb(146, 117, 60);
+}
+
+.contactItem svg {
+  font-size: 1.2rem;
+  color: rgb(146, 117, 60);
 }
 
 /* Responsividade */
 @media (max-width: 1024px) {
-  .navSobre h1 {
-    font-size: 4rem;
+  .heroContent h1 {
+    font-size: 3rem;
   }
-  
-  .contentSobre {
-    flex-direction: column;
+
+  .historyContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  
-  .SobreInfo {
-    width: 90%;
-    margin: 0 auto;
+
+  .historyImage img {
+    height: 400px;
   }
-  
-  .SobreInfo h3 {
-    width: 100%;
+
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .SobreInfo p {
-    width: 90%;
+
+  .valuesContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  
-  img {
-    width: 100%;
+
+  .valuesImage {
+    order: -1;
+  }
+
+  .valuesImage img {
+    height: 350px;
   }
 }
 
 @media (max-width: 768px) {
-  .navSobre {
-    height: 20rem;
+  .heroSection {
+    height: 50vh;
+    min-height: 350px;
   }
-  
-  .navSobre h1 {
-    font-size: 3rem;
+
+  .heroContent h1 {
+    font-size: 2.5rem;
   }
-  
-  .navSobre p {
-    font-size: 1rem;
-    width: 90%;
-    margin: 1rem auto;
-  }
-  
-  .SobreInfo {
-    width: 95%;
-  }
-  
-  .SobreInfo h3 {
-    font-size: 1.5rem;
-    width: 100%;
-  }
-  
-  .SobreInfo p {
+
+  .heroContent p {
     font-size: 1.1rem;
-    width: 95%;
+  }
+
+  .historySection,
+  .servicesSection,
+  .valuesSection,
+  .ctaSection {
+    padding: 4rem 1.5rem;
+  }
+
+  .historyContent h2,
+  .servicesHeader h2,
+  .valuesContent h2,
+  .ctaContent h2 {
+    font-size: 2rem;
+  }
+
+  .historyImage img {
+    height: 350px;
+  }
+
+  .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .servicesImage img {
+    height: 300px;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .valuesImage img {
+    height: 300px;
+  }
+
+  .ctaContact {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .navSobre {
-    height: 16rem;
+  .heroSection {
+    height: 45vh;
+    min-height: 300px;
   }
-  
-  .navSobre h1 {
+
+  .heroContent h1 {
     font-size: 2rem;
   }
-  
-  .navSobre p {
-    font-size: 0.9rem;
-  }
-  
-  .SobreInfo h3 {
-    font-size: 1.2rem;
-  }
-  
-  .SobreInfo p {
+
+  .heroContent p {
     font-size: 1rem;
   }
-}
 
+  .historySection,
+  .servicesSection,
+  .valuesSection,
+  .ctaSection {
+    padding: 3rem 1rem;
+  }
+
+  .historyContent h2,
+  .servicesHeader h2,
+  .valuesContent h2,
+  .ctaContent h2 {
+    font-size: 1.6rem;
+  }
+
+  .historyContent p,
+  .servicesHeader p,
+  .ctaContent > p {
+    font-size: 1rem;
+  }
+
+  .badge {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .historyImage img {
+    height: 280px;
+  }
+
+  .serviceCard {
+    padding: 1.5rem;
+  }
+
+  .serviceIcon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .serviceIcon svg {
+    font-size: 1.5rem;
+  }
+
+  .servicesImage img {
+    height: 250px;
+  }
+
+  .valuesImage img {
+    height: 250px;
+  }
+
+  .ctaButton {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+
+  .contactItem {
+    font-size: 0.9rem;
+  }
+}
