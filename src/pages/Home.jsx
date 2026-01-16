@@ -375,19 +375,16 @@ function Home() {
       <span><i className="bi bi-cup-straw"></i></span>
       <h4>Bar de caipirinhas</h4>
       <p>Diversas outras combinações de Frutas e Especiarias para Caipirinhas que agradarão todos os seus convidados!</p>
-      <Link to="/Pacotes/">Ver Preços</Link>
     </div>
     <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
       <span><i className="bi bi-cup-straw"></i></span>
       <h4>Coquetéis Clássicos</h4>
       <p>Gin Tônica, Aperol Spritz e diversos outros drinks perfeitos para festas que demandam Elegância e Sofisticação.</p>
-      <Link to="/Pacotes/">Ver Preços</Link>
     </div>
     <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
       <span><i className="bi bi-cup-straw"></i></span>
       <h4>Drinks Sem Álcool</h4>
       <p>Grande variedade de Drinks e sabores não alcoólicos para agradar à todos os paladares e conquistar todos os seus convidados. Sem exceções.</p>
-      <Link to="/Pacotes/">Ver Preços</Link>
     </div>
   </div>
 </section>
