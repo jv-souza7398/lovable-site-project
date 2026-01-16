@@ -149,17 +149,17 @@ box-sizing: border-box;
 }
 
 .contentHome a {
-  height: 1rem;
+  display: inline-block;
   background-color: transparent;
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
   border-radius: 0;
   border: 2px solid rgb(146, 117, 60);
   color: rgb(255, 255, 255);
-  margin-left: 0;
-  transition: 1s;
+  transition: 0.3s ease;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   letter-spacing: 1px;
+  text-decoration: none;
 }
 
 .contentHome a:hover {
