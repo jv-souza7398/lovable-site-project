@@ -243,6 +243,8 @@ function Home() {
         // ignore
       }
     });
+  }, [loadingDrinks, highlightedDrinks.length]);
+
   // Dynamic gradient based on current slide color
   const dynamicGradient = `linear-gradient(180deg, ${currentSlideColor} 0%, #0A0503 10%, #150903 25%, #190A03 35%, #482D20 55%, #8B7D6F 78%, #FFF5E9 100%)`;
 
