@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import drink3 from '../assets/drink7.jpg';
 import drink2 from '../assets/drink6.jpg';
 import drink1 from '../assets/drink10.jpg';
@@ -22,6 +22,51 @@ import {
   CarouselPrevious 
 } from '../components/ui/carousel';
 import DrinkDetailsModal from '../components/DrinkDetailsModal';
+
+// Array of hero slider images
+const heroImages = [drink1, drink2, drink3];
+
+// Function to extract dominant color from bottom of image
+const extractBottomColor = (imageSrc) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      // Analyze the bottom 15% of the image
+      const bottomHeight = Math.floor(img.height * 0.15);
+      const startY = img.height - bottomHeight;
+      const imageData = ctx.getImageData(0, startY, img.width, bottomHeight);
+      
+      // Calculate average color
+      let r = 0, g = 0, b = 0;
+      const pixels = imageData.data;
+      const pixelCount = pixels.length / 4;
+      
+      for (let i = 0; i < pixels.length; i += 4) {
+        r += pixels[i];
+        g += pixels[i + 1];
+        b += pixels[i + 2];
+      }
+      
+      r = Math.floor(r / pixelCount);
+      g = Math.floor(g / pixelCount);
+      b = Math.floor(b / pixelCount);
+      
+      resolve(`rgb(${r}, ${g}, ${b})`);
+    };
+    img.onerror = () => {
+      // Fallback color if image fails to load
+      resolve('#000000');
+    };
+    img.src = imageSrc;
+  });
+};
 
 // Custom Arrows for Slider
 const CustomPrevArrow = (props) => {
@@ -105,6 +150,20 @@ function Home() {
   const [loadingDrinks, setLoadingDrinks] = useState(true);
   const [selectedDrink, setSelectedDrink] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Dynamic gradient state
+  const [slideColors, setSlideColors] = useState([]);
+  const [currentSlideColor, setCurrentSlideColor] = useState('#000000');
+
+  // Extract colors from hero images on mount
+  useEffect(() => {
+    Promise.all(heroImages.map(extractBottomColor)).then(colors => {
+      setSlideColors(colors);
+      if (colors.length > 0) {
+        setCurrentSlideColor(colors[0]);
+      }
+    });
+  }, []);
 
   const settings = {
     dots: false,
@@ -118,6 +177,11 @@ function Home() {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     draggable: true,
+    afterChange: (index) => {
+      if (slideColors[index]) {
+        setCurrentSlideColor(slideColors[index]);
+      }
+    },
   };
 
   const handleDrinkClick = (drink) => {
@@ -179,11 +243,13 @@ function Home() {
         // ignore
       }
     });
-  }, [loadingDrinks, highlightedDrinks.length]);
+  // Dynamic gradient based on current slide color
+  const dynamicGradient = `linear-gradient(180deg, ${currentSlideColor} 0%, #0A0503 10%, #150903 25%, #190A03 35%, #482D20 55%, #8B7D6F 78%, #FFF5E9 100%)`;
+
   return (
     <>
       {/* Slider Section */}
-      <main className={classes.home}>
+      <main className={classes.home} style={{ background: dynamicGradient }}>
       <div className={classes.homeContent}>
         <Slider {...settings} className={classes.imgHome}>
           <div className={classes.slide}>
