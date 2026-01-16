@@ -366,28 +366,31 @@ function Home() {
 
       {/* Services Section */}
       <section className={classes.section}>
-  <div className={classes.sectionTitle} data-aos="fade-up">
-    <h1>Serviços <span>________</span></h1>
-    <h2>Drinks com e sem álcool</h2>
-  </div>
-  <div className={classes.container}>
-    <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
-      <span><i className="bi bi-cup-straw"></i></span>
-      <h4>Bar de caipirinhas</h4>
-      <p>Diversas outras combinações de Frutas e Especiarias para Caipirinhas que agradarão todos os seus convidados!</p>
-    </div>
-    <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
-      <span><i className="bi bi-cup-straw"></i></span>
-      <h4>Coquetéis Clássicos</h4>
-      <p>Gin Tônica, Aperol Spritz e diversos outros drinks perfeitos para festas que demandam Elegância e Sofisticação.</p>
-    </div>
-    <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
-      <span><i className="bi bi-cup-straw"></i></span>
-      <h4>Drinks Sem Álcool</h4>
-      <p>Grande variedade de Drinks e sabores não alcoólicos para agradar à todos os paladares e conquistar todos os seus convidados. Sem exceções.</p>
-    </div>
-  </div>
-</section>
+        <div className={classes.sectionTitle} data-aos="fade-up">
+          <h1>Serviços <span>________</span></h1>
+          <h2>Drinks com e sem álcool</h2>
+        </div>
+        <div className={classes.container}>
+          <div className={classes.cardItem} data-aos="fade-up" data-aos-delay="100">
+            <span><i className="bi bi-cup-straw"></i></span>
+            <h4>Bar de caipirinhas</h4>
+            <p>Diversas outras combinações de Frutas e Especiarias para Caipirinhas que agradarão todos os seus convidados!</p>
+          </div>
+          <div className={classes.serviceDescription} data-aos="fade-up" data-aos-delay="200">
+            <p>
+              Na Vincci, oferecemos uma experiência completa de bar para o seu evento. 
+              Desde coquetéis clássicos até drinks personalizados, nossa equipe de bartenders 
+              profissionais está pronta para surpreender seus convidados com sabores únicos 
+              e atendimento de excelência.
+            </p>
+            <p>
+              Trabalhamos com drinks alcoólicos e não alcoólicos, garantindo que todos os 
+              seus convidados sejam bem atendidos. Cada evento é único, e nosso compromisso 
+              é oferecer qualidade e sofisticação em cada taça servida.
+            </p>
+          </div>
+        </div>
+      </section>
 
 
       {/* Main Section */}

@@ -695,6 +695,7 @@ opacity: 1;
   width: 90%;
   height: 15%;
   margin: 1rem 9rem 0;
+  padding-left: 30%;
   color: #f0ecec;
   
 }
@@ -708,7 +709,7 @@ opacity: 1;
  margin-top: 0;
 }
 .sectionTitle h1{
- font-size: 1.1rem;
+ font-size: 1.32rem;
  text-align: start;
  margin-top: 0;
  margin-bottom: 0;
@@ -730,9 +731,11 @@ opacity: 1;
   color: #aba7a7;
   display: flex;
   gap: 2rem;
+  align-items: stretch;
 }
 .cardItem{
-  width: 90%;
+  width: 35%;
+  min-width: 280px;
   padding: 2rem 1rem;
   border-radius: 12px;
   text-align: center;
@@ -778,6 +781,27 @@ opacity: 1;
   border: 2px solid rgb(146, 117, 60);
   background-color: rgb(146, 117, 60);
   color: #fff;
+}
+
+.serviceDescription {
+  flex: 1;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: rgba(30, 30, 30, 0.5);
+  border: 1px solid rgba(146, 117, 60, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.serviceDescription p {
+  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.9;
+  color: #aba7a7;
+  margin-bottom: 1.5rem;
+}
+.serviceDescription p:last-child {
+  margin-bottom: 0;
 }
 .sobreSection{
   background: linear-gradient(rgba(22, 22, 22, 0.831),rgba(8, 5, 5, 0.814)), url(../assets/drink1.jpeg);
