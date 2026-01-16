@@ -356,10 +356,10 @@ function Home() {
 
         {/* Content Section */}
         <div className={classes.contentHome}>
-          <h1>Coquetelaria autoral</h1>
+          <h1>Coquetelaria <span>autoral</span></h1>
           <h3>para eventos exclusivos</h3>
           <div className={classes.btn}>
-            <Link to="/sobre">Saiba Mais</Link>
+            <Link to="/sobre">Conheça a Vincci</Link>
           </div>
         </div>
       </div>
