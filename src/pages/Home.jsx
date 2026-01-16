@@ -154,15 +154,25 @@ function Home() {
   // Dynamic gradient state
   const [slideColors, setSlideColors] = useState([]);
   const [currentSlideColor, setCurrentSlideColor] = useState('#000000');
+  const slideColorsRef = useRef([]);
 
   // Extract colors from hero images on mount
   useEffect(() => {
     Promise.all(heroImages.map(extractBottomColor)).then(colors => {
+      console.log('Extracted colors:', colors);
       setSlideColors(colors);
+      slideColorsRef.current = colors;
       if (colors.length > 0) {
         setCurrentSlideColor(colors[0]);
       }
     });
+  }, []);
+
+  const handleSlideChange = useCallback((index) => {
+    console.log('Slide changed to:', index, 'Color:', slideColorsRef.current[index]);
+    if (slideColorsRef.current[index]) {
+      setCurrentSlideColor(slideColorsRef.current[index]);
+    }
   }, []);
 
   const settings = {
@@ -177,11 +187,7 @@ function Home() {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     draggable: true,
-    afterChange: (index) => {
-      if (slideColors[index]) {
-        setCurrentSlideColor(slideColors[index]);
-      }
-    },
+    afterChange: handleSlideChange,
   };
 
   const handleDrinkClick = (drink) => {
