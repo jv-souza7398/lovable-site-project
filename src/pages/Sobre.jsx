@@ -204,11 +204,11 @@ function Sobre() {
           <div className={classes.ctaContact}>
             <a href="tel:+5511999999999" className={classes.contactItem}>
               <FaPhone />
-              <span>(11) 99999-9999</span>
+              <span>(11) 91046-5650</span>
             </a>
             <a href="mailto:contato@vinccibar.com.br" className={classes.contactItem}>
               <FaEnvelope />
-              <span>contato@vinccibar.com.br</span>
+              <span>vinccibar@gmail.com.br</span>
             </a>
           </div>
         </div>
