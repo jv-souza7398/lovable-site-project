@@ -434,9 +434,9 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
                   cursor: "pointer",
                 }}
               >
-                <option value="" disabled style={{ backgroundColor: "#1e1d1d", color: "#dcdcdc" }}>Selecione o tipo de evento</option>
+                <option value="" disabled style={{ backgroundColor: "#1e1d1d", color: "#ffffff" }}>Selecione o tipo de evento</option>
                 {tiposEvento.map((tipo) => (
-                  <option key={tipo.value} value={tipo.value} style={{ backgroundColor: "#1e1d1d", color: "#dcdcdc" }}>{tipo.label}</option>
+                  <option key={tipo.value} value={tipo.value} style={{ backgroundColor: "#1e1d1d", color: "#ffffff" }}>{tipo.label}</option>
                 ))}
               </select>
             </div>
