@@ -300,6 +300,11 @@ function DrinksTeste() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const fetchDrinks = async () => {
       setLoading(true);
       const { data, error } = await supabase.from("drinks").select("*").order("nome");
