@@ -402,7 +402,7 @@ function Home() {
               bartenders para o melhor dia da sua vida!
             </p>
             <div className={classes.contentBtn}>
-              <Link to="/Pacotes/">CONTRATE A VINCCI BAR</Link>
+              <Link to="/drinks/">CONTRATE A VINCCI BAR</Link>
             </div>
           </div>
           <div className={classes.contentvideo}>
