@@ -28,6 +28,8 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [uf, setUf] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
+  const [tipoEvento, setTipoEvento] = useState("");
+  const [tipoEventoOutro, setTipoEventoOutro] = useState("");
   const [dataEvento, setDataEvento] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaEncerramento, setHoraEncerramento] = useState("");
@@ -36,6 +38,14 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [error, setError] = useState("");
   const [showFreightPopup, setShowFreightPopup] = useState(false);
   const [eventData, setEventData] = useState(null);
+
+  const tiposEvento = [
+    { value: "casamento", label: "Casamento" },
+    { value: "aniversario", label: "Aniversário" },
+    { value: "corporativo", label: "Corporativo" },
+    { value: "pessoal", label: "Pessoal" },
+    { value: "outro", label: "Outro" },
+  ];
 
   console.log("EventDetailsModal render, open:", open);
 
@@ -87,10 +97,17 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!dataEvento || !horaInicio || !horaEncerramento || !estimativaConvidados) {
+    if (!tipoEvento || !dataEvento || !horaInicio || !horaEncerramento || !estimativaConvidados) {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
+
+    if (tipoEvento === "outro" && !tipoEventoOutro.trim()) {
+      setError("Por favor, especifique o tipo de evento.");
+      return;
+    }
+
+    const tipoEventoFinal = tipoEvento === "outro" ? tipoEventoOutro : tiposEvento.find(t => t.value === tipoEvento)?.label || tipoEvento;
 
     setEventData({
       cep,
@@ -100,6 +117,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
       uf,
       bairro,
       cidade,
+      tipoEvento: tipoEventoFinal,
       dataEvento,
       horaInicio,
       horaEncerramento,
@@ -401,6 +419,41 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
               >
                 {error}
               </p>
+            )}
+
+            {/* Tipo de evento */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>Tipo de evento</label>
+              <select
+                value={tipoEvento}
+                onChange={(e) => setTipoEvento(e.target.value)}
+                disabled={loading}
+                style={{
+                  ...inputStyles,
+                  paddingLeft: "12px",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" disabled>Selecione o tipo de evento</option>
+                {tiposEvento.map((tipo) => (
+                  <option key={tipo.value} value={tipo.value}>{tipo.label}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Campo para especificar "Outro" */}
+            {tipoEvento === "outro" && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label style={{ color: "rgb(146, 117, 60)", fontSize: "12px", marginBottom: "4px" }}>Especifique o tipo de evento</label>
+                <input
+                  type="text"
+                  placeholder="Ex: Formatura, Chá de bebê..."
+                  value={tipoEventoOutro}
+                  onChange={(e) => setTipoEventoOutro(e.target.value)}
+                  disabled={loading}
+                  style={{ ...inputStyles, paddingLeft: "12px" }}
+                />
+              </div>
             )}
 
             {/* Data do evento */}
