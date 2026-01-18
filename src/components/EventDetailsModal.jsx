@@ -17,6 +17,7 @@ import {
   FaMinus,
   FaPlus,
 } from "react-icons/fa";
+import classes from "./EventDetailsModal.module.css";
 
 const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [step, setStep] = useState(1);
@@ -186,22 +187,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "16px",
-            right: "16px",
-            left: "auto",
-            background: "none",
-            border: "none",
-            color: "rgb(177, 169, 169)",
-            cursor: "pointer",
-            fontSize: "20px",
-            zIndex: 10,
-            padding: "4px",
-          }}
-        >
+        <button onClick={onClose} className={classes.closeButton} type="button" aria-label="Fechar modal">
           <FaTimes />
         </button>
 
