@@ -159,6 +159,24 @@
   font-size: 0.8rem;
 }
 
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  left: unset !important;
+  background: none;
+  border: none;
+  padding: 4px;
+  color: rgb(177, 169, 169);
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 10001;
+}
+
+.closeButton:focus {
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .modalContent {
     padding: 1rem !important;
