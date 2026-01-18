@@ -277,7 +277,7 @@ const generateEmailHTML = (userName: string, cartItems: CartItem[], totalAmount:
               <p style="margin: 0 0 20px; color: #666; font-size: 14px;">
                 O PDF completo do orçamento está em anexo neste email.
               </p>
-              <a href="https://wa.me/5511999999999" style="display: inline-block; background-color: #25D366; color: #ffffff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">
+              <a href="https://wa.me/5511910465650" style="display: inline-block; background-color: #25D366; color: #ffffff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">
                 💬 Falar no WhatsApp
               </a>
             </td>
