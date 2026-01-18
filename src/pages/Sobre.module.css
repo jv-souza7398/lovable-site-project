@@ -305,7 +305,7 @@
 .ctaSection {
   position: relative;
   padding: 6rem 2rem;
-  background: transparent;
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
   text-align: center;
 }
 
@@ -315,7 +315,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(146, 117, 60, 0.1) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(146, 117, 60, 0.15) 0%, transparent 50%);
 }
 
 .ctaContent {
@@ -329,7 +329,7 @@
   font-size: 2.5rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
-  color: #f0ecec;
+  color: #ffffff;
   margin-bottom: 1.5rem;
   letter-spacing: 1px;
 }
@@ -340,7 +340,7 @@
 
 .ctaContent > p {
   font-size: 1.1rem;
-  color: #aba7a7;
+  color: #c4c4c4;
   font-family: 'Cormorant Garamond', serif;
   line-height: 1.8;
   margin-bottom: 2.5rem;
@@ -349,7 +349,7 @@
 .ctaButton {
   display: inline-block;
   background: rgb(146, 117, 60);
-  color: #fff;
+  color: #ffffff;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   font-size: 1.2rem;
@@ -379,7 +379,7 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  color: #aba7a7;
+  color: #c4c4c4;
   text-decoration: none;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
