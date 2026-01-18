@@ -192,11 +192,14 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
             position: "absolute",
             top: "16px",
             right: "16px",
+            left: "auto",
             background: "none",
             border: "none",
             color: "rgb(177, 169, 169)",
             cursor: "pointer",
             fontSize: "20px",
+            zIndex: 10,
+            padding: "4px",
           }}
         >
           <FaTimes />
