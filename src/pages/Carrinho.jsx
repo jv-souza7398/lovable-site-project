@@ -309,7 +309,7 @@ function Carrinho() {
                       <button onClick={handleOpenEventModal} className={classes.pagamento}>
                         Enviar orçamento
                       </button>
-                      <Link to={"/Pacotes/"} className={classes.continuar}>
+                      <Link to={"/drinks/"} className={classes.continuar}>
                         Continuar comprando
                       </Link>
                     </nav>
