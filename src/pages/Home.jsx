@@ -437,9 +437,9 @@ function Home() {
                 }}
                 className={classes.drinksCarousel}
               >
-                <CarouselContent className="-ml-4">
+                <CarouselContent className={classes.drinksCarouselContent}>
                   {highlightedDrinks.map((drink) => (
-                    <CarouselItem key={drink.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    <CarouselItem key={drink.id} className={classes.drinksCarouselItem}>
                       <DrinkCard item={drink} onImageClick={handleDrinkClick} />
                     </CarouselItem>
                   ))}

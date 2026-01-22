@@ -585,7 +585,8 @@ opacity: 1;
 .drinksCarousel {
   width: 100%;
   position: relative;
-  overflow: hidden;
+  /* do not clip navigation buttons; viewport handles clipping */
+  overflow: visible;
 }
 
 /* Force carousel behavior - fixes production stacking issue */
@@ -599,6 +600,37 @@ opacity: 1;
 .drinksCarousel [data-embla-slide] {
   flex: 0 0 auto !important;
   min-width: 0 !important;
+}
+
+/* Local sizing for items (avoid relying on Tailwind basis utilities in production build) */
+.drinksCarouselContent {
+  display: flex;
+  margin-left: -1rem;
+}
+
+.drinksCarouselItem {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .drinksCarouselItem {
+    flex-basis: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .drinksCarouselItem {
+    flex-basis: 33.3333%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .drinksCarouselItem {
+    flex-basis: 25%;
+  }
 }
 
 .drinkCard {
