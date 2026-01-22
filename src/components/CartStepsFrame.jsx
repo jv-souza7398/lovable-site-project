@@ -33,7 +33,7 @@ const CartStepsFrame = () => {
           borderRadius: "16px",
           maxWidth: "700px",
           width: "100%",
-          padding: "32px 24px",
+          padding: "48px 24px 32px 24px",
           position: "relative",
         }}
       >
@@ -42,13 +42,28 @@ const CartStepsFrame = () => {
           onClick={handleClose}
           style={{
             position: "absolute",
-            top: "16px",
-            right: "16px",
-            background: "none",
-            border: "none",
+            top: "12px",
+            right: "12px",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            backgroundColor: "rgba(146, 117, 60, 0.2)",
+            border: "1px solid rgba(146, 117, 60, 0.5)",
             color: "rgb(177, 169, 169)",
             cursor: "pointer",
-            fontSize: "20px",
+            fontSize: "16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(146, 117, 60, 0.4)";
+            e.currentTarget.style.color = "white";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(146, 117, 60, 0.2)";
+            e.currentTarget.style.color = "rgb(177, 169, 169)";
           }}
         >
           <FaTimes />
