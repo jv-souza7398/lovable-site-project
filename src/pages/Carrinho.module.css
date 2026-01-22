@@ -46,6 +46,62 @@
   color: #fff;
 }
 
+/* Estado vazio do carrinho - estilizado */
+.navCarrinhoEmpty {
+  width: 100%;
+  min-height: 70vh;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.navCarrinhoEmpty h1 {
+  margin-bottom: 0.5rem;
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: #fff;
+}
+
+.navCarrinhoEmpty h1 span {
+  color: rgb(146, 117, 60);
+}
+
+.emptySubtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.navCarrinhoEmpty .continuarComprando {
+  margin-top: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  border: 2px solid rgb(146, 117, 60);
+  color: rgb(255, 255, 255);
+  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.navCarrinhoEmpty .continuarComprando:hover {
+  background: rgb(146, 117, 60);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
+}
+
 .carrinhoContent{
   padding:1rem 2rem;
   display: flex;
@@ -401,6 +457,20 @@
     font-size: 2.5rem;
   }
 
+  .navCarrinhoEmpty {
+    min-height: 60vh;
+    padding: 1.5rem;
+  }
+
+  .navCarrinhoEmpty h1 {
+    font-size: 2.5rem;
+  }
+
+  .emptySubtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
   .carrinhoTitle h1 {
     font-size: 1.5rem;
     width: 100%;
@@ -499,6 +569,25 @@
 
   .navCarrinho h1 {
     font-size: 1.8rem;
+  }
+
+  .navCarrinhoEmpty {
+    min-height: 55vh;
+    padding: 1rem;
+  }
+
+  .navCarrinhoEmpty h1 {
+    font-size: 1.8rem;
+  }
+
+  .emptySubtitle {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .navCarrinhoEmpty .continuarComprando {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 
   .carrinhoTitle h1 {
