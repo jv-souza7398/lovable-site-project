@@ -464,21 +464,40 @@ export default function AdminUsersPage() {
 
   if (!canManageUsers) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <Users className="w-16 h-16 text-zinc-700 mb-4" />
-        <h2 className="text-xl font-semibold text-white mb-2">Acesso Negado</h2>
-        <p className="text-zinc-400">Você não tem permissão para acessar esta seção.</p>
+      <div 
+        className="flex flex-col items-center justify-center py-20 text-center"
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5rem 0', textAlign: 'center' }}
+      >
+        <Users className="w-16 h-16 text-zinc-700 mb-4" style={{ width: '4rem', height: '4rem', color: '#3f3f46', marginBottom: '1rem' }} />
+        <h2 className="text-xl font-semibold text-white mb-2" style={{ fontSize: '1.25rem', fontWeight: 600, color: 'white', marginBottom: '0.5rem', margin: '0 0 0.5rem 0' }}>Acesso Negado</h2>
+        <p className="text-zinc-400" style={{ color: '#a1a1aa', margin: 0, fontSize: '1rem' }}>Você não tem permissão para acessar esta seção.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div 
+      className="space-y-6"
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+    >
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div 
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
         <div>
-          <h1 className="text-2xl font-bold text-white">Gerenciamento de Usuários</h1>
-          <p className="text-zinc-400 text-sm">Gerencie os administradores do sistema</p>
+          <h1 
+            className="text-2xl font-bold text-white"
+            style={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', margin: 0 }}
+          >
+            Gerenciamento de Usuários
+          </h1>
+          <p 
+            className="text-zinc-400 text-sm"
+            style={{ color: '#a1a1aa', fontSize: '0.875rem', margin: 0 }}
+          >
+            Gerencie os administradores do sistema
+          </p>
         </div>
         <Button
           onClick={() => {
@@ -486,67 +505,85 @@ export default function AdminUsersPage() {
             setIsFormOpen(true);
           }}
           className="bg-amber-500 hover:bg-amber-600 text-black"
+          style={{ backgroundColor: '#f59e0b', color: 'black' }}
         >
-          <Plus size={18} className="mr-2" /> Novo Usuário
+          <Plus size={18} className="mr-2" style={{ marginRight: '0.5rem' }} /> Novo Usuário
         </Button>
       </div>
 
       {/* Search */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+      <div 
+        className="relative max-w-md"
+        style={{ position: 'relative', maxWidth: '28rem' }}
+      >
+        <Search 
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" 
+          style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1rem', height: '1rem', color: '#71717a' }}
+        />
         <Input
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Buscar por nome, email ou CPF..."
           className="pl-10 bg-zinc-900 border-zinc-800 text-white"
+          style={{ paddingLeft: '2.5rem' }}
         />
       </div>
 
       {/* Content */}
       {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
+        <div 
+          className="flex items-center justify-center py-20"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '5rem 0' }}
+        >
+          <Loader2 className="w-8 h-8 animate-spin text-amber-500" style={{ width: '2rem', height: '2rem', color: '#f59e0b' }} />
         </div>
       ) : filteredUsers.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <Users className="w-16 h-16 text-zinc-700 mb-4" />
-          <p className="text-zinc-400 mb-4">
+        <div 
+          className="flex flex-col items-center justify-center py-20 text-center"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5rem 0', textAlign: 'center' }}
+        >
+          <Users className="w-16 h-16 text-zinc-700 mb-4" style={{ width: '4rem', height: '4rem', color: '#3f3f46', marginBottom: '1rem' }} />
+          <p className="text-zinc-400 mb-4" style={{ color: '#a1a1aa', marginBottom: '1rem', fontSize: '1rem' }}>
             {searchTerm ? 'Nenhum usuário encontrado' : 'Nenhum usuário cadastrado'}
           </p>
           {!searchTerm && (
             <Button
               onClick={() => setIsFormOpen(true)}
               className="bg-amber-500 hover:bg-amber-600 text-black"
+              style={{ backgroundColor: '#f59e0b', color: 'black' }}
             >
-              <Plus size={18} className="mr-2" /> Criar primeiro usuário
+              <Plus size={18} className="mr-2" style={{ marginRight: '0.5rem' }} /> Criar primeiro usuário
             </Button>
           )}
         </div>
       ) : (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+        <div 
+          className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden"
+          style={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '0.75rem', overflow: 'hidden' }}
+        >
           <Table>
             <TableHeader>
               <TableRow className="border-zinc-800 hover:bg-transparent">
-                <TableHead className="text-zinc-400">Nome</TableHead>
-                <TableHead className="text-zinc-400 hidden sm:table-cell">CPF</TableHead>
-                <TableHead className="text-zinc-400 hidden md:table-cell">Email</TableHead>
-                <TableHead className="text-zinc-400">Permissão</TableHead>
-                <TableHead className="text-zinc-400 text-right">Ações</TableHead>
+                <TableHead className="text-zinc-400" style={{ color: '#a1a1aa' }}>Nome</TableHead>
+                <TableHead className="text-zinc-400 hidden sm:table-cell" style={{ color: '#a1a1aa' }}>CPF</TableHead>
+                <TableHead className="text-zinc-400 hidden md:table-cell" style={{ color: '#a1a1aa' }}>Email</TableHead>
+                <TableHead className="text-zinc-400" style={{ color: '#a1a1aa' }}>Permissão</TableHead>
+                <TableHead className="text-zinc-400 text-right" style={{ color: '#a1a1aa', textAlign: 'right' }}>Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredUsers.map((user) => (
                 <TableRow key={user.id} className="border-zinc-800">
-                  <TableCell className="font-medium text-white">
+                  <TableCell className="font-medium text-white" style={{ fontWeight: 500, color: 'white' }}>
                     <div>
-                      <p>{user.nome_completo}</p>
-                      <p className="text-xs text-zinc-500 sm:hidden">{formatCPF(user.cpf)}</p>
+                      <p style={{ margin: 0 }}>{user.nome_completo}</p>
+                      <p className="text-xs text-zinc-500 sm:hidden" style={{ fontSize: '0.75rem', color: '#71717a', margin: 0 }}>{formatCPF(user.cpf)}</p>
                     </div>
                   </TableCell>
-                  <TableCell className="text-zinc-300 hidden sm:table-cell">
+                  <TableCell className="text-zinc-300 hidden sm:table-cell" style={{ color: '#d4d4d8' }}>
                     {formatCPF(user.cpf)}
                   </TableCell>
-                  <TableCell className="text-zinc-300 hidden md:table-cell">
+                  <TableCell className="text-zinc-300 hidden md:table-cell" style={{ color: '#d4d4d8' }}>
                     {user.email}
                   </TableCell>
                   <TableCell>
@@ -555,12 +592,22 @@ export default function AdminUsersPage() {
                         "inline-flex text-xs px-2 py-1 rounded-full border capitalize",
                         getRoleBadgeColor(user.role)
                       )}
+                      style={{
+                        display: 'inline-flex',
+                        fontSize: '0.75rem',
+                        padding: '0.25rem 0.5rem',
+                        borderRadius: '9999px',
+                        textTransform: 'capitalize'
+                      }}
                     >
                       {user.role}
                     </span>
                   </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
+                  <TableCell className="text-right" style={{ textAlign: 'right' }}>
+                    <div 
+                      className="flex justify-end gap-1"
+                      style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.25rem' }}
+                    >
                       <Button
                         variant="ghost"
                         size="icon"
@@ -638,6 +685,26 @@ export default function AdminUsersPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* CSS for responsive layout */}
+      <style>{`
+        @media (min-width: 640px) {
+          .sm\\:flex-row { flex-direction: row !important; }
+          .sm\\:items-center { align-items: center !important; }
+          .sm\\:justify-between { justify-content: space-between !important; }
+          .sm\\:table-cell { display: table-cell !important; }
+          .sm\\:hidden { display: none !important; }
+        }
+        @media (min-width: 768px) {
+          .md\\:table-cell { display: table-cell !important; }
+        }
+        @media (max-width: 639px) {
+          .hidden.sm\\:table-cell { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .hidden.md\\:table-cell { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

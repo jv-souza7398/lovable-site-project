@@ -427,12 +427,28 @@ export default function AdminDrinksPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div 
+      className="space-y-6"
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+    >
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div 
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
         <div>
-          <h1 className="text-2xl font-bold text-white">Admin Drinks</h1>
-          <p className="text-zinc-400 text-sm">Gerencie o catálogo de drinks</p>
+          <h1 
+            className="text-2xl font-bold text-white"
+            style={{ fontSize: '1.5rem', fontWeight: 700, color: 'white', margin: 0 }}
+          >
+            Admin Drinks
+          </h1>
+          <p 
+            className="text-zinc-400 text-sm"
+            style={{ color: '#a1a1aa', fontSize: '0.875rem', margin: 0 }}
+          >
+            Gerencie o catálogo de drinks
+          </p>
         </div>
         {canEdit && (
           <Button
@@ -441,72 +457,136 @@ export default function AdminDrinksPage() {
               setIsFormOpen(true);
             }}
             className="bg-amber-500 hover:bg-amber-600 text-black"
+            style={{ backgroundColor: '#f59e0b', color: 'black' }}
           >
-            <Plus size={18} className="mr-2" /> Novo Drink
+            <Plus size={18} className="mr-2" style={{ marginRight: '0.5rem' }} /> Novo Drink
           </Button>
         )}
       </div>
 
       {/* Search */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+      <div 
+        className="relative max-w-md"
+        style={{ position: 'relative', maxWidth: '28rem' }}
+      >
+        <Search 
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" 
+          style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1rem', height: '1rem', color: '#71717a' }}
+        />
         <Input
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Buscar drinks..."
           className="pl-10 bg-zinc-900 border-zinc-800 text-white"
+          style={{ paddingLeft: '2.5rem' }}
         />
       </div>
 
       {/* Content */}
       {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
+        <div 
+          className="flex items-center justify-center py-20"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '5rem 0' }}
+        >
+          <Loader2 className="w-8 h-8 animate-spin text-amber-500" style={{ width: '2rem', height: '2rem', color: '#f59e0b' }} />
         </div>
       ) : filteredDrinks.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <Wine className="w-16 h-16 text-zinc-700 mb-4" />
-          <p className="text-zinc-400 mb-4">
+        <div 
+          className="flex flex-col items-center justify-center py-20 text-center"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5rem 0', textAlign: 'center' }}
+        >
+          <Wine className="w-16 h-16 text-zinc-700 mb-4" style={{ width: '4rem', height: '4rem', color: '#3f3f46', marginBottom: '1rem' }} />
+          <p className="text-zinc-400 mb-4" style={{ color: '#a1a1aa', marginBottom: '1rem', fontSize: '1rem' }}>
             {searchTerm ? 'Nenhum drink encontrado' : 'Nenhum drink cadastrado'}
           </p>
           {canEdit && !searchTerm && (
             <Button
               onClick={() => setIsFormOpen(true)}
               className="bg-amber-500 hover:bg-amber-600 text-black"
+              style={{ backgroundColor: '#f59e0b', color: 'black' }}
             >
-              <Plus size={18} className="mr-2" /> Criar primeiro drink
+              <Plus size={18} className="mr-2" style={{ marginRight: '0.5rem' }} /> Criar primeiro drink
             </Button>
           )}
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div 
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          style={{ 
+            display: 'grid', 
+            gap: '1rem',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))'
+          }}
+        >
           {filteredDrinks.map((drink) => (
             <div
               key={drink.id}
               className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group"
+              style={{
+                backgroundColor: '#18181b',
+                border: '1px solid #27272a',
+                borderRadius: '0.75rem',
+                overflow: 'hidden'
+              }}
             >
-              <div className="aspect-square bg-zinc-800 relative overflow-hidden">
+              <div 
+                className="aspect-square bg-zinc-800 relative overflow-hidden"
+                style={{
+                  aspectRatio: '1/1',
+                  backgroundColor: '#27272a',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
                 <img
                   src={drink.imagem_url}
                   alt={drink.nome}
                   className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   onError={(e) => {
                     e.target.src = '/placeholder.svg';
                   }}
                 />
                 {drink.destacar_home && (
-                  <span className="absolute top-2 right-2 px-2 py-1 text-xs bg-amber-500 text-black rounded-full font-medium">
+                  <span 
+                    className="absolute top-2 right-2 px-2 py-1 text-xs bg-amber-500 text-black rounded-full font-medium"
+                    style={{
+                      position: 'absolute',
+                      top: '0.5rem',
+                      right: '0.5rem',
+                      padding: '0.25rem 0.5rem',
+                      fontSize: '0.75rem',
+                      backgroundColor: '#f59e0b',
+                      color: 'black',
+                      borderRadius: '9999px',
+                      fontWeight: 500
+                    }}
+                  >
                     Destaque
                   </span>
                 )}
               </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-white truncate">{drink.nome}</h3>
-                <p className="text-sm text-zinc-500 capitalize">
+              <div 
+                className="p-4"
+                style={{ padding: '1rem' }}
+              >
+                <h3 
+                  className="font-semibold text-white truncate"
+                  style={{ fontWeight: 600, color: 'white', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', margin: 0, fontSize: '1rem' }}
+                >
+                  {drink.nome}
+                </h3>
+                <p 
+                  className="text-sm text-zinc-500 capitalize"
+                  style={{ fontSize: '0.875rem', color: '#71717a', textTransform: 'capitalize', margin: 0 }}
+                >
                   {drink.categoria.replace(/-/g, ' ')}
                 </p>
                 {canEdit && (
-                  <div className="flex gap-2 mt-3">
+                  <div 
+                    className="flex gap-2 mt-3"
+                    style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}
+                  >
                     <Button
                       variant="outline"
                       size="sm"
@@ -515,8 +595,9 @@ export default function AdminDrinksPage() {
                         setIsFormOpen(true);
                       }}
                       className="flex-1 border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+                      style={{ flex: 1 }}
                     >
-                      <Pencil size={14} className="mr-1" /> Editar
+                      <Pencil size={14} className="mr-1" style={{ marginRight: '0.25rem' }} /> Editar
                     </Button>
                     <Button
                       variant="outline"
@@ -579,6 +660,15 @@ export default function AdminDrinksPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* CSS for responsive grid */}
+      <style>{`
+        @media (min-width: 640px) {
+          .sm\\:flex-row { flex-direction: row !important; }
+          .sm\\:items-center { align-items: center !important; }
+          .sm\\:justify-between { justify-content: space-between !important; }
+        }
+      `}</style>
     </div>
   );
 }
