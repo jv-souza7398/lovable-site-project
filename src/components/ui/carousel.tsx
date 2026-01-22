@@ -136,10 +136,16 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     const { carouselRef, orientation } = useCarousel();
 
     return (
-      <div ref={carouselRef} className="overflow-hidden">
+      <div ref={carouselRef} className="overflow-hidden" data-embla-viewport>
         <div
           ref={ref}
           className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+          data-embla-container
+          style={{ 
+            display: 'flex', 
+            flexDirection: orientation === "horizontal" ? 'row' : 'column',
+            flexWrap: 'nowrap'
+          }}
           {...props}
         />
       </div>
@@ -157,7 +163,9 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         ref={ref}
         role="group"
         aria-roledescription="slide"
+        data-embla-slide
         className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
+        style={{ flex: '0 0 auto' }}
         {...props}
       />
     );

@@ -138,4 +138,19 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   }
 }
 
+/* Embla Carousel - Production fix for horizontal scrolling */
+[data-embla-container] {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+[data-embla-slide] {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+}
+
+[data-embla-viewport] {
+  overflow: hidden !important;
+}
 
