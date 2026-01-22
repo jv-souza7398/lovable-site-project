@@ -41,20 +41,25 @@ function Carrinho() {
 
   if (loading) {
     return (
-      <header className={classes.navCarrinho}>
-        <h1>Carregando...</h1>
-      </header>
+      <main className={classes.carrinho}>
+        <header className={classes.navCarrinho}>
+          <h1>Carregando...</h1>
+        </header>
+      </main>
     );
   }
 
   if (!drinkItems || drinkItems.length === 0) {
     return (
-      <header className={classes.navCarrinho}>
-        <h1>O carrinho está vazio.</h1>
-        <Link to="/drinks/" className={classes.continuarComprando}>
-          Ver drinks disponíveis
-        </Link>
-      </header>
+      <main className={classes.carrinho}>
+        <header className={classes.navCarrinhoEmpty}>
+          <h1>O carrinho está <span>vazio</span>.</h1>
+          <p className={classes.emptySubtitle}>Adicione drinks incríveis ao seu evento!</p>
+          <Link to="/drinks/" className={classes.continuarComprando}>
+            Ver drinks disponíveis
+          </Link>
+        </header>
+      </main>
     );
   }
 
