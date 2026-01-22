@@ -199,7 +199,7 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
           width: "95%",
           maxHeight: "90vh",
           overflowY: "auto",
-          padding: "24px",
+          padding: "48px 24px 24px 24px",
           position: "relative",
         }}
         onClick={(e) => e.stopPropagation()}
