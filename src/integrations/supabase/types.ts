@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          cpf: string
+          created_at: string
+          email: string
+          id: string
+          nome_completo: string
+          role: Database["public"]["Enums"]["admin_role"]
+          senha_hash: string
+          updated_at: string
+        }
+        Insert: {
+          cpf: string
+          created_at?: string
+          email: string
+          id?: string
+          nome_completo: string
+          role?: Database["public"]["Enums"]["admin_role"]
+          senha_hash: string
+          updated_at?: string
+        }
+        Update: {
+          cpf?: string
+          created_at?: string
+          email?: string
+          id?: string
+          nome_completo?: string
+          role?: Database["public"]["Enums"]["admin_role"]
+          senha_hash?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       drinks: {
         Row: {
           caracteristicas: Json | null
@@ -97,10 +130,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_admin_role: {
+        Args: { _admin_id: string }
+        Returns: Database["public"]["Enums"]["admin_role"]
+      }
+      is_admin: { Args: { _admin_id: string }; Returns: boolean }
+      verify_admin_login: {
+        Args: { _email: string; _senha_hash: string }
+        Returns: {
+          email: string
+          id: string
+          nome_completo: string
+          role: Database["public"]["Enums"]["admin_role"]
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      admin_role: "manager" | "planner" | "viewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -227,6 +273,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      admin_role: ["manager", "planner", "viewer"],
+    },
   },
 } as const
