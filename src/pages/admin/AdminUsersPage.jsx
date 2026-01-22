@@ -261,14 +261,14 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
           )}>
             <SelectValue placeholder="Selecione a permissão" />
           </SelectTrigger>
-          <SelectContent className="bg-zinc-800 border-zinc-700">
-            <SelectItem value="manager">
+          <SelectContent className="bg-zinc-800 border-zinc-700 text-white z-50">
+            <SelectItem value="manager" className="text-white focus:bg-zinc-700 focus:text-white">
               <span className="font-medium">Manager</span>
             </SelectItem>
-            <SelectItem value="planner">
+            <SelectItem value="planner" className="text-white focus:bg-zinc-700 focus:text-white">
               <span className="font-medium">Planner</span>
             </SelectItem>
-            <SelectItem value="viewer">
+            <SelectItem value="viewer" className="text-white focus:bg-zinc-700 focus:text-white">
               <span className="font-medium">Viewer</span>
             </SelectItem>
           </SelectContent>
@@ -297,13 +297,15 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
               errors.password && "border-red-500"
             )}
           />
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
+          </Button>
         </div>
         {formData.password && (
           <div className="flex items-center gap-2 mt-1">
