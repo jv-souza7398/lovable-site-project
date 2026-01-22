@@ -31,12 +31,16 @@ serve(async (req) => {
     if (action === "login") {
       // Hash the password
       const senhaHash = await hashPassword(password);
+      console.log("Computed hash:", senhaHash);
+      console.log("Email:", email);
 
       // Verify credentials using the security definer function
       const { data, error } = await supabase.rpc("verify_admin_login", {
         _email: email,
         _senha_hash: senhaHash,
       });
+      
+      console.log("RPC result:", { data, error });
 
       if (error) {
         console.error("Login error:", error);
