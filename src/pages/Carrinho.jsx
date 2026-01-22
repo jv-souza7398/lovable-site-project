@@ -58,6 +58,10 @@ function Carrinho() {
     );
   }
 
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
   const openWhatsApp = (eventDetails, totalAmount, userName) => {
     const phoneNumber = "5511910465650";
     const dataEventoFormatada = new Date(eventDetails.dataEvento + "T00:00:00").toLocaleDateString("pt-BR");
@@ -82,7 +86,15 @@ function Carrinho() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
-    window.open(whatsappUrl, "_blank");
+    console.log("Abrindo WhatsApp, isMobile:", isMobile());
+    
+    // On mobile, use location.href for better compatibility
+    // On desktop, use window.open
+    if (isMobile()) {
+      window.location.href = whatsappUrl;
+    } else {
+      window.open(whatsappUrl, "_blank");
+    }
   };
 
   const handleOpenEventModal = () => {
