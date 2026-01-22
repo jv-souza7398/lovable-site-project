@@ -344,23 +344,34 @@ height: 22rem;
 }
   
 
-.contentBtn a{
-background-color: rgb(146, 117, 60);
-border: 2px solid rgb(146, 117, 60);
-color: #fff;
-padding: 1rem 2rem;
-border-radius: 0;
-margin-left: 0;
-transition: 0.3s;
-font-family: 'Cormorant Garamond', serif;
-font-weight: 500;
-letter-spacing: 1px;
+.contentBtn {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 1rem;
 }
+
+.contentBtn a{
+  display: inline-block;
+  background-color: rgb(146, 117, 60);
+  border: 2px solid rgb(146, 117, 60);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
 .contentBtn a:hover{
-background-color: transparent;
-color: rgb(146, 117, 60);
-transform: translateY(-3px);
-box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
+  background-color: transparent;
+  color: rgb(146, 117, 60);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
 }
 
 /* SERVICOS  */
@@ -502,21 +513,35 @@ opacity: 1;
 .pacotes a:last-child:hover{
   color: rgb(53, 53, 53);
 }
-.maispacote a{
+.maispacote {
   display: flex;
   justify-content: center;
-  width: 60%;
-  margin: 2rem auto;
-  padding: 1.3rem;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.maispacote a{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  max-width: 90%;
+  padding: 1.3rem 3rem;
+  margin: 2rem 0;
   border-radius: 50px;
   background-color: rgb(146, 117, 60);
   border: 2px solid rgb(146, 117, 60);
   color: #fff;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   letter-spacing: 1px;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
+
 .maispacote a:hover{
   background-color: transparent;
   border: 2px solid rgb(146, 117, 60);
@@ -547,19 +572,32 @@ opacity: 1;
   color: #888;
 }
 
-/* Drinks Carousel - Fixed Layout */
+/* Drinks Carousel - Fixed Layout for Production */
 .drinksCarouselWrapper {
   width: calc(100% - 8rem);
   max-width: 1400px;
   margin: 2rem auto;
   position: relative;
   padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .drinksCarousel {
   width: 100%;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+}
+
+/* Force carousel behavior - fixes production stacking issue */
+.drinksCarousel [data-embla-container] {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+.drinksCarousel [data-embla-slide] {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
 }
 
 .drinkCard {
@@ -673,12 +711,72 @@ opacity: 1;
     width: 95%;
     padding: 0;
   }
+  
+  .contrateSection {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+  
+  .content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: auto;
+  }
+  
+  .contentBtn {
+    justify-content: center;
+  }
+  
+  .contentBtn a {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .maispacote a {
+    padding: 1.1rem 2rem;
+    font-size: 0.95rem;
+    max-width: 95%;
+  }
 }
 
 @media (max-width: 768px) {
   .drinksCarouselWrapper {
     width: 100%;
     padding: 0 1rem;
+  }
+  
+  .contentBtn {
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .contentBtn a {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    width: auto;
+  }
+  
+  .maispacote a {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .sectionPacotes {
+    padding-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentBtn a {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .maispacote a {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.85rem;
+    max-width: 100%;
   }
 }
 /* CARDS  */
