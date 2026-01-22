@@ -574,11 +574,11 @@ opacity: 1;
 
 /* Drinks Carousel - Fixed Layout for Production */
 .drinksCarouselWrapper {
-  width: calc(100% - 8rem);
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1200px;
   margin: 2rem auto;
   position: relative;
-  padding: 0 4rem;
+  padding: 0 5rem;
   box-sizing: border-box;
 }
 
@@ -605,6 +605,7 @@ opacity: 1;
 .drinksCarouselContent {
   display: flex;
   margin-left: -1rem;
+  position: relative;
 }
 
 .drinksCarouselItem {
@@ -750,11 +751,26 @@ opacity: 1;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Left arrow - positioned on the left side */
+.carouselButtonPrev {
+  left: -3.5rem !important;
+  right: auto !important;
+}
+
+/* Right arrow - positioned on the right side */
+.carouselButtonNext {
+  right: -3.5rem !important;
+  left: auto !important;
 }
 
 .carouselButton:hover {
   background: rgb(180, 143, 60) !important;
-  transform: scale(1.1) !important;
+  transform: translateY(-50%) scale(1.1) !important;
 }
 
 .carouselButton:disabled {
@@ -762,29 +778,55 @@ opacity: 1;
   cursor: not-allowed !important;
 }
 
-/* Mobile: hide arrows, use swipe */
+/* Mobile: hide arrows, use swipe, show ONE card only */
 @media (max-width: 767px) {
-  .carouselButton {
+  .carouselButton,
+  .carouselButtonPrev,
+  .carouselButtonNext {
     display: none !important;
   }
   
   .drinksCarouselWrapper {
-    width: 100%;
-    padding: 0 1rem;
+    width: 100% !important;
+    padding: 0 0.5rem !important;
+    margin: 1rem auto !important;
+  }
+  
+  .drinksCarouselContent {
+    margin-left: 0 !important;
   }
   
   .drinksCarouselItem {
-    flex-basis: 85%;
+    flex: 0 0 92% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
   
   .drinkCard {
-    height: 18rem;
+    height: 16rem !important;
+    max-width: 100% !important;
   }
   
   .drinkCard img {
-    height: 9rem;
-    min-height: 9rem;
-    max-height: 9rem;
+    height: 8rem !important;
+    min-height: 8rem !important;
+    max-height: 8rem !important;
+  }
+  
+  .drinkCard h2 {
+    font-size: 1rem !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  .drinkCard p {
+    font-size: 0.85rem !important;
+    margin: 0.3rem 0.5rem !important;
+  }
+  
+  .addButton {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.85rem !important;
+    min-height: 2.2rem !important;
   }
 }
 
