@@ -433,12 +433,13 @@ function Home() {
                 opts={{
                   align: "start",
                   loop: true,
+                  dragFree: false,
                 }}
                 className={classes.drinksCarousel}
               >
-                <CarouselContent>
+                <CarouselContent className="-ml-4">
                   {highlightedDrinks.map((drink) => (
-                    <CarouselItem key={drink.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
+                    <CarouselItem key={drink.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                       <DrinkCard item={drink} onImageClick={handleDrinkClick} />
                     </CarouselItem>
                   ))}
