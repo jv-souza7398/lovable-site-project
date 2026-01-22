@@ -208,7 +208,6 @@
 .carouselButton {
   position: absolute !important;
   top: 50% !important;
-  transform: translateY(-50%) !important;
   background-color: rgba(146, 117, 60, 0.9) !important;
   border: 2px solid rgb(146, 117, 60) !important;
   color: #fff !important;
@@ -218,21 +217,23 @@
   border-radius: 50% !important;
   cursor: pointer !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-50%) !important;
 }
 
 .carouselButtonPrev {
   left: 0 !important;
-  right: auto !important;
+  right: unset !important;
+  translate: none !important;
 }
 
 .carouselButtonNext {
   right: 0 !important;
-  left: auto !important;
+  left: unset !important;
+  translate: none !important;
 }
 
 .carouselButton:hover {
   background-color: rgb(146, 117, 60) !important;
-  transform: translateY(-50%) scale(1.05) !important;
 }
 
 /* Hide carousel arrows on mobile/tablet */
