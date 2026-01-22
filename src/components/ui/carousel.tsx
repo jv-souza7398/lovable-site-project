@@ -165,7 +165,6 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         aria-roledescription="slide"
         data-embla-slide
         className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
-        style={{ flex: '0 0 auto' }}
         {...props}
       />
     );
