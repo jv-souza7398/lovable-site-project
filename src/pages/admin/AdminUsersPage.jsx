@@ -302,9 +302,9 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
             variant="ghost"
             size="icon"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 p-0 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700"
           >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </Button>
         </div>
         {formData.password && (
