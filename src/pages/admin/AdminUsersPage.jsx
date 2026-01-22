@@ -40,6 +40,13 @@ import {
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
+const normalizeText = (value) => {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
 // CPF validation and formatting
 const formatCPF = (value) => {
   const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -456,11 +463,16 @@ export default function AdminUsersPage() {
     setDeleteConfirm(null);
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.nome_completo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.cpf.includes(searchTerm.replace(/\D/g, ''))
-  );
+  const q = normalizeText(searchTerm);
+  const qCpf = String(searchTerm ?? '').replace(/\D/g, '');
+  const filteredUsers = q
+    ? users.filter((user) => {
+        const nome = normalizeText(user?.nome_completo);
+        const email = normalizeText(user?.email);
+        const cpfDigits = String(user?.cpf ?? '').replace(/\D/g, '');
+        return nome.includes(q) || email.includes(q) || (qCpf ? cpfDigits.includes(qCpf) : false);
+      })
+    : users;
 
   if (!canManageUsers) {
     return (
