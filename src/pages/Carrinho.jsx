@@ -217,11 +217,16 @@ function Carrinho() {
       } else {
         console.log("Email enviado com sucesso!");
         
-        // Open WhatsApp after successful email
-        openWhatsApp(eventDetails, totalAmount, userName);
-        
+        // Close modal first
         setShowEventModal(false);
-        clearCart();
+        
+        // Open WhatsApp - using setTimeout to ensure the modal is closed first
+        // This helps avoid popup blockers
+        setTimeout(() => {
+          console.log("Abrindo WhatsApp...");
+          openWhatsApp(eventDetails, totalAmount, userName);
+          clearCart();
+        }, 300);
       }
     } catch (error) {
       console.error("Erro ao processar envio de email:", error);
