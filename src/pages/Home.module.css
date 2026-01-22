@@ -578,14 +578,13 @@ opacity: 1;
   max-width: 1400px;
   margin: 2rem auto;
   position: relative;
-  padding: 0 1rem;
+  padding: 0 4rem;
   box-sizing: border-box;
 }
 
 .drinksCarousel {
   width: 100%;
   position: relative;
-  /* do not clip navigation buttons; viewport handles clipping */
   overflow: visible;
 }
 
@@ -609,7 +608,7 @@ opacity: 1;
 }
 
 .drinksCarouselItem {
-  flex: 0 0 100%;
+  flex: 0 0 85%;
   min-width: 0;
   padding-left: 1rem;
   box-sizing: border-box;
@@ -634,7 +633,7 @@ opacity: 1;
 }
 
 .drinkCard {
-  height: 22rem;
+  height: 20rem;
   width: 100%;
   min-width: 100%;
   max-width: 100%;
@@ -658,9 +657,9 @@ opacity: 1;
 
 .drinkCard img {
   width: 100%;
-  height: 12rem;
-  min-height: 12rem;
-  max-height: 12rem;
+  height: 10rem;
+  min-height: 10rem;
+  max-height: 10rem;
   object-fit: cover;
   border-radius: 12px 12px 0 0;
   cursor: pointer;
@@ -736,36 +735,64 @@ opacity: 1;
   color: white;
 }
 
-/* Carousel Navigation Buttons */
+/* Carousel Navigation Buttons - positioned outside cards */
 .carouselButton {
   background: rgba(146, 117, 60, 0.95) !important;
   border: none !important;
-  color: black !important;
-  width: 2.5rem !important;
-  height: 2.5rem !important;
-  z-index: 10;
-  position: absolute !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+  color: #fff !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 50% !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 .carouselButton:hover {
-  background: rgb(204, 149, 40) !important;
+  background: rgb(180, 143, 60) !important;
+  transform: scale(1.1) !important;
 }
 
 .carouselButton:disabled {
-  opacity: 0.3 !important;
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
 }
 
-/* Hide carousel arrows on mobile/tablet - use swipe instead */
-@media (max-width: 1023px) {
+/* Mobile: hide arrows, use swipe */
+@media (max-width: 767px) {
   .carouselButton {
     display: none !important;
   }
   
   .drinksCarouselWrapper {
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .drinksCarouselItem {
+    flex-basis: 85%;
+  }
+  
+  .drinkCard {
+    height: 18rem;
+  }
+  
+  .drinkCard img {
+    height: 9rem;
+    min-height: 9rem;
+    max-height: 9rem;
+  }
+}
+
+/* Tablet: show arrows, adjust wrapper */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .drinksCarouselWrapper {
     width: 95%;
-    padding: 0;
+    padding: 0 3rem;
   }
   
   .contrateSection {
