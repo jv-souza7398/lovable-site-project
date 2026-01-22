@@ -85,19 +85,8 @@ function Carrinho() {
     window.open(whatsappUrl, "_blank");
   };
 
-  const handleOpenEventModal = async () => {
+  const handleOpenEventModal = () => {
     console.log("handleOpenEventModal chamado");
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    console.log("Session:", session);
-
-    if (!session) {
-      alert("Você precisa fazer login para enviar o orçamento.");
-      navigate("/Login/", { state: { redirectTo: "/Carrinho/" } });
-      return;
-    }
-
     console.log("Abrindo modal...");
     setShowEventModal(true);
   };
@@ -105,16 +94,15 @@ function Carrinho() {
   const handleConfirmEvent = async (eventDetails) => {
     setSendingQuote(true);
 
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
     const totalAmount = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
       minimumFractionDigits: 2,
     }).format(0);
 
+    // Usar dados do formulário (eventDetails agora inclui nome, email, telefone)
+    const userName = eventDetails.nomeCompleto || "Cliente";
+    const userEmail = eventDetails.email;
 
     // Gerar PDF em base64 e enviar email
     try {
@@ -176,6 +164,24 @@ function Carrinho() {
         doc.line(20, yPosition, 190, yPosition);
         yPosition += 10;
 
+        // Dados do cliente
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.text("DADOS DO CLIENTE", 20, yPosition);
+        yPosition += 8;
+
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(10);
+        doc.text(`Nome: ${userName}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`Email: ${userEmail}`, 25, yPosition);
+        yPosition += 5;
+        doc.text(`Telefone: ${eventDetails.telefone}`, 25, yPosition);
+
+        yPosition += 10;
+        doc.line(20, yPosition, 190, yPosition);
+        yPosition += 10;
+
         const totalValue = 0;
 
         const totalFormatado = new Intl.NumberFormat("pt-BR", {
@@ -194,17 +200,9 @@ function Carrinho() {
         console.error("Erro ao gerar PDF:", pdfError);
       }
 
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("nome_completo")
-        .eq("id", session.user.id)
-        .single();
-
-      const userName = profile?.nome_completo || session.user.email?.split("@")[0] || "Cliente";
-
       const response = await supabase.functions.invoke("send-quote-email", {
         body: {
-          userEmail: session.user.email,
+          userEmail,
           userName,
           cartItems: drinkItems,
           totalAmount,

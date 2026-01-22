@@ -16,6 +16,9 @@ import {
   FaArrowLeft,
   FaMinus,
   FaPlus,
+  FaUser,
+  FaEnvelope,
+  FaPhone,
 } from "react-icons/fa";
 import classes from "./EventDetailsModal.module.css";
 
@@ -38,6 +41,11 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const [error, setError] = useState("");
   const [showFreightPopup, setShowFreightPopup] = useState(false);
   const [eventData, setEventData] = useState(null);
+  
+  // Campos de contato do cliente
+  const [nomeCompleto, setNomeCompleto] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
 
   const tiposEvento = [
     { value: "casamento", label: "Casamento" },
@@ -97,6 +105,19 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validar campos de contato
+    if (!nomeCompleto.trim() || !email.trim() || !telefone.trim()) {
+      setError("Por favor, preencha seu nome, email e telefone.");
+      return;
+    }
+
+    // Validar email básico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError("Por favor, insira um email válido.");
+      return;
+    }
+
     if (!tipoEvento || !dataEvento || !horaInicio || !horaEncerramento || !estimativaConvidados) {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
@@ -122,6 +143,9 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
       horaInicio,
       horaEncerramento,
       estimativaConvidados,
+      nomeCompleto: nomeCompleto.trim(),
+      email: email.trim(),
+      telefone: telefone.trim(),
     });
     setShowFreightPopup(true);
   };
@@ -420,6 +444,57 @@ const EventDetailsModal = ({ open, onClose, onConfirm, loading }) => {
                 {error}
               </p>
             )}
+
+            {/* Seção de dados do cliente */}
+            <div style={{ 
+              backgroundColor: "rgba(146, 117, 60, 0.1)", 
+              padding: "16px", 
+              borderRadius: "12px",
+              border: "1px solid rgba(146, 117, 60, 0.3)"
+            }}>
+              <p style={{ color: "rgb(146, 117, 60)", fontSize: "14px", fontWeight: 600, marginBottom: "12px" }}>
+                Seus dados de contato
+              </p>
+              
+              {/* Nome completo */}
+              <div style={{ position: "relative", display: "flex", alignItems: "center", marginBottom: "12px" }}>
+                <FaUser style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="text"
+                  placeholder="Seu nome completo"
+                  value={nomeCompleto}
+                  onChange={(e) => setNomeCompleto(e.target.value)}
+                  disabled={loading}
+                  style={inputStyles}
+                />
+              </div>
+
+              {/* Email */}
+              <div style={{ position: "relative", display: "flex", alignItems: "center", marginBottom: "12px" }}>
+                <FaEnvelope style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="email"
+                  placeholder="Seu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  style={inputStyles}
+                />
+              </div>
+
+              {/* Telefone */}
+              <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <FaPhone style={{ position: "absolute", left: "12px", color: "rgb(146, 117, 60)", fontSize: "16px", zIndex: 1 }} />
+                <input
+                  type="tel"
+                  placeholder="Seu telefone (com DDD)"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  disabled={loading}
+                  style={inputStyles}
+                />
+              </div>
+            </div>
 
             {/* Tipo de evento */}
             <div style={{ display: "flex", flexDirection: "column" }}>
