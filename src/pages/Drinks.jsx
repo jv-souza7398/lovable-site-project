@@ -253,12 +253,15 @@ const DrinkCard = ({ item, onImageClick }) => {
 
 const DrinkCarousel = ({ title, items, onDrinkClick }) => (
   <div className={classes.carouselSection}>
-    <h2 className={classes.categoryTitle}>{title}</h2>
+    <h2 className={classes.categoryTitle}>
+      {title.split(" ").slice(0, -1).join(" ")} <span>{title.split(" ").slice(-1)[0]}</span>
+    </h2>
     <div className={classes.carouselWrapper}>
       <Carousel
         opts={{
           align: "start",
           loop: true,
+          dragFree: false,
         }}
         className={classes.carousel}
       >
@@ -269,8 +272,8 @@ const DrinkCarousel = ({ title, items, onDrinkClick }) => (
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className={classes.carouselButton} />
-        <CarouselNext className={classes.carouselButton} />
+        <CarouselPrevious className={`${classes.carouselButton} ${classes.carouselButtonPrev}`} />
+        <CarouselNext className={`${classes.carouselButton} ${classes.carouselButtonNext}`} />
       </Carousel>
     </div>
   </div>
