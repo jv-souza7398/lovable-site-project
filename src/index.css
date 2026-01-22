@@ -172,9 +172,29 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 /* Force carousel button positioning - override Tailwind inline classes */
-button.-left-12,
+button.-left-12 {
+  left: -3rem !important;
+  right: unset !important;
+  translate: none !important;
+}
+
 button.-right-12 {
-  left: auto !important;
-  right: auto !important;
-  transform: translateY(-50%) !important;
+  right: -3rem !important;
+  left: unset !important;
+  translate: none !important;
+}
+
+/* Drinks page specific carousel button overrides */
+.carouselButtonPrev,
+[class*="carouselButtonPrev"] {
+  left: 0 !important;
+  right: unset !important;
+  translate: none !important;
+}
+
+.carouselButtonNext,
+[class*="carouselButtonNext"] {
+  right: 0 !important;
+  left: unset !important;
+  translate: none !important;
 }
