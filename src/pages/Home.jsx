@@ -444,8 +444,8 @@ function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className={classes.carouselButton} />
-                <CarouselNext className={classes.carouselButton} />
+                <CarouselPrevious className={`${classes.carouselButton} ${classes.carouselButtonPrev}`} />
+                <CarouselNext className={`${classes.carouselButton} ${classes.carouselButtonNext}`} />
               </Carousel>
             </div>
           ) : (
