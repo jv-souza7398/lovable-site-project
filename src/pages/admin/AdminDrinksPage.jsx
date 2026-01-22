@@ -34,6 +34,39 @@ import {
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
+const normalizeText = (value) => {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
+const safeJsonParse = (value) => {
+  if (typeof value !== 'string') return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+};
+
+const normalizeIngredients = (value) => {
+  const parsed = safeJsonParse(value);
+  if (Array.isArray(parsed)) return parsed.filter(Boolean).map((v) => String(v));
+  return [];
+};
+
+const normalizeCharacteristics = (value) => {
+  const parsed = safeJsonParse(value);
+  if (!Array.isArray(parsed)) return [];
+  return parsed
+    .filter(Boolean)
+    .map((c) => ({
+      nome: String(c?.nome ?? ''),
+      nivel: Number.isFinite(Number(c?.nivel)) ? Number(c.nivel) : 3,
+    }));
+};
+
 const CharacteristicPreview = ({ nivel }) => {
   return (
     <div className="flex gap-1">
@@ -70,8 +103,8 @@ const DrinkForm = ({ drink, onSave, onCancel, isLoading }) => {
         video_url: drink.video_url || '',
         imagem_url: drink.imagem_url || '',
         categoria: drink.categoria || '',
-        caracteristicas: drink.caracteristicas || [],
-        ingredientes: drink.ingredientes || [],
+        caracteristicas: normalizeCharacteristics(drink.caracteristicas),
+        ingredientes: normalizeIngredients(drink.ingredientes),
         destacar_home: drink.destacar_home || false,
       });
     }
@@ -360,7 +393,13 @@ export default function AdminDrinksPage() {
       toast.error('Erro ao carregar drinks');
       console.error(error);
     } else {
-      setDrinks(data || []);
+      setDrinks(
+        (data || []).map((d) => ({
+          ...d,
+          caracteristicas: normalizeCharacteristics(d.caracteristicas),
+          ingredientes: normalizeIngredients(d.ingredientes),
+        }))
+      );
     }
     setLoading(false);
   };
@@ -421,10 +460,15 @@ export default function AdminDrinksPage() {
     setDeleteConfirm(null);
   };
 
-  const filteredDrinks = drinks.filter((drink) =>
-    drink.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    drink.categoria.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const q = normalizeText(searchTerm);
+  const filteredDrinks = q
+    ? drinks.filter((drink) => {
+        const nome = normalizeText(drink?.nome);
+        const categoria = normalizeText(String(drink?.categoria ?? '').replace(/-/g, ' '));
+        const descricao = normalizeText(drink?.descricao);
+        return nome.includes(q) || categoria.includes(q) || descricao.includes(q);
+      })
+    : drinks;
 
   return (
     <div 
@@ -601,9 +645,9 @@ export default function AdminDrinksPage() {
                     </Button>
                     <Button
                       variant="outline"
-                      size="sm"
                       onClick={() => setDeleteConfirm(drink)}
-                      className="border-zinc-700 text-red-400 hover:bg-red-500/10 hover:text-red-400"
+                      size="icon"
+                      className="h-9 w-9 border-zinc-700 text-red-400 hover:bg-red-500/10 hover:text-red-400"
                     >
                       <Trash2 size={14} />
                     </Button>
