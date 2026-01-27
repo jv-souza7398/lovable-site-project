@@ -118,7 +118,7 @@ box-sizing: border-box;
 }
 
 .contentHome h1 {
-  font-size: 2.4rem;
+  font-size: 2.47rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
   letter-spacing: 4px;
@@ -128,7 +128,7 @@ box-sizing: border-box;
 }
 
 .contentHome h3 {
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: 300;
   font-family: 'Cormorant Garamond', serif;
   margin-top: 0.15rem;
@@ -303,14 +303,14 @@ box-sizing: border-box;
 }
 .content h3{
  width: 15rem;
- font-size: 1.1rem;
+ font-size: 1.13rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
  color: rgb(146, 117, 60);
 }
 .content h4{
  width: 30rem;
- font-size: 1.8rem;
+ font-size: 1.85rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   line-height: 2.6rem;
@@ -319,13 +319,13 @@ box-sizing: border-box;
 }
 .content span{
   color: rgb(146, 117, 60);
-  font-size: 3rem;
+  font-size: 3.09rem;
 }
 .content p{
   width: 29rem;
   font-weight: 400;
-  line-height: 1.8rem;
-  font-size: 1.2rem;
+  line-height: 1.85rem;
+  font-size: 1.24rem;
   font-family: 'Cormorant Garamond', serif;
   margin-bottom: 4rem;
   color: #aba7a7;
@@ -388,7 +388,7 @@ box-sizing: border-box;
 .section h1{
   text-align: center;
   margin: 2rem 0;
-  font-size: 2.8rem;
+  font-size: 2.88rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   color: #f0ecec;
@@ -428,7 +428,7 @@ box-sizing: border-box;
   box-sizing: border-box;
 }
 .pacoteTitle h1{
- font-size: 2.8rem;
+ font-size: 2.88rem;
  text-align: center;
  margin-top: 0;
  margin-bottom: 0;
@@ -883,7 +883,7 @@ opacity: 1;
   text-align: center;
 }
 .sectionTitle h1{
- font-size: 1.85rem;
+ font-size: 1.91rem;
  text-align: center;
  margin-top: 0;
  margin-bottom: 0;
@@ -908,14 +908,14 @@ opacity: 1;
 .serviceBtnWrapper {
   display: flex;
   justify-content: center;
-  padding-left: 10%;
+  padding-left: 30%;
   margin-top: 2rem;
 }
 
 .serviceBtn {
   display: inline-block;
   background-color: transparent;
-  padding: 1rem 2rem;
+  padding: 1.05rem 2.1rem;
   border-radius: 0;
   border: 2px solid rgb(146, 117, 60);
   color: rgb(146, 117, 60);
@@ -924,6 +924,7 @@ opacity: 1;
   font-weight: 500;
   letter-spacing: 1px;
   text-decoration: none;
+  font-size: 1.05rem;
 }
 
 .serviceBtn:hover {
@@ -1002,9 +1003,9 @@ opacity: 1;
   text-align: center;
 }
 .serviceDescription p {
-  font-size: 1.1rem;
+  font-size: 1.13rem;
   font-family: 'Cormorant Garamond', serif;
-  line-height: 1.9;
+  line-height: 1.96rem;
   color: #aba7a7;
   margin-bottom: 1.5rem;
 }
