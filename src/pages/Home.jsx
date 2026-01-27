@@ -416,14 +416,14 @@ function Home() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
-              style={{ width: '100%', maxWidth: '40rem', height: '22rem', border: 'none', borderRadius: '1rem' }}
+              style={{ width: "100%", maxWidth: "40rem", height: "22rem", border: "none", borderRadius: "1rem" }}
             ></iframe>
           </div>
         </section>
         {/* Packages Section */}
         <section className={classes.sectionPacotes}>
           <div className={classes.pacoteTitle}>
-            <h1>Coquetéis</h1>
+            <h1>Top Drinks</h1>
           </div>
 
           {loadingDrinks ? (
