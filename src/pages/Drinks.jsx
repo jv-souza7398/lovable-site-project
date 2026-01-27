@@ -349,7 +349,7 @@ function DrinksTeste() {
   return (
     <div className={classes.drinksPage}>
       <div className={classes.navDrinks}>
-        <h1>Nossos <span>Drinks</span></h1>
+        <h1>Cardápios</h1>
       </div>
       {loading ? (
         <div className={classes.loadingState}>
