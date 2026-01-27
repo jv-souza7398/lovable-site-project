@@ -415,12 +415,14 @@ function Home() {
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
+              loading="lazy"
+              style={{ width: '100%', maxWidth: '40rem', height: '22rem', border: 'none', borderRadius: '1rem' }}
             ></iframe>
           </div>
         </section>
         {/* Packages Section */}
         <section className={classes.sectionPacotes}>
-          <div className={classes.pacoteTitle} data-aos="fade-up" data-aos-delay="200">
+          <div className={classes.pacoteTitle}>
             <h1>Coquetéis</h1>
           </div>
 
@@ -430,7 +432,7 @@ function Home() {
               <p>Carregando coquetéis...</p>
             </div>
           ) : highlightedDrinks.length > 0 ? (
-            <div className={classes.drinksCarouselWrapper} data-aos="fade-left" data-aos-delay="200">
+            <div className={classes.drinksCarouselWrapper}>
               <Carousel
                 opts={{
                   align: "start",
