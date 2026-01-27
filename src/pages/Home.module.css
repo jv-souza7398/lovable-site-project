@@ -413,6 +413,7 @@ height: 22rem;
 .sectionPacotes{
  background: transparent;
  min-height: 50rem;
+ padding-top: 4rem;
  padding-bottom: 3rem;
 }
 .pacoteTitle{
