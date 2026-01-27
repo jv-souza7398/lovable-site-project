@@ -398,9 +398,14 @@ function Home() {
             <h3>Sua festa tratada com</h3>
             <h4>Profissionalismo e Respeito</h4>
             <p>
-              Bartenders para aniversários, casamentos, ou qualquer outra comemoração importante para você. Estamos
-              prontos para servir todos os seus convidados com deliciosos drinks com e sem álcool. Conte com os melhores
-              bartenders para o melhor dia da sua vida!
+              Sabemos que um evento importante exige mais do que bons drinks. Na Vincci, cada detalhe é conduzido com
+              organização, pontualidade e atenção, para que você aproveite o momento com tranquilidade. Nossa equipe
+              atua com postura profissional, respeito ao cliente e cuidado com cada convidado. Trabalhamos com opções
+              alcoólicas e não alcoólicas, sempre priorizando a qualidade, a segurança e o bem-estar de todos.
+            </p>
+            <p>
+              Aqui, você não contrata apenas um bar. Contrata confiança, tranquilidade e a certeza de um serviço à
+              altura do seu evento.
             </p>
             <div className={classes.contentBtn}>
               <Link to="/drinks/">CONTRATE A VINCCI BAR</Link>
