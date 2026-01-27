@@ -216,8 +216,9 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
               style={{ ...inputStyle, cursor: 'pointer' }}
             >
               <option value="">Selecione a categoria</option>
-              <option value="drinks-sem-alcool">Drinks sem Álcool</option>
-              <option value="drinks-padrao">Drinks Padrões</option>
+              <option value="drinks-sem-alcool">Clássicos Vincci</option>
+              <option value="drinks-padrao">Festival de Caipirinhas</option>
+              <option value="sublime">Sublime</option>
             </select>
           </div>
 
