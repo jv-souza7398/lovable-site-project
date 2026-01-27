@@ -132,7 +132,7 @@ const CartStepsFrame = () => {
                   marginBottom: "4px",
                 }}
               >
-                1. Inclua seus pacotes desejados
+                1. Inclua seus drinks desejados
               </h3>
               <p
                 style={{
@@ -257,7 +257,8 @@ const CartStepsFrame = () => {
                   lineHeight: "1.5",
                 }}
               >
-                Você será redirecionado para nosso time de atendimento com o orçamento, e daremos sequência ao seu atendimento.
+                Você será redirecionado para nosso time de atendimento com o orçamento, e daremos sequência ao seu
+                atendimento.
               </p>
             </div>
           </div>
