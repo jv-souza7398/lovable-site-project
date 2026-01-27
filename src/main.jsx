@@ -26,9 +26,9 @@ import Completion from './pages/Completion.jsx'
 // Admin imports
 import AdminLogin from './pages/admin/AdminLogin.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
-import AdminDrinksPage from './pages/admin/AdminDrinksPage.jsx'
-import AdminUsersPage from './pages/admin/AdminUsersPage.jsx'
-import AdminDashsPage from './pages/admin/AdminDashsPage.jsx'
+import AdminDrinksPage from './pages/admin/AdminDrinksPageNew.jsx'
+import AdminUsersPage from './pages/admin/AdminUsersPageNew.jsx'
+import AdminDashsPage from './pages/admin/AdminDashsPageNew.jsx'
 
 import { register } from 'swiper/element/bundle'
 register()

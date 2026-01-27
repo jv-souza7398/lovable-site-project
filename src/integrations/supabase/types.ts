@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
+          ativo: boolean
           cpf: string
           created_at: string
           email: string
@@ -26,6 +27,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ativo?: boolean
           cpf: string
           created_at?: string
           email: string
@@ -36,6 +38,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ativo?: boolean
           cpf?: string
           created_at?: string
           email?: string
