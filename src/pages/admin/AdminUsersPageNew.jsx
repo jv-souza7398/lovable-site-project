@@ -305,7 +305,7 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
               placeholder="••••••••"
               style={{
                 ...(errors.password ? inputErrorStyle : inputStyle),
-                paddingRight: '2.5rem',
+                paddingRight: '3rem',
               }}
             />
             <button
@@ -313,7 +313,7 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
               onClick={() => setShowPassword(!showPassword)}
               style={{
                 position: 'absolute',
-                right: '0.5rem',
+                right: '0.75rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'none',
@@ -321,6 +321,9 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
                 padding: '0.25rem',
                 cursor: 'pointer',
                 color: '#71717a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
