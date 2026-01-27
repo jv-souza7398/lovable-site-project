@@ -555,11 +555,8 @@ export default function AdminDrinksPage() {
           <Button
             onClick={(e) => {
               e.stopPropagation();
-              alert('Botão Novo Drink clicado!');
-              console.log('[AdminDrinksPage] Novo Drink button clicked');
               setEditingDrink(null);
               setIsFormOpen(true);
-              console.log('[AdminDrinksPage] Modal should open now');
             }}
             className="bg-amber-500 hover:bg-amber-600 text-black"
             style={{ backgroundColor: '#f59e0b', color: 'black', position: 'relative', zIndex: 100 }}
@@ -726,19 +723,15 @@ export default function AdminDrinksPage() {
       )}
 
       {/* Form Dialog */}
-      {console.log('[AdminDrinksPage] Dialog render, isFormOpen:', isFormOpen)}
       <Dialog 
         open={isFormOpen} 
         onOpenChange={(open) => {
-          console.log('[AdminDrinksPage] Dialog onOpenChange:', open);
           setIsFormOpen(open);
         }}
       >
         <DialogContent 
           className="bg-zinc-900 border-zinc-800 text-white max-w-3xl"
-          style={{ zIndex: 9999 }}
         >
-          {console.log('[AdminDrinksPage] DialogContent rendering')}
           <DialogHeader>
             <DialogTitle>
               {editingDrink ? 'Editar Drink' : 'Novo Drink'}

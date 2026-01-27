@@ -18,12 +18,13 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
+    {...props}
     className={cn(
       "fixed inset-0 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className,
     )}
-    style={{ zIndex: 99998 }}
-    {...props}
+    // Keep overlay above any admin fixed elements even if a consumer passes a lower zIndex.
+    style={{ ...(props.style ?? {}), zIndex: 99998 }}
   />
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
@@ -36,12 +37,13 @@ const DialogContent = React.forwardRef<
     <DialogOverlay />
     <DialogPrimitive.Content
       ref={ref}
+      {...props}
       className={cn(
         "fixed left-[50%] top-[50%] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
         className,
       )}
-      style={{ zIndex: 99999 }}
-      {...props}
+      // Keep content above any app overlays even if a consumer passes a lower zIndex.
+      style={{ ...(props.style ?? {}), zIndex: 99999 }}
     >
       {children}
       <DialogPrimitive.Close className="absolute right-3 top-3 h-8 w-8 flex items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
