@@ -51,6 +51,7 @@
 
 .categoryTitle span {
   color: #ffffff;
+  font-weight: 400;
 }
 
 .categoryTitle::after {
