@@ -373,7 +373,7 @@ const DrinkForm = ({ drink, onSave, onCancel, isLoading }) => {
 };
 
 export default function AdminDrinksPage() {
-  const { canEdit, isViewer } = useAdminAuth();
+  const { canEdit, isViewer, admin } = useAdminAuth();
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -383,37 +383,47 @@ export default function AdminDrinksPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const fetchDrinks = async () => {
+    console.log('[AdminDrinksPage] fetchDrinks started');
     setLoading(true);
-    const { data, error } = await supabase
-      .from('drinks')
-      .select('*')
-      .order('nome');
+    try {
+      const { data, error } = await supabase
+        .from('drinks')
+        .select('*')
+        .order('nome');
 
-    if (error) {
+      if (error) {
+        toast.error('Erro ao carregar drinks');
+        console.error('[AdminDrinksPage] fetch error:', error);
+      } else {
+        console.log('[AdminDrinksPage] drinks loaded:', data?.length);
+        setDrinks(
+          (data || []).map((d) => ({
+            ...d,
+            caracteristicas: normalizeCharacteristics(d.caracteristicas),
+            ingredientes: normalizeIngredients(d.ingredientes),
+          }))
+        );
+      }
+    } catch (err) {
+      console.error('[AdminDrinksPage] fetch exception:', err);
       toast.error('Erro ao carregar drinks');
-      console.error(error);
-    } else {
-      setDrinks(
-        (data || []).map((d) => ({
-          ...d,
-          caracteristicas: normalizeCharacteristics(d.caracteristicas),
-          ingredientes: normalizeIngredients(d.ingredientes),
-        }))
-      );
     }
     setLoading(false);
   };
 
   useEffect(() => {
+    console.log('[AdminDrinksPage] Component mounted, admin:', admin?.email);
     fetchDrinks();
   }, []);
 
   const handleSave = async (formData) => {
+    console.log('[AdminDrinksPage] handleSave called with:', formData?.nome);
     setSaving(true);
 
     try {
       const adminSession = JSON.parse(localStorage.getItem('vincci_admin_session') || '{}');
       const adminId = adminSession?.admin?.id;
+      console.log('[AdminDrinksPage] adminId:', adminId);
 
       if (!adminId) {
         toast.error('Sessão expirada. Faça login novamente.');
@@ -422,6 +432,7 @@ export default function AdminDrinksPage() {
       }
 
       if (editingDrink) {
+        console.log('[AdminDrinksPage] Updating drink:', editingDrink.id);
         const { data, error } = await supabase.functions.invoke('admin-drinks', {
           body: {
             action: 'update',
@@ -430,6 +441,7 @@ export default function AdminDrinksPage() {
             drinkData: formData,
           },
         });
+        console.log('[AdminDrinksPage] Update response:', { data, error });
 
         if (error || !data?.success) {
           toast.error(data?.error || 'Erro ao atualizar drink');
@@ -441,6 +453,7 @@ export default function AdminDrinksPage() {
           fetchDrinks();
         }
       } else {
+        console.log('[AdminDrinksPage] Creating new drink');
         const { data, error } = await supabase.functions.invoke('admin-drinks', {
           body: {
             action: 'create',
@@ -448,6 +461,7 @@ export default function AdminDrinksPage() {
             drinkData: formData,
           },
         });
+        console.log('[AdminDrinksPage] Create response:', { data, error });
 
         if (error || !data?.success) {
           toast.error(data?.error || 'Erro ao criar drink');
@@ -459,11 +473,12 @@ export default function AdminDrinksPage() {
         }
       }
     } catch (err) {
-      console.error('Save error:', err);
+      console.error('[AdminDrinksPage] Save exception:', err);
       toast.error('Erro ao salvar drink');
     }
 
     setSaving(false);
+    console.log('[AdminDrinksPage] handleSave completed');
   };
 
   const handleDelete = async () => {
@@ -539,8 +554,10 @@ export default function AdminDrinksPage() {
         {canEdit && (
           <Button
             onClick={() => {
+              console.log('[AdminDrinksPage] Novo Drink button clicked');
               setEditingDrink(null);
               setIsFormOpen(true);
+              console.log('[AdminDrinksPage] Modal should open now');
             }}
             className="bg-amber-500 hover:bg-amber-600 text-black"
             style={{ backgroundColor: '#f59e0b', color: 'black' }}
@@ -677,8 +694,10 @@ export default function AdminDrinksPage() {
                       variant="outline"
                       size="sm"
                       onClick={() => {
+                        console.log('[AdminDrinksPage] Editar button clicked for:', drink.nome);
                         setEditingDrink(drink);
                         setIsFormOpen(true);
+                        console.log('[AdminDrinksPage] Edit modal should open');
                       }}
                       className="flex-1 border-zinc-700 text-zinc-300 hover:bg-zinc-800"
                       style={{ flex: 1 }}
@@ -687,7 +706,10 @@ export default function AdminDrinksPage() {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => setDeleteConfirm(drink)}
+                      onClick={() => {
+                        console.log('[AdminDrinksPage] Delete button clicked for:', drink.nome);
+                        setDeleteConfirm(drink);
+                      }}
                       size="icon"
                       className="h-9 w-9 border-zinc-700 text-red-400 hover:bg-red-500/10 hover:text-red-400"
                     >
