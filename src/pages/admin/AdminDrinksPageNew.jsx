@@ -420,9 +420,10 @@ export default function AdminDrinksPage() {
                         padding: '0.125rem 0.5rem',
                         marginTop: '0.375rem',
                         borderRadius: '9999px',
-                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                        color: '#f59e0b',
-                        border: '1px solid rgba(245, 158, 11, 0.2)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        color: 'white',
+                        fontWeight: 'normal',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
                       }}
                     >
                       {getCategoryLabel(drink.categoria)}
