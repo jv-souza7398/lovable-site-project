@@ -553,14 +553,16 @@ export default function AdminDrinksPage() {
         </div>
         {canEdit && (
           <Button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+              alert('Botão Novo Drink clicado!');
               console.log('[AdminDrinksPage] Novo Drink button clicked');
               setEditingDrink(null);
               setIsFormOpen(true);
               console.log('[AdminDrinksPage] Modal should open now');
             }}
             className="bg-amber-500 hover:bg-amber-600 text-black"
-            style={{ backgroundColor: '#f59e0b', color: 'black' }}
+            style={{ backgroundColor: '#f59e0b', color: 'black', position: 'relative', zIndex: 100 }}
           >
             <Plus size={18} className="mr-2" style={{ marginRight: '0.5rem' }} /> Novo Drink
           </Button>
