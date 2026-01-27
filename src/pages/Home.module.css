@@ -908,7 +908,7 @@ opacity: 1;
 .serviceBtnWrapper {
   display: flex;
   justify-content: center;
-  padding-right: 5%;
+  padding-left: 0;
   margin-top: 2rem;
 }
 
