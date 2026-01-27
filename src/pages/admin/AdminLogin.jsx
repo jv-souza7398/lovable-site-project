@@ -29,14 +29,24 @@ export default function AdminLogin() {
     }
 
     setIsLogging(true);
-    const result = await login(email, password);
-    setIsLogging(false);
+    
+    try {
+      const result = await login(email, password);
 
-    if (result.success) {
-      toast.success('Login realizado com sucesso!');
-      navigate('/admin/drinks');
-    } else {
-      toast.error(result.error || 'Erro ao fazer login');
+      if (result.success) {
+        toast.success('Login realizado com sucesso!');
+        // Use setTimeout to ensure state is updated before navigation
+        setTimeout(() => {
+          navigate('/admin/drinks', { replace: true });
+        }, 100);
+      } else {
+        toast.error(result.error || 'Erro ao fazer login');
+        setIsLogging(false);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      toast.error('Erro ao fazer login');
+      setIsLogging(false);
     }
   };
 
