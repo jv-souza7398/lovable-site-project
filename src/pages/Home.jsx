@@ -382,9 +382,10 @@ function Home() {
                 convidados com sabores únicos e atendimento de excelência.
               </p>
               <p>
-                Trabalhamos com drinks alcoólicos e não alcoólicos, garantindo que todos os seus convidados sejam bem
-                atendidos. Cada evento é único, e nosso compromisso é oferecer qualidade e sofisticação em cada taça
-                servida.
+                Contamos com bartenders altamente qualificados, preparados para entregar excelência não apenas na
+                execução dos drinks, mas também no atendimento. Com elegância, técnica e atenção aos detalhes,
+                garantimos um serviço sofisticado, alinhado à essência da Vincci e às expectativas de cada cliente e
+                seus convidados.
               </p>
             </div>
           </div>
