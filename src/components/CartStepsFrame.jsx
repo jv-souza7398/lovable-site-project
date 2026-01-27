@@ -141,7 +141,7 @@ const CartStepsFrame = () => {
                   lineHeight: "1.5",
                 }}
               >
-                Adicione os pacotes que deseja para o seu evento no carrinho.
+                Adicione os drinks que deseja para o seu evento no carrinho.
               </p>
             </div>
           </div>
