@@ -411,32 +411,56 @@ export default function AdminDrinksPage() {
   const handleSave = async (formData) => {
     setSaving(true);
 
-    if (editingDrink) {
-      const { error } = await supabase
-        .from('drinks')
-        .update(formData)
-        .eq('id', editingDrink.id);
+    try {
+      const adminSession = JSON.parse(localStorage.getItem('vincci_admin_session') || '{}');
+      const adminId = adminSession?.admin?.id;
 
-      if (error) {
-        toast.error('Erro ao atualizar drink');
-        console.error(error);
-      } else {
-        toast.success('Drink atualizado com sucesso!');
-        setIsFormOpen(false);
-        setEditingDrink(null);
-        fetchDrinks();
+      if (!adminId) {
+        toast.error('Sessão expirada. Faça login novamente.');
+        setSaving(false);
+        return;
       }
-    } else {
-      const { error } = await supabase.from('drinks').insert([formData]);
 
-      if (error) {
-        toast.error('Erro ao criar drink');
-        console.error(error);
+      if (editingDrink) {
+        const { data, error } = await supabase.functions.invoke('admin-drinks', {
+          body: {
+            action: 'update',
+            adminId,
+            drinkId: editingDrink.id,
+            drinkData: formData,
+          },
+        });
+
+        if (error || !data?.success) {
+          toast.error(data?.error || 'Erro ao atualizar drink');
+          console.error('Update error:', error || data?.error);
+        } else {
+          toast.success('Drink atualizado com sucesso!');
+          setIsFormOpen(false);
+          setEditingDrink(null);
+          fetchDrinks();
+        }
       } else {
-        toast.success('Drink criado com sucesso!');
-        setIsFormOpen(false);
-        fetchDrinks();
+        const { data, error } = await supabase.functions.invoke('admin-drinks', {
+          body: {
+            action: 'create',
+            adminId,
+            drinkData: formData,
+          },
+        });
+
+        if (error || !data?.success) {
+          toast.error(data?.error || 'Erro ao criar drink');
+          console.error('Create error:', error || data?.error);
+        } else {
+          toast.success('Drink criado com sucesso!');
+          setIsFormOpen(false);
+          fetchDrinks();
+        }
       }
+    } catch (err) {
+      console.error('Save error:', err);
+      toast.error('Erro ao salvar drink');
     }
 
     setSaving(false);
@@ -445,18 +469,36 @@ export default function AdminDrinksPage() {
   const handleDelete = async () => {
     if (!deleteConfirm) return;
 
-    const { error } = await supabase
-      .from('drinks')
-      .delete()
-      .eq('id', deleteConfirm.id);
+    try {
+      const adminSession = JSON.parse(localStorage.getItem('vincci_admin_session') || '{}');
+      const adminId = adminSession?.admin?.id;
 
-    if (error) {
+      if (!adminId) {
+        toast.error('Sessão expirada. Faça login novamente.');
+        setDeleteConfirm(null);
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('admin-drinks', {
+        body: {
+          action: 'delete',
+          adminId,
+          drinkId: deleteConfirm.id,
+        },
+      });
+
+      if (error || !data?.success) {
+        toast.error(data?.error || 'Erro ao excluir drink');
+        console.error('Delete error:', error || data?.error);
+      } else {
+        toast.success('Drink excluído com sucesso!');
+        fetchDrinks();
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
       toast.error('Erro ao excluir drink');
-      console.error(error);
-    } else {
-      toast.success('Drink excluído com sucesso!');
-      fetchDrinks();
     }
+    
     setDeleteConfirm(null);
   };
 
