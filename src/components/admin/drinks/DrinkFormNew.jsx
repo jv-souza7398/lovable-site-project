@@ -215,10 +215,10 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
               onChange={(e) => handleChange('categoria', e.target.value)}
               style={{ ...inputStyle, cursor: 'pointer' }}
             >
-              <option value="">Selecione a categoria</option>
-              <option value="drinks-sem-alcool">Clássicos Vincci</option>
-              <option value="drinks-padrao">Festival de Caipirinhas</option>
-              <option value="sublime">Sublime</option>
+              <option value="" style={{ backgroundColor: '#27272a', color: 'white' }}>Selecione a categoria</option>
+              <option value="drinks-sem-alcool" style={{ backgroundColor: '#27272a', color: 'white' }}>Clássicos Vincci</option>
+              <option value="drinks-padrao" style={{ backgroundColor: '#27272a', color: 'white' }}>Festival de Caipirinhas</option>
+              <option value="sublime" style={{ backgroundColor: '#27272a', color: 'white' }}>Sublime</option>
             </select>
           </div>
 
