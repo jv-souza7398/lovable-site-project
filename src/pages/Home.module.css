@@ -333,14 +333,19 @@ box-sizing: border-box;
 
 /* VIDEO  */
 .contentvideo{
-  height: 40%;
+  height: auto;
   margin: 6rem 2rem;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .contentvideo iframe{
-border-radius: 1rem;
-width: 40rem;
-height: 22rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 40rem;
+  height: 22rem;
+  border: none;
+  display: block;
 }
   
 
@@ -411,17 +416,20 @@ height: 22rem;
  min-height: 50rem;
  padding-top: 4rem;
  padding-bottom: 3rem;
+ position: relative;
+ z-index: 1;
 }
 .pacoteTitle{
   width: 90%;
-  height: 15%;
-  margin: 0 9rem 0;
+  height: auto;
+  margin: 0 auto 2rem;
+  padding: 0 2rem;
   color: #f0ecec;
-  
+  box-sizing: border-box;
 }
 .pacoteTitle h1{
  font-size: 2.8rem;
- text-align: start;
+ text-align: center;
  margin-top: 0;
  margin-bottom: 0;
  font-family: 'Cormorant Garamond', serif;
@@ -569,30 +577,40 @@ opacity: 1;
   position: relative;
   padding: 0 5rem;
   box-sizing: border-box;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
 }
 
 .drinksCarousel {
   width: 100%;
   position: relative;
   overflow: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Force carousel behavior - fixes production stacking issue */
-.drinksCarousel [data-embla-container] {
+.drinksCarousel [data-embla-container],
+.drinksCarouselContent {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   gap: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-.drinksCarousel [data-embla-slide] {
+.drinksCarousel [data-embla-slide],
+.drinksCarouselItem {
   flex: 0 0 auto !important;
   min-width: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Local sizing for items (avoid relying on Tailwind basis utilities in production build) */
 .drinksCarouselContent {
-  display: flex;
   margin-left: -1rem;
   position: relative;
 }
@@ -1354,12 +1372,18 @@ display: flex;
   .sectionPacotes {
     height: auto;
     min-height: auto;
-    padding-top: 6rem;
+    padding-top: 4rem;
   }
   
   .pacoteTitle {
-    width: 90%;
-    margin: 0 1rem;
+    width: 95%;
+    margin: 0 auto 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .pacoteTitle h1 {
+    font-size: 2rem;
+    text-align: center;
   }
   
   .pacoteTitle h2 {

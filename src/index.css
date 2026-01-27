@@ -136,16 +136,27 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   gap: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 [data-embla-slide] {
   flex: 0 0 auto !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 [data-embla-viewport] {
   overflow: hidden !important;
+}
+
+/* Production visibility fix - prevent AOS from hiding elements */
+[data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
 
 /* Fix carousel items in production - ensure proper sizing */
