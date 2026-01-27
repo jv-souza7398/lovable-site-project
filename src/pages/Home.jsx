@@ -354,9 +354,7 @@ function Home() {
         {/* Services Section */}
         <section className={classes.section}>
           <div className={classes.sectionTitle} data-aos="fade-up">
-            <h1>
-              Serviços <span>________</span>
-            </h1>
+            <h1>Serviços</h1>
           </div>
           <div className={classes.container}>
             <div
@@ -423,9 +421,7 @@ function Home() {
         {/* Packages Section */}
         <section className={classes.sectionPacotes}>
           <div className={classes.pacoteTitle} data-aos="fade-up" data-aos-delay="200">
-            <h1>
-              Coquetéis <span>________</span>
-            </h1>
+            <h1>Coquetéis</h1>
           </div>
 
           {loadingDrinks ? (
