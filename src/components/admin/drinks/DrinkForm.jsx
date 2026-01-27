@@ -204,8 +204,9 @@ export default function DrinkForm({ drink, onSave, onCancel, isLoading }) {
                 <SelectValue placeholder="Selecione a categoria" />
               </SelectTrigger>
               <SelectContent className="bg-zinc-800 border-zinc-700">
-                <SelectItem value="drinks-sem-alcool">Drinks sem Álcool</SelectItem>
-                <SelectItem value="drinks-padrao">Drinks Padrões</SelectItem>
+                <SelectItem value="drinks-sem-alcool">Clássicos Vincci</SelectItem>
+                <SelectItem value="drinks-padrao">Festival de Caipirinhas</SelectItem>
+                <SelectItem value="sublime">Sublime</SelectItem>
               </SelectContent>
             </Select>
           </div>

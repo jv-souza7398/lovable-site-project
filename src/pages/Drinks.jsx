@@ -307,6 +307,8 @@ function DrinksTeste() {
     window.scrollTo(0, 0);
   }, []);
 
+  const [dbDrinksSublime, setDbDrinksSublime] = useState([]);
+
   useEffect(() => {
     const fetchDrinks = async () => {
       setLoading(true);
@@ -314,12 +316,14 @@ function DrinksTeste() {
 
       if (!error && data && data.length > 0) {
         const allMapped = data.map(mapDrinkFromDB);
-        const semAlcool = data.filter((d) => d.categoria === "drinks-sem-alcool").map(mapDrinkFromDB);
-        const padrao = data.filter((d) => d.categoria === "drinks-padrao").map(mapDrinkFromDB);
+        const classicos = data.filter((d) => d.categoria === "drinks-sem-alcool").map(mapDrinkFromDB);
+        const festival = data.filter((d) => d.categoria === "drinks-padrao").map(mapDrinkFromDB);
+        const sublime = data.filter((d) => d.categoria === "sublime").map(mapDrinkFromDB);
 
         // Se não houver drinks em uma categoria, exibe todos os drinks do banco
-        setDbDrinksSemAlcool(semAlcool.length > 0 ? semAlcool : allMapped);
-        setDbDrinksPadrao(padrao.length > 0 ? padrao : allMapped);
+        setDbDrinksSemAlcool(classicos.length > 0 ? classicos : allMapped);
+        setDbDrinksPadrao(festival.length > 0 ? festival : allMapped);
+        setDbDrinksSublime(sublime);
       }
       setLoading(false);
     };
@@ -338,8 +342,9 @@ function DrinksTeste() {
   };
 
   // Use database drinks if available, otherwise fallback to hardcoded
-  const displaySemAlcool = dbDrinksSemAlcool.length > 0 ? dbDrinksSemAlcool : drinksSemAlcool;
-  const displayPadrao = dbDrinksPadrao.length > 0 ? dbDrinksPadrao : drinksPadroes;
+  const displayClassicos = dbDrinksSemAlcool.length > 0 ? dbDrinksSemAlcool : drinksSemAlcool;
+  const displayFestival = dbDrinksPadrao.length > 0 ? dbDrinksPadrao : drinksPadroes;
+  const displaySublime = dbDrinksSublime;
 
   return (
     <div className={classes.drinksPage}>
@@ -353,8 +358,11 @@ function DrinksTeste() {
         </div>
       ) : (
         <section className={classes.section}>
-          <DrinkCarousel title="Drinks Sem Álcool" items={displaySemAlcool} onDrinkClick={handleDrinkClick} />
-          <DrinkCarousel title="Drinks Padrões" items={displayPadrao} onDrinkClick={handleDrinkClick} />
+          <DrinkCarousel title="Clássicos Vincci" items={displayClassicos} onDrinkClick={handleDrinkClick} />
+          <DrinkCarousel title="Festival de Caipirinhas" items={displayFestival} onDrinkClick={handleDrinkClick} />
+          {displaySublime.length > 0 && (
+            <DrinkCarousel title="Sublime" items={displaySublime} onDrinkClick={handleDrinkClick} />
+          )}
         </section>
       )}
 

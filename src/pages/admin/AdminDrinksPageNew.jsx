@@ -32,6 +32,15 @@ const normalizeArray = (value) => {
   return [];
 };
 
+const getCategoryLabel = (categoria) => {
+  const labels = {
+    'drinks-sem-alcool': 'Clássicos Vincci',
+    'drinks-padrao': 'Festival de Caipirinhas',
+    'sublime': 'Sublime',
+  };
+  return labels[categoria] || categoria?.replace(/-/g, ' ') || 'Sem categoria';
+};
+
 export default function AdminDrinksPage() {
   const { canEdit, admin } = useAdminAuth();
   
@@ -416,7 +425,7 @@ export default function AdminDrinksPage() {
                         border: '1px solid rgba(245, 158, 11, 0.2)',
                       }}
                     >
-                      {drink.categoria?.replace(/-/g, ' ')}
+                      {getCategoryLabel(drink.categoria)}
                     </span>
                   </div>
 
