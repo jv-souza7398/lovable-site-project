@@ -135,6 +135,7 @@ export type Database = {
         Returns: Database["public"]["Enums"]["admin_role"]
       }
       is_admin: { Args: { _admin_id: string }; Returns: boolean }
+      is_manager: { Args: { _user_id: string }; Returns: boolean }
       verify_admin_login: {
         Args: { _email: string; _senha_hash: string }
         Returns: {
