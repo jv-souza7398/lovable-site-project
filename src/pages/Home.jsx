@@ -356,24 +356,8 @@ function Home() {
           <div className={classes.sectionTitle} data-aos="fade-up">
             <h1>Serviços</h1>
           </div>
-          <div className={classes.container}>
-            <div
-              className={classes.cardItem}
-              data-aos="fade-up"
-              data-aos-delay="100"
-              onClick={() => navigate("/sobre#servicos")}
-              style={{ cursor: "pointer" }}
-            >
-              <span>
-                <i className="bi bi-cup-straw"></i>
-              </span>
-              <h4>Bar de caipirinhas</h4>
-              <p>
-                Diversas outras combinações de Frutas e Especiarias para Caipirinhas que agradarão todos os seus
-                convidados!
-              </p>
-            </div>
-            <div className={classes.serviceDescription} data-aos="fade-up" data-aos-delay="200">
+          <div className={classes.serviceContent}>
+            <div className={classes.serviceDescription} data-aos="fade-up" data-aos-delay="100">
               <p>
                 Na Vincci, oferecemos uma experiência completa de bar para o seu evento. Desde coquetéis clássicos até
                 drinks personalizados, nossa equipe de bartenders profissionais está pronta para surpreender seus
@@ -385,6 +369,11 @@ function Home() {
                 garantimos um serviço sofisticado, alinhado à essência da Vincci e às expectativas de cada cliente e
                 seus convidados.
               </p>
+            </div>
+            <div className={classes.serviceBtnWrapper} data-aos="fade-up" data-aos-delay="200">
+              <Link to="/sobre#servicos" className={classes.serviceBtn}>
+                Descubra nossos serviços
+              </Link>
             </div>
           </div>
         </section>

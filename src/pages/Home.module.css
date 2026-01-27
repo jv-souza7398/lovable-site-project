@@ -875,16 +875,16 @@ opacity: 1;
   padding-bottom: 3rem;
 }
 .sectionTitle{
-  width: 90%;
-  height: 15%;
-  margin: 1rem 9rem 0;
-  padding-left: 0;
+  width: 100%;
+  height: auto;
+  margin: 1rem 0 0;
+  padding: 0;
   color: #f0ecec;
-  
+  text-align: center;
 }
 .sectionTitle h1{
  font-size: 1.85rem;
- text-align: start;
+ text-align: center;
  margin-top: 0;
  margin-bottom: 0;
  font-family: 'Cormorant Garamond', serif;
@@ -896,6 +896,41 @@ opacity: 1;
   font-size: 2rem;
   position: relative;
   bottom: 0.5rem;
+}
+
+.serviceContent {
+  width: 80%;
+  max-width: 900px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.serviceBtnWrapper {
+  display: flex;
+  justify-content: center;
+  padding-left: 10%;
+  margin-top: 2rem;
+}
+
+.serviceBtn {
+  display: inline-block;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  border-radius: 0;
+  border: 2px solid rgb(146, 117, 60);
+  color: rgb(146, 117, 60);
+  transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.serviceBtn:hover {
+  background-color: rgb(146, 117, 60);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(146, 117, 60, 0.3);
 }
 
 
@@ -960,11 +995,11 @@ opacity: 1;
 }
 
 .serviceDescription {
-  flex: 1;
-  padding: 2rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 .serviceDescription p {
   font-size: 1.1rem;
