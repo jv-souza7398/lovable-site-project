@@ -380,10 +380,6 @@ height: 22rem;
   height: 100%;
   background: transparent;
 }
-.section span{
-  color: rgb(146, 117, 60);
-  font-size: 3rem;
-}
 .section h1{
   text-align: center;
   margin: 2rem 0;
@@ -431,14 +427,6 @@ height: 22rem;
  font-family: 'Cormorant Garamond', serif;
  font-weight: 500;
  letter-spacing: 1px;
-}
-.pacoteTitle  h1 span{
- width: 2rem;
-  margin-left: 0.5rem;
-  font-size: 2rem;
-  position: relative;
-  bottom: 0.5rem;
-  color:  rgb(146, 117, 60);
 }
 .pacoteTitle h2{
   width: 40%;
@@ -1366,6 +1354,7 @@ display: flex;
   .sectionPacotes {
     height: auto;
     min-height: auto;
+    padding-top: 6rem;
   }
   
   .pacoteTitle {
