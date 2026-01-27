@@ -280,7 +280,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <label style={labelStyle}>Características</label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {formData.caracteristicas.map((caract, index) => (
                 <div
                   key={index}
@@ -295,20 +295,30 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                 >
                   <input
                     type="text"
-                    value={caract.nome}
+                    value={caract.nome || ''}
                     onChange={(e) => updateCaracteristica(index, 'nome', e.target.value)}
-                    placeholder="Nome"
-                    style={{ ...inputStyle, flex: 1, backgroundColor: '#18181b' }}
+                    placeholder="Ex: Doçura, Acidez"
+                    style={{
+                      flex: 1,
+                      minWidth: '120px',
+                      padding: '0.625rem 0.75rem',
+                      backgroundColor: '#18181b',
+                      border: '1px solid #3f3f46',
+                      borderRadius: '0.5rem',
+                      color: 'white',
+                      fontSize: '0.875rem',
+                      outline: 'none',
+                    }}
                   />
                   <input
                     type="range"
                     min="1"
                     max="5"
-                    value={caract.nivel}
+                    value={caract.nivel || 3}
                     onChange={(e) => updateCaracteristica(index, 'nivel', parseInt(e.target.value))}
-                    style={{ width: '5rem', accentColor: '#f59e0b' }}
+                    style={{ width: '5rem', accentColor: '#f59e0b', flexShrink: 0 }}
                   />
-                  <CharacteristicPreview nivel={caract.nivel} />
+                  <CharacteristicPreview nivel={caract.nivel || 3} />
                   <button
                     type="button"
                     onClick={() => removeCaracteristica(index)}
@@ -318,6 +328,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                       padding: '0.25rem',
                       cursor: 'pointer',
                       color: '#71717a',
+                      flexShrink: 0,
                     }}
                   >
                     <Trash2 size={16} />
@@ -352,10 +363,20 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                 >
                   <input
                     type="text"
-                    value={ing}
+                    value={ing || ''}
                     onChange={(e) => updateIngrediente(index, e.target.value)}
                     placeholder="Ex: 50ml Vodka"
-                    style={{ ...inputStyle, flex: 1 }}
+                    style={{
+                      flex: 1,
+                      minWidth: '150px',
+                      padding: '0.625rem 0.75rem',
+                      backgroundColor: '#27272a',
+                      border: '1px solid #3f3f46',
+                      borderRadius: '0.5rem',
+                      color: 'white',
+                      fontSize: '0.875rem',
+                      outline: 'none',
+                    }}
                   />
                   <button
                     type="button"
@@ -366,6 +387,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                       padding: '0.25rem',
                       cursor: 'pointer',
                       color: '#71717a',
+                      flexShrink: 0,
                     }}
                   >
                     <Trash2 size={16} />
