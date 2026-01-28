@@ -81,7 +81,7 @@ function faleConosco() {
                   <i class="bi bi-telephone-fill"></i>
                   <div>
                     <h3>Contato</h3>
-                    <p>(11) 97216-0912</p>
+                    <p>(11) 91046-5650</p>
                   </div>
                 </div>
                 {/* End Info Item */}
@@ -90,7 +90,7 @@ function faleConosco() {
                   <i class="bi bi-envelope"></i>
                   <div>
                     <h3>Email Us</h3>
-                    <p>info@example.com</p>
+                    <p>vinccibar@gmail.com</p>
                   </div>
                 </div>
                 {/* End Info Item */}
