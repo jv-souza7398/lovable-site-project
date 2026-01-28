@@ -397,12 +397,12 @@ function Home() {
           </div>
           <div className={classes.contentvideo}>
             <iframe
-              src="https://www.youtube.com/embed/GwS5ASoSQos"
+              src="https://www.youtube.com/embed/0Dn6oKzGCR4"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
-              style={{ width: "100%", maxWidth: "40rem", height: "22rem", border: "none", borderRadius: "1rem" }}
+              style={{ width: "100%", maxWidth: "48rem", height: "22rem", border: "none", borderRadius: "1rem" }}
             ></iframe>
           </div>
         </section>

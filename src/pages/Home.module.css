@@ -342,7 +342,7 @@ box-sizing: border-box;
 .contentvideo iframe{
   border-radius: 1rem;
   width: 100%;
-  max-width: 40rem;
+  max-width: 48rem;
   height: 22rem;
   border: none;
   display: block;
