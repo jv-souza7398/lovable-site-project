@@ -9,7 +9,7 @@ import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
-  console.log('[Carrinho] cartItems at render:', cartItems);
+  console.log("[Carrinho] cartItems at render:", cartItems);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEventModal, setShowEventModal] = useState(false);
@@ -18,7 +18,6 @@ function Carrinho() {
 
   const drinkItems = Array.isArray(cartItems) ? cartItems : [];
   const totalItems = drinkItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
-
 
   useEffect(() => {
     const checkUser = async () => {
@@ -53,7 +52,9 @@ function Carrinho() {
     return (
       <main className={classes.carrinho}>
         <header className={classes.navCarrinhoEmpty}>
-          <h1>O carrinho está <span>vazio</span>.</h1>
+          <h1>
+            O carrinho está <span>vazio</span>.
+          </h1>
           <p className={classes.emptySubtitle}>Adicione drinks incríveis ao seu evento!</p>
           <Link to="/drinks/" className={classes.continuarComprando}>
             Ver drinks disponíveis
@@ -90,9 +91,9 @@ function Carrinho() {
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
+
     console.log("Abrindo WhatsApp, isMobile:", isMobile());
-    
+
     // On mobile, use location.href for better compatibility
     // On desktop, use window.open
     if (isMobile()) {
@@ -233,10 +234,10 @@ function Carrinho() {
         alert("Erro ao enviar orçamento. Tente novamente.");
       } else {
         console.log("Email enviado com sucesso!");
-        
+
         // Close modal first
         setShowEventModal(false);
-        
+
         // Open WhatsApp - using setTimeout to ensure the modal is closed first
         // This helps avoid popup blockers
         setTimeout(() => {
@@ -265,7 +266,9 @@ function Carrinho() {
       <main className={classes.carrinho}>
         <section>
           <header className={classes.navCarrinho}>
-            <h1>Seu <span>Carrinho</span></h1>
+            <h1>
+              Seu <span>Carrinho</span>
+            </h1>
           </header>
           <section className={classes.itemSection}>
             <div className={classes.carrinhoTitle} data-aos="fade-up">
@@ -312,7 +315,7 @@ function Carrinho() {
                   <div className={classes.cardBody}>
                     <ul className={classes.listGroup}>
                       <li className={classes.listGroupItem}>
-                        <p>Itens no carrinho</p>
+                        <p>Drinks no carrinho</p>
                         <span>{totalItems}</span>
                       </li>
                       <li className={classes.listGroupItem}>
