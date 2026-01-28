@@ -95,8 +95,8 @@ const handler = async (req: Request): Promise<Response> => {
           database_id: NOTION_DATABASE_ID,
         },
         properties: {
-          // Nome (Title) - formato "Evento - [Nome do Cliente]"
-          Nome: {
+          // Evento (Title) - formato "Evento - [Nome do Cliente]"
+          Evento: {
             title: [
               {
                 text: {
