@@ -121,6 +121,40 @@ function Carrinho() {
     const userName = eventDetails.nomeCompleto || "Cliente";
     const userEmail = eventDetails.email;
 
+    // Criar página no Notion (não bloqueia o fluxo)
+    const criarPaginaNotion = async () => {
+      try {
+        const notionResponse = await supabase.functions.invoke("create-notion-event", {
+          body: {
+            nomeCliente: userName,
+            telefone: eventDetails.telefone,
+            tipoEvento: eventDetails.tipoEvento || "Não informado",
+            estimativaConvidados: parseInt(eventDetails.estimativaConvidados) || 0,
+            dataEvento: eventDetails.dataEvento,
+            horaInicio: eventDetails.horaInicio,
+            cep: eventDetails.cep,
+            rua: eventDetails.rua,
+            numero: eventDetails.numero,
+            complemento: eventDetails.complemento,
+            bairro: eventDetails.bairro,
+            cidade: eventDetails.cidade,
+            uf: eventDetails.uf,
+          },
+        });
+
+        if (notionResponse.error) {
+          console.error("Erro ao criar página no Notion:", notionResponse.error);
+        } else {
+          console.log("Página criada no Notion com sucesso:", notionResponse.data);
+        }
+      } catch (notionError) {
+        console.error("Erro ao conectar com Notion:", notionError);
+      }
+    };
+
+    // Iniciar criação no Notion em paralelo (não bloqueia)
+    criarPaginaNotion();
+
     // Gerar PDF em base64 e enviar email
     try {
       let pdfBase64 = null;

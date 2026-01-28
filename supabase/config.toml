@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.notify-home-visit]
 verify_jwt = false
+
+[functions.create-notion-event]
+verify_jwt = false
