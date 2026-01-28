@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.admin-drinks]
 verify_jwt = false
+
+[functions.notify-home-visit]
+verify_jwt = false
