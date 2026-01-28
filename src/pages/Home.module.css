@@ -1302,6 +1302,11 @@ display: flex;
     font-size: 1.3rem;
   }
   
+  .btn {
+    justify-content: flex-start;
+    padding-left: 10%;
+  }
+  
   .contentHome a {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
