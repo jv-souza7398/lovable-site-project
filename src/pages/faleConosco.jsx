@@ -67,11 +67,21 @@ function faleConosco() {
                 <div className={`${classes.infoItem} `} data-aos="fade-up" data-aos-delay="400">
                   <i class="bi bi-alarm"></i>
                   <div>
-                    <h3>Open Hours</h3>
+                    <h3>Horário de Atendimento</h3>
                     <p>
-                      Monday-Saturday:
+                      Monday-Friday:
                       <br />
-                      11:00 AM - 2300 PM
+                      09:00 AM - 18:00 PM
+                    </p>
+                    <p>
+                      Saturday:
+                      <br />
+                      09:00 AM - 13:00 PM
+                    </p>
+                    <p>
+                      Sunday
+                      <br />
+                      Closed
                     </p>
                   </div>
                 </div>
