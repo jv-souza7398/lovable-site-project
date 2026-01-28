@@ -125,15 +125,11 @@ const handler = async (req: Request): Promise<Response> => {
               start: dataISO,
             },
           },
-          // Endereço do evento (Rich Text)
+          // Endereço do evento (Location/Place)
           "Endereço do evento": {
-            rich_text: [
-              {
-                text: {
-                  content: enderecoCompleto,
-                },
-              },
-            ],
+            location: {
+              address: enderecoCompleto.replace(/\n/g, ", "),
+            },
           },
           // Contratante (Rich Text)
           Contratante: {
