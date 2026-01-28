@@ -178,13 +178,13 @@ const mapDrinkFromDB = (dbDrink) => ({
 
 // DrinkCard component for carousel
 const DrinkCard = ({ item, onImageClick }) => {
-  const { addDrinkToCart } = useContext(CartContext);
-  const [added, setAdded] = useState(false);
+  const { addDrinkToCart, isDrinkInCart } = useContext(CartContext);
+  const isInCart = isDrinkInCart(item.id);
 
   const handleAdd = () => {
-    addDrinkToCart(item);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 500);
+    if (!isInCart) {
+      addDrinkToCart(item);
+    }
   };
 
   return (
@@ -194,16 +194,17 @@ const DrinkCard = ({ item, onImageClick }) => {
       <p>{item.description}</p>
       <button
         type="button"
-        className={`${classes.addButton} ${added ? classes.added : ""}`}
+        className={`${classes.addButton} ${isInCart ? classes.addedDisabled : ""}`}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           handleAdd();
         }}
-        aria-label={`Adicionar ${item.title} ao carrinho`}
+        disabled={isInCart}
+        aria-label={isInCart ? `${item.title} já está no carrinho` : `Adicionar ${item.title} ao carrinho`}
       >
-        {added ? <Check size={16} /> : <Plus size={16} />}
-        <span>{added ? "Adicionado" : "Adicionar"}</span>
+        {isInCart ? <Check size={16} /> : <Plus size={16} />}
+        <span>{isInCart ? "Adicionado" : "Adicionar"}</span>
       </button>
     </div>
   );
