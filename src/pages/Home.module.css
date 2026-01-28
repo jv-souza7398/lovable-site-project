@@ -785,6 +785,10 @@ opacity: 1;
     height: 14rem;
   }
   
+  .drinkCard h2 {
+    font-size: 1.1rem;
+  }
+  
   .drinkCard img {
     height: 7rem;
   }
