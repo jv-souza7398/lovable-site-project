@@ -73,13 +73,15 @@ function faleConosco() {
                       <br />
                       09:00 AM - 18:00 PM
                     </p>
+                    <br />
                     <p>
                       Saturday:
                       <br />
                       09:00 AM - 13:00 PM
                     </p>
+                    <br />
                     <p>
-                      Sunday
+                      Sunday:
                       <br />
                       Closed
                     </p>
