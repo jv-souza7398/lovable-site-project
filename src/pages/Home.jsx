@@ -346,7 +346,7 @@ function Home() {
             <h1>Coquetelaria autoral</h1>
             <h3>para eventos exclusivos</h3>
             <div className={classes.btn}>
-              <Link to="/sobre">Conheça a Vincci</Link>
+              <Link to="/sobre#servicos">Conheça a Vincci</Link>
             </div>
           </div>
         </div>
@@ -371,7 +371,7 @@ function Home() {
               </p>
             </div>
             <div className={classes.serviceBtnWrapper} data-aos="fade-up" data-aos-delay="200">
-              <Link to="/sobre#servicos" className={classes.serviceBtn}>
+              <Link to="/sobre" className={classes.serviceBtn}>
                 Descubra nossos serviços
               </Link>
             </div>
