@@ -110,8 +110,8 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-5" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div className="space-y-2" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <Label htmlFor="email" className="text-zinc-300" style={{ color: '#d4d4d8', fontSize: '0.875rem' }}>Email</Label>
-              <div className="relative" style={{ position: 'relative' }}>
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: '#71717a' }} />
+              <div className="relative" style={{ position: 'relative', width: '100%' }}>
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: '#71717a', zIndex: 1 }} />
                 <Input
                   id="email"
                   type="email"
@@ -119,15 +119,24 @@ export default function AdminLogin() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
                   className="pl-10 bg-zinc-900/50 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
-                  style={{ paddingLeft: '2.5rem', backgroundColor: 'rgba(24, 24, 27, 0.5)', borderColor: '#3f3f46', color: 'white' }}
+                  style={{ 
+                    width: '100%', 
+                    paddingLeft: '2.5rem', 
+                    backgroundColor: 'rgba(24, 24, 27, 0.5)', 
+                    borderColor: '#3f3f46', 
+                    color: 'white',
+                    height: '2.75rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #3f3f46'
+                  }}
                 />
               </div>
             </div>
 
             <div className="space-y-2" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <Label htmlFor="password" className="text-zinc-300" style={{ color: '#d4d4d8', fontSize: '0.875rem' }}>Senha</Label>
-              <div className="relative" style={{ position: 'relative' }}>
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: '#71717a' }} />
+              <div className="relative" style={{ position: 'relative', width: '100%' }}>
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: '#71717a', zIndex: 1 }} />
                 <Input
                   id="password"
                   type="password"
@@ -135,7 +144,16 @@ export default function AdminLogin() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="pl-10 bg-zinc-900/50 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-amber-500 focus:ring-amber-500/20"
-                  style={{ paddingLeft: '2.5rem', backgroundColor: 'rgba(24, 24, 27, 0.5)', borderColor: '#3f3f46', color: 'white' }}
+                  style={{ 
+                    width: '100%', 
+                    paddingLeft: '2.5rem', 
+                    backgroundColor: 'rgba(24, 24, 27, 0.5)', 
+                    borderColor: '#3f3f46', 
+                    color: 'white',
+                    height: '2.75rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #3f3f46'
+                  }}
                 />
               </div>
             </div>
