@@ -313,6 +313,49 @@ function Home() {
     });
   }, [loadingDrinks, highlightedDrinks.length]);
 
+  // Notificação de visita na página principal (apenas em produção)
+  useEffect(() => {
+    const notificarVisitaHome = async () => {
+      // Verificar se está na home
+      if (window.location.pathname !== "/") return;
+
+      // Verificar se já notificou nesta sessão
+      if (sessionStorage.getItem("visita_home_notificada")) return;
+
+      // Verificar se é produção (vinccibar.com ou site-to-lovable-port.lovable.app)
+      const hostname = window.location.hostname;
+      const isProducao = hostname.includes("vinccibar.com") || hostname.includes("lovable.app");
+      if (!isProducao) return;
+
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/notify-home-visit`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({
+              timestamp: new Date().toISOString(),
+              userAgent: navigator.userAgent,
+              referrer: document.referrer || "Direto",
+              pagina: "home",
+            }),
+          }
+        );
+
+        if (response.ok) {
+          sessionStorage.setItem("visita_home_notificada", "true");
+        }
+      } catch (error) {
+        console.error("Erro ao notificar visita:", error);
+      }
+    };
+
+    notificarVisitaHome();
+  }, []);
+
   // Dynamic gradient based on current slide color
   // Creates a smooth transition from the image's dominant color to the site's original colors
   const dynamicGradient = `linear-gradient(180deg, 
