@@ -125,10 +125,10 @@ const handler = async (req: Request): Promise<Response> => {
               start: dataISO,
             },
           },
-          // Endereço do evento (Location/Place)
+          // Endereço do evento (Place)
           "Endereço do evento": {
-            location: {
-              address: enderecoCompleto.replace(/\n/g, ", "),
+            place: {
+              name: enderecoCompleto.replace(/\n/g, ", "),
             },
           },
           // Contratante (Rich Text)
