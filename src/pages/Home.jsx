@@ -402,7 +402,7 @@ function Home() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
-              style={{ width: "100%", maxWidth: "48rem", height: "22rem", border: "none", borderRadius: "1rem" }}
+              style={{ width: "100%", maxWidth: "56rem", height: "26rem", border: "none", borderRadius: "1rem" }}
             ></iframe>
           </div>
         </section>
