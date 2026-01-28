@@ -394,9 +394,6 @@ function Home() {
               Aqui, você não contrata apenas um bar. Contrata confiança, tranquilidade e a certeza de um serviço à
               altura do seu evento.
             </p>
-            <div className={classes.contentBtn}>
-              <Link to="/drinks/">CONTRATE A VINCCI BAR</Link>
-            </div>
           </div>
           <div className={classes.contentvideo}>
             <iframe
