@@ -323,6 +323,20 @@
   color: #fff !important;
 }
 
+.addButton.addedDisabled {
+  background: rgba(100, 100, 100, 0.5) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.addButton.addedDisabled:hover {
+  background: rgba(100, 100, 100, 0.5) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  transform: none;
+  box-shadow: none;
+}
+
 /* Mobile Header Adjustments */
 
 /* Responsive - Mobile */

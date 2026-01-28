@@ -54,40 +54,28 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) => [...prevItems, item]);
   };
 
-  // Add drink item with quantity support
+  // Add drink item (no quantity - each drink appears once)
   const addDrinkToCart = (drink) => {
     setCartItems((prevItems) => {
       console.log('[CartContext] addDrinkToCart called with', drink);
-      const existingIndex = prevItems.findIndex(
+      const alreadyInCart = prevItems.some(
         (item) => item && item.type === 'drink' && item.id === drink.id
       );
       
-      if (existingIndex >= 0) {
-        const updated = [...prevItems];
-        updated[existingIndex] = {
-          ...updated[existingIndex],
-          quantity: (updated[existingIndex].quantity || 1) + 1
-        };
-        console.log('[CartContext] updated existing drink item', updated[existingIndex]);
-        return updated;
+      if (alreadyInCart) {
+        console.log('[CartContext] drink already in cart, skipping');
+        return prevItems;
       }
       
-      const next = [...prevItems, { ...drink, type: 'drink', quantity: 1 }];
+      const next = [...prevItems, { ...drink, type: 'drink' }];
       console.log('[CartContext] added new drink item. Cart now:', next);
       return next;
     });
   };
 
-  const updateQuantity = (index, newQuantity) => {
-    if (newQuantity < 1) {
-      removeFromCart(index);
-      return;
-    }
-    setCartItems((prevItems) => {
-      const updated = [...prevItems];
-      updated[index] = { ...updated[index], quantity: newQuantity };
-      return updated;
-    });
+  // Check if a drink is already in the cart
+  const isDrinkInCart = (drinkId) => {
+    return cartItems.some((item) => item && item.type === 'drink' && item.id === drinkId);
   };
 
   const removeFromCart = (index) => {
@@ -105,14 +93,14 @@ export const CartProvider = ({ children }) => {
 
   const getDrinkItems = () => cartItems;
   const getPackageItems = () => [];
-  const getTotalDrinkCount = () => getDrinkItems().reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const getTotalDrinkCount = () => getDrinkItems().length;
 
   return (
     <CartContext.Provider value={{ 
       cartItems, 
       addToCart, 
       addDrinkToCart,
-      updateQuantity,
+      isDrinkInCart,
       removeFromCart, 
       clearCart,
       hydrateCart,

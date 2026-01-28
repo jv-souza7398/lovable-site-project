@@ -20,8 +20,8 @@ const CharacteristicCircles = ({ label, level, max = 5 }) => {
 };
 
 const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
-  const { addDrinkToCart } = useContext(CartContext);
-  const [added, setAdded] = useState(false);
+  const { addDrinkToCart, isDrinkInCart } = useContext(CartContext);
+  const isInCart = drink ? isDrinkInCart(drink.id) : false;
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -49,9 +49,9 @@ const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
   if (!isOpen || !drink) return null;
 
   const handleAdd = () => {
-    addDrinkToCart(drink);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
+    if (!isInCart) {
+      addDrinkToCart(drink);
+    }
   };
 
   // Extract YouTube video ID from URL
@@ -134,11 +134,12 @@ const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
 
             <button
               type="button"
-              className={`${classes.addButton} ${added ? classes.added : ''}`}
+              className={`${classes.addButton} ${isInCart ? classes.addedDisabled : ''}`}
               onClick={handleAdd}
+              disabled={isInCart}
             >
-              {added ? <Check size={20} /> : <Plus size={20} />}
-              <span>{added ? 'Adicionado ao Carrinho!' : 'Adicionar ao Carrinho'}</span>
+              {isInCart ? <Check size={20} /> : <Plus size={20} />}
+              <span>{isInCart ? '✓ No Carrinho' : 'Adicionar ao Carrinho'}</span>
             </button>
           </div>
         </div>

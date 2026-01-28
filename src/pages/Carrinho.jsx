@@ -8,7 +8,7 @@ import EventDetailsModal from "../components/EventDetailsModal";
 import CartStepsFrame from "../components/CartStepsFrame";
 
 function Carrinho() {
-  const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
   console.log("[Carrinho] cartItems at render:", cartItems);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function Carrinho() {
   const navigate = useNavigate();
 
   const drinkItems = Array.isArray(cartItems) ? cartItems : [];
-  const totalItems = drinkItems.reduce((sum, item) => sum + (item?.quantity || 1), 0);
+  const totalItems = drinkItems.length;
 
   useEffect(() => {
     const checkUser = async () => {
@@ -82,11 +82,10 @@ function Carrinho() {
     message += `📅 Data: ${dataEventoFormatada}\n`;
     message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n`;
     message += `👥 Convidados: ${eventDetails.estimativaConvidados}\n\n`;
-    message += `*Drinks selecionados:*\n`;
+    message += `🍹 *Drinks Selecionados:*\n`;
 
     drinkItems.forEach((item, index) => {
-      message += `\n${index + 1}. ${item.title}\n`;
-      message += `   • Quantidade: ${item.quantity || 1}\n`;
+      message += `• ${item.title}\n`;
     });
 
     const encodedMessage = encodeURIComponent(message);
@@ -142,16 +141,9 @@ function Carrinho() {
 
         drinkItems.forEach((item, index) => {
           doc.setFont(undefined, "bold");
-          doc.text(`ITEM ${index + 1}: ${item.title}`, 20, yPosition);
+          doc.text(`• ${item.title}`, 20, yPosition);
 
-          doc.setFont(undefined, "normal");
-          doc.setFontSize(10);
-          yPosition += 7;
-          doc.text(`Quantidade: ${item.quantity || 1}`, 25, yPosition);
-
-          yPosition += 10;
-          doc.line(20, yPosition, 190, yPosition);
-          yPosition += 10;
+          yPosition += 8;
         });
 
         // Dados do evento
@@ -290,15 +282,12 @@ function Carrinho() {
                         <div className={classes.drinkInfo}>
                           <h4>{drink.title}</h4>
                           <p>{drink.description}</p>
-                          <div className={classes.quantityControls}>
-                            <span>{drink.quantity || 1}x</span>
-                          </div>
                         </div>
                         <button
                           type="button"
                           className={classes.removeDrink}
                           title="Remover drink"
-                          onClick={() => removeFromCart(cartItems.indexOf(drink))}
+                          onClick={() => removeFromCart(index)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
