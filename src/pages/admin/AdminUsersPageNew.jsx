@@ -215,7 +215,15 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    console.log('[UserForm] handleSubmit called');
+    console.log('[UserForm] formData:', formData);
+    
+    if (!validate()) {
+      console.log('[UserForm] Validation failed, errors:', errors);
+      return;
+    }
+    
+    console.log('[UserForm] Validation passed, calling onSave');
     onSave(formData);
   };
 
@@ -277,11 +285,16 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
           <select
             value={formData.role}
             onChange={(e) => handleChange('role', e.target.value)}
-            style={{ ...inputStyle, cursor: 'pointer', ...(errors.role ? { borderColor: '#ef4444' } : {}) }}
+            style={{ 
+              ...inputStyle, 
+              cursor: 'pointer',
+              color: '#ffffff',
+              ...(errors.role ? { borderColor: '#ef4444' } : {}) 
+            }}
           >
-            <option value="manager">Manager</option>
-            <option value="planner">Planner</option>
-            <option value="viewer">Viewer</option>
+            <option value="manager" style={{ color: '#ffffff', backgroundColor: '#27272a' }}>Manager</option>
+            <option value="planner" style={{ color: '#ffffff', backgroundColor: '#27272a' }}>Planner</option>
+            <option value="viewer" style={{ color: '#ffffff', backgroundColor: '#27272a' }}>Viewer</option>
           </select>
           <p style={{ fontSize: '0.75rem', color: '#71717a', marginTop: '0.25rem' }}>
             {roleDescriptions[formData.role]}
@@ -297,7 +310,7 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
           <label style={labelStyle}>
             Senha {user ? '(deixe em branco para manter)' : '*'}
           </label>
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
             <input
               type={showPassword ? 'text' : 'password'}
               value={formData.password}
@@ -305,7 +318,7 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
               placeholder="••••••••"
               style={{
                 ...(errors.password ? inputErrorStyle : inputStyle),
-                paddingRight: '3rem',
+                paddingRight: '2.75rem',
               }}
             />
             <button
@@ -313,18 +326,22 @@ function UserForm({ user, onSave, onCancel, isLoading, currentAdminId }) {
               onClick={() => setShowPassword(!showPassword)}
               style={{
                 position: 'absolute',
-                right: '0.75rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'none',
+                right: '0.5rem',
+                top: '0',
+                bottom: '0',
+                height: '100%',
+                width: '2rem',
+                background: 'transparent',
                 border: 'none',
-                padding: '0.25rem',
+                padding: '0',
+                margin: '0',
                 cursor: 'pointer',
-                color: '#71717a',
+                color: '#a1a1aa',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
+              aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -673,28 +690,45 @@ export default function AdminUsersPageNew() {
   }, [canManageUsers, admin?.id, fetchUsers]);
 
   const handleSave = async (formData) => {
+    console.log('[AdminUsersPage] handleSave called with:', formData);
     setSaving(true);
+    
     try {
       const action = formData.id ? 'update_admin' : 'create_admin';
+      console.log('[AdminUsersPage] Action:', action);
+      console.log('[AdminUsersPage] Admin ID:', admin.id);
+      
+      const requestBody = {
+        action,
+        adminId: admin.id,
+        userData: formData,
+      };
+      console.log('[AdminUsersPage] Request body:', requestBody);
+      
       const response = await supabase.functions.invoke('admin-auth', {
-        body: {
-          action,
-          adminId: admin.id,
-          userData: formData,
-        },
+        body: requestBody,
       });
 
-      if (response.error || !response.data.success) {
+      console.log('[AdminUsersPage] Response:', response);
+
+      if (response.error) {
+        console.error('[AdminUsersPage] Response error:', response.error);
+        throw new Error(response.error.message || 'Erro ao salvar usuário');
+      }
+      
+      if (!response.data?.success) {
+        console.error('[AdminUsersPage] API error:', response.data?.error);
         throw new Error(response.data?.error || 'Erro ao salvar usuário');
       }
 
+      console.log('[AdminUsersPage] Success!');
       toast.success(formData.id ? 'Usuário atualizado com sucesso!' : 'Usuário criado com sucesso!');
       setIsFormOpen(false);
       setEditingUser(null);
       fetchUsers();
     } catch (error) {
-      console.error('Save error:', error);
-      toast.error(error.message);
+      console.error('[AdminUsersPage] Save error:', error);
+      toast.error(error.message || 'Erro ao salvar usuário');
     } finally {
       setSaving(false);
     }
