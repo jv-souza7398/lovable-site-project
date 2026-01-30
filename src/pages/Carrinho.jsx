@@ -72,20 +72,26 @@ function Carrinho() {
     const phoneNumber = "5511910465650";
     const dataEventoFormatada = new Date(eventDetails.dataEvento + "T00:00:00").toLocaleDateString("pt-BR");
 
-    let message = `Olá! Gostaria de finalizar meu orçamento.\n\n`;
-    message += `*Nome:* ${userName}\n`;
-    message += `*Total:* ${totalAmount}\n\n`;
-    message += `*Dados do Evento:*\n`;
-    message += `📍 ${eventDetails.rua}, ${eventDetails.numero}${eventDetails.complemento ? ` - ${eventDetails.complemento}` : ""}\n`;
-    message += `📍 ${eventDetails.bairro}, ${eventDetails.cidade} - ${eventDetails.uf}\n`;
-    message += `📍 CEP: ${eventDetails.cep}\n`;
-    message += `📅 Data: ${dataEventoFormatada}\n`;
-    message += `🕐 Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n`;
-    message += `👥 Convidados: ${eventDetails.estimativaConvidados}\n\n`;
-    message += `🍹 *Drinks Selecionados:*\n`;
+    let message = `Olá! Tudo bem?\n\n`;
+    message += `Gostaria de finalizar meu orçamento com as informações abaixo:\n\n`;
+    message += `──────────────────\n\n`;
+    message += `👤 *Dados do Cliente*\n\n`;
+    message += `Nome: ${userName}\n`;
+    message += `Valor estimado: ${totalAmount}\n\n`;
+    message += `──────────────────\n\n`;
+    message += `🎉 *Informações do Evento*\n\n`;
+    message += `Endereço:\n`;
+    message += `${eventDetails.rua}, ${eventDetails.numero}${eventDetails.complemento ? ` - ${eventDetails.complemento}` : ""}\n`;
+    message += `${eventDetails.bairro} – ${eventDetails.cidade}/${eventDetails.uf}\n`;
+    message += `CEP: ${eventDetails.cep}\n\n`;
+    message += `Data: ${dataEventoFormatada}\n`;
+    message += `Horário: ${eventDetails.horaInicio} às ${eventDetails.horaEncerramento}\n`;
+    message += `Convidados: ${eventDetails.estimativaConvidados} pessoas\n\n`;
+    message += `──────────────────\n\n`;
+    message += `🍹 *Drinks Selecionados*\n\n`;
 
     drinkItems.forEach((item, index) => {
-      message += `• ${item.title}\n`;
+      message += `${index + 1}. ${item.title}\n`;
     });
 
     const encodedMessage = encodeURIComponent(message);
