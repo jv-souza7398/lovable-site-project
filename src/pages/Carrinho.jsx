@@ -77,7 +77,7 @@ function Carrinho() {
     message += `──────────────────\n\n`;
     message += `👤 *Dados do Cliente*\n\n`;
     message += `Nome: ${userName}\n`;
-    message += `Valor estimado: ${totalAmount}\n\n`;
+    message += `Contato: ${eventDetails.telefone}\n\n`;
     message += `──────────────────\n\n`;
     message += `🎉 *Informações do Evento*\n\n`;
     message += `Endereço:\n`;
