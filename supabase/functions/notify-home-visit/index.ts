@@ -137,6 +137,32 @@ function parseUserAgent(ua: string): { device: string; browser: string } {
   return { device, browser };
 }
 
+// Get geolocation from IP address
+async function getIpGeolocation(ip: string): Promise<{ city: string; region: string; country: string; isp: string }> {
+  try {
+    // Skip for localhost/private IPs
+    if (ip === "IP não disponível" || ip.startsWith("192.168.") || ip.startsWith("10.") || ip === "127.0.0.1") {
+      return { city: "Local", region: "Local", country: "Local", isp: "Local Network" };
+    }
+
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=city,regionName,country,isp`);
+    if (!response.ok) {
+      return { city: "Desconhecido", region: "Desconhecido", country: "Desconhecido", isp: "Desconhecido" };
+    }
+
+    const data = await response.json();
+    return {
+      city: data.city || "Desconhecido",
+      region: data.regionName || "Desconhecido",
+      country: data.country || "Desconhecido",
+      isp: data.isp || "Desconhecido",
+    };
+  } catch (error) {
+    console.error("Error getting IP geolocation:", error);
+    return { city: "Erro", region: "Erro", country: "Erro", isp: "Erro" };
+  }
+}
+
 // Format referrer for display
 function formatReferrer(referrer: string): string {
   if (!referrer || referrer === "Direto" || referrer === "") {
@@ -208,6 +234,10 @@ const handler = async (req: Request): Promise<Response> => {
       second: "2-digit",
     });
 
+    // Get IP geolocation
+    const geolocation = await getIpGeolocation(ip);
+    const locationString = `${geolocation.city}, ${geolocation.region} - ${geolocation.country}`;
+
     const emailHTML = `
       <!DOCTYPE html>
       <html>
@@ -260,6 +290,20 @@ const handler = async (req: Request): Promise<Response> => {
               <div class="info-content">
                 <div class="info-label">IP</div>
                 <div class="info-value">${ip}</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="icon">🗺️</span>
+              <div class="info-content">
+                <div class="info-label">Localização</div>
+                <div class="info-value">${locationString}</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="icon">🌐</span>
+              <div class="info-content">
+                <div class="info-label">Provedor</div>
+                <div class="info-value">${geolocation.isp}</div>
               </div>
             </div>
             <div class="info-row">
