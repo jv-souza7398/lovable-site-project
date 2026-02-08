@@ -254,9 +254,7 @@ const DrinkCard = ({ item, onImageClick }) => {
 
 const DrinkCarousel = ({ title, items, onDrinkClick }) => (
   <div className={classes.carouselSection}>
-    <h2 className={classes.categoryTitle}>
-      {title.split(" ").slice(0, -1).join(" ")} <span>{title.split(" ").slice(-1)[0]}</span>
-    </h2>
+    <h2 className={classes.categoryTitle}>{title}</h2>
     <div className={classes.carouselWrapper}>
       <Carousel
         opts={{
