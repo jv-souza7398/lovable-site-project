@@ -60,7 +60,12 @@ const DrinkDetailsModal = ({ drink, isOpen, onClose }) => {
     const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
     const match = url.match(regex);
     if (match && match[1]) {
-      return `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1`;
+      const videoId = match[1];
+      // rel=0: disable external recommendations
+      // modestbranding=1: minimal YouTube branding
+      // loop=1 + playlist: auto-replay the same video
+      // showinfo=0: hide video title (deprecated but still helps)
+      return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&loop=1&playlist=${videoId}&showinfo=0`;
     }
     return url;
   };
