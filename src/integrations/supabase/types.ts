@@ -89,6 +89,63 @@ export type Database = {
         }
         Relationships: []
       }
+      analytics_events: {
+        Row: {
+          created_at: string
+          device_fingerprint: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          page_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_fingerprint: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          page_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_fingerprint?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          page_url?: string | null
+        }
+        Relationships: []
+      }
+      analytics_pageviews: {
+        Row: {
+          created_at: string
+          device_fingerprint: string
+          device_type: string | null
+          id: string
+          page_url: string
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_fingerprint: string
+          device_type?: string | null
+          id?: string
+          page_url: string
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_fingerprint?: string
+          device_type?: string | null
+          id?: string
+          page_url?: string
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       drinks: {
         Row: {
           caracteristicas: Json | null

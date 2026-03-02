@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { CartContext } from "../contexts/CartContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../components/ui/carousel";
 import DrinkDetailsModal from "../components/DrinkDetailsModal";
+import { trackPageView, trackEvent } from "@/lib/analytics";
 
 // Array of hero slider images with fallback colors
 const heroImages = [
@@ -184,6 +185,7 @@ const DrinkCard = ({ item, onImageClick }) => {
   const handleAdd = () => {
     if (!isInCart) {
       addDrinkToCart(item);
+      trackEvent("add_to_cart", { drinkId: item.id, drinkTitle: item.title });
     }
   };
 
@@ -312,6 +314,11 @@ function Home() {
       }
     });
   }, [loadingDrinks, highlightedDrinks.length]);
+
+  // Analytics: track page view
+  useEffect(() => {
+    trackPageView("/");
+  }, []);
 
   // Notificação de visita na página principal (apenas em produção)
   useEffect(() => {
