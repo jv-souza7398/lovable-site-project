@@ -250,37 +250,38 @@ function Carrinho() {
         console.error("Erro ao gerar PDF:", pdfError);
       }
 
-      const response = await supabase.functions.invoke("send-quote-email", {
-        body: {
-          userEmail,
-          userName,
-          cartItems: drinkItems,
-          totalAmount,
-          pdfBase64,
-          eventDetails,
-        },
-      });
+      // Tenta enviar email, mas não bloqueia o fluxo do WhatsApp
+      try {
+        const response = await supabase.functions.invoke("send-quote-email", {
+          body: {
+            userEmail,
+            userName,
+            cartItems: drinkItems,
+            totalAmount,
+            pdfBase64,
+            eventDetails,
+          },
+        });
 
-      if (response.error) {
-        console.error("Erro ao enviar email:", response.error);
-        alert("Erro ao enviar orçamento. Tente novamente.");
-      } else {
-        console.log("Email enviado com sucesso!");
-
-        // Close modal first
-        setShowEventModal(false);
-
-        // Open WhatsApp - using setTimeout to ensure the modal is closed first
-        // This helps avoid popup blockers
-        setTimeout(() => {
-          console.log("Abrindo WhatsApp...");
-          openWhatsApp(eventDetails, totalAmount, userName);
-          clearCart();
-        }, 300);
+        if (response.error) {
+          console.error("Erro ao enviar email:", response.error);
+        } else {
+          console.log("Email enviado com sucesso!");
+        }
+      } catch (emailError) {
+        console.error("Erro ao enviar email (não bloqueante):", emailError);
       }
+
+      // Sempre redireciona para o WhatsApp, independente do email
+      setShowEventModal(false);
+      setTimeout(() => {
+        console.log("Abrindo WhatsApp...");
+        openWhatsApp(eventDetails, totalAmount, userName);
+        clearCart();
+      }, 300);
     } catch (error) {
-      console.error("Erro ao processar envio de email:", error);
-      alert("Erro ao enviar orçamento. Tente novamente.");
+      console.error("Erro ao processar orçamento:", error);
+      alert("Erro ao processar orçamento. Tente novamente.");
     } finally {
       setSendingQuote(false);
     }
