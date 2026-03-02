@@ -221,17 +221,19 @@ const handler = async (req: Request): Promise<Response> => {
     // Format referrer
     const formattedReferrer = formatReferrer(referrer);
     
-    // Format date/time in Brazilian format
+    // Format date/time in Brazilian format (Brasília timezone)
     const visitDate = new Date(timestamp);
     const formattedDate = visitDate.toLocaleDateString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
+      timeZone: "America/Sao_Paulo",
     });
     const formattedTime = visitDate.toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
+      timeZone: "America/Sao_Paulo",
     });
 
     // Get IP geolocation
