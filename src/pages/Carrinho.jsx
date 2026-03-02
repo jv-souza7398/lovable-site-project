@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import EventDetailsModal from "../components/EventDetailsModal";
 import CartStepsFrame from "../components/CartStepsFrame";
+import { trackPageView, trackEvent } from "@/lib/analytics";
 
 function Carrinho() {
   const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
@@ -37,6 +38,14 @@ function Carrinho() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Analytics: track cart view
+  useEffect(() => {
+    if (!loading && drinkItems.length > 0) {
+      trackPageView("/Carrinho");
+      trackEvent("view_cart", { itemCount: drinkItems.length });
+    }
+  }, [loading]);
 
   if (loading) {
     return (
@@ -111,6 +120,7 @@ function Carrinho() {
   const handleOpenEventModal = () => {
     console.log("handleOpenEventModal chamado");
     console.log("Abrindo modal...");
+    trackEvent("checkout_start", { itemCount: drinkItems.length });
     setShowEventModal(true);
   };
 
@@ -271,6 +281,9 @@ function Carrinho() {
       } catch (emailError) {
         console.error("Erro ao enviar email (não bloqueante):", emailError);
       }
+
+      // Analytics: track quote sent
+      trackEvent("quote_sent", { itemCount: drinkItems.length });
 
       // Sempre redireciona para o WhatsApp, independente do email
       setShowEventModal(false);

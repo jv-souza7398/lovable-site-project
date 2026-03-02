@@ -9,6 +9,7 @@ import { Plus, Check, Loader2 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../components/ui/carousel";
 import DrinkDetailsModal from "../components/DrinkDetailsModal";
 import { supabase } from "@/integrations/supabase/client";
+import { trackPageView, trackEvent } from "@/lib/analytics";
 
 const drinksSemAlcool = [
   {
@@ -226,6 +227,7 @@ const DrinkCard = ({ item, onImageClick }) => {
   const handleAdd = () => {
     if (!isInCart) {
       addDrinkToCart(item);
+      trackEvent("add_to_cart", { drinkId: item.id, drinkTitle: item.title });
     }
   };
 
@@ -302,8 +304,8 @@ function DrinksTeste() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
+    trackPageView("/drinks");
   }, []);
 
   const [dbDrinksSublime, setDbDrinksSublime] = useState([]);
