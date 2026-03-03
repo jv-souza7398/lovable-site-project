@@ -65,23 +65,31 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
   const [loadingImage, setLoadingImage] = useState(false);
 
   // Convert external URL to data URL to avoid CORS issues with the cropper
-  const openCropFromUrl = async (url) => {
+  const openCropFromUrl = (url) => {
     setLoadingImage(true);
-    try {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const reader = new FileReader();
-      reader.onload = () => {
-        setCropImageSrc(reader.result);
-        setLoadingImage(false);
-      };
-      reader.readAsDataURL(blob);
-    } catch (err) {
-      console.error('Failed to load image for cropping:', err);
-      // Fallback: try using URL directly
+    const img = new window.Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+        setCropImageSrc(dataUrl);
+      } catch (e) {
+        console.warn('Canvas tainted, using URL directly:', e);
+        setCropImageSrc(url);
+      }
+      setLoadingImage(false);
+    };
+    img.onerror = () => {
+      console.warn('Image load failed, using URL directly');
       setCropImageSrc(url);
       setLoadingImage(false);
-    }
+    };
+    img.src = url;
   };
   const [formData, setFormData] = useState({
     nome: '',
