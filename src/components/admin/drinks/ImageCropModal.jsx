@@ -129,6 +129,9 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [aspect, setAspect] = useState(1);
   const [processing, setProcessing] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  if (!imageSrc) return null;
 
   const onCropComplete = useCallback((_, croppedPixels) => {
     setCroppedAreaPixels(croppedPixels);
@@ -162,6 +165,11 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
 
         {/* Crop Area */}
         <div style={{ position: 'relative', width: '100%', height: '350px', backgroundColor: '#09090b' }}>
+          {!imageLoaded && (
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a1a1aa' }}>
+              Carregando imagem...
+            </div>
+          )}
           <Cropper
             image={imageSrc}
             crop={crop}
@@ -171,6 +179,9 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}
+            onMediaLoaded={() => setImageLoaded(true)}
+            objectFit="contain"
+          />
           />
         </div>
 

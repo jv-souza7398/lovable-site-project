@@ -62,6 +62,27 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
   const fileInputRef = useRef(null);
   const [cropImageSrc, setCropImageSrc] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
+
+  // Convert external URL to data URL to avoid CORS issues with the cropper
+  const openCropFromUrl = async (url) => {
+    setLoadingImage(true);
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCropImageSrc(reader.result);
+        setLoadingImage(false);
+      };
+      reader.readAsDataURL(blob);
+    } catch (err) {
+      console.error('Failed to load image for cropping:', err);
+      // Fallback: try using URL directly
+      setCropImageSrc(url);
+      setLoadingImage(false);
+    }
+  };
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
@@ -284,7 +305,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
               {formData.imagem_url && (
                 <button
                   type="button"
-                  onClick={() => setCropImageSrc(formData.imagem_url)}
+                  onClick={() => openCropFromUrl(formData.imagem_url)}
                   disabled={uploading}
                   style={{
                     ...buttonStyle,
@@ -313,7 +334,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
             {/* Preview - click to edit */}
             {formData.imagem_url && (
               <div
-                onClick={() => setCropImageSrc(formData.imagem_url)}
+                onClick={() => openCropFromUrl(formData.imagem_url)}
                 style={{
                   marginTop: '0.5rem',
                   width: '8rem',
