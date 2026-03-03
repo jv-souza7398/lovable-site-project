@@ -281,6 +281,24 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
               >
                 <Upload size={14} /> {uploading ? 'Enviando...' : 'Upload de Imagem'}
               </button>
+              {formData.imagem_url && (
+                <button
+                  type="button"
+                  onClick={() => setCropImageSrc(formData.imagem_url)}
+                  disabled={uploading}
+                  style={{
+                    ...buttonStyle,
+                    backgroundColor: '#27272a',
+                    border: '1px solid #3f3f46',
+                    color: '#d4d4d8',
+                    padding: '0.5rem 0.75rem',
+                    fontSize: '0.8rem',
+                  }}
+                  title="Ajustar/recortar imagem"
+                >
+                  <ImageIcon size={14} /> Ajustar
+                </button>
+              )}
             </div>
 
             {/* URL input */}
@@ -292,9 +310,10 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
               style={{ ...inputStyle, fontSize: '0.8rem' }}
             />
 
-            {/* Preview */}
+            {/* Preview - click to edit */}
             {formData.imagem_url && (
               <div
+                onClick={() => setCropImageSrc(formData.imagem_url)}
                 style={{
                   marginTop: '0.5rem',
                   width: '8rem',
@@ -303,7 +322,13 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                   overflow: 'hidden',
                   backgroundColor: '#27272a',
                   position: 'relative',
+                  cursor: 'pointer',
+                  border: '2px solid transparent',
+                  transition: 'border-color 0.2s',
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#f59e0b'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
+                title="Clique para ajustar a imagem"
               >
                 <img
                   src={formData.imagem_url}
@@ -311,6 +336,19 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  backgroundColor: 'rgba(0,0,0,0.6)',
+                  color: 'white',
+                  fontSize: '0.6rem',
+                  textAlign: 'center',
+                  padding: '0.15rem',
+                }}>
+                  Clique para ajustar
+                </div>
               </div>
             )}
 

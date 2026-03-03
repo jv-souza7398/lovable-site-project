@@ -43,30 +43,62 @@ const btnIcon = {
   alignItems: 'center',
 };
 
+const buttonBaseStyle = {
+  padding: '0.625rem 1rem',
+  borderRadius: '0.5rem',
+  fontSize: '0.875rem',
+  fontWeight: 500,
+  cursor: 'pointer',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.5rem',
+  transition: 'all 0.2s',
+};
+
+function createImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.addEventListener('load', () => resolve(img));
+    img.addEventListener('error', (e) => reject(e));
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.src = url;
+  });
+}
+
 async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
-  const radians = (rotation * Math.PI) / 180;
-  const sin = Math.abs(Math.sin(radians));
-  const cos = Math.abs(Math.cos(radians));
-  const bW = image.width * cos + image.height * sin;
-  const bH = image.width * sin + image.height * cos;
+  const maxSize = Math.max(image.width, image.height);
+  const safeArea = 2 * ((maxSize / 2) * Math.sqrt(2));
 
-  canvas.width = bW;
-  canvas.height = bH;
-  ctx.translate(bW / 2, bH / 2);
-  ctx.rotate(radians);
-  ctx.drawImage(image, -image.width / 2, -image.height / 2);
+  canvas.width = safeArea;
+  canvas.height = safeArea;
 
-  const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height);
+  ctx.translate(safeArea / 2, safeArea / 2);
+  ctx.rotate((rotation * Math.PI) / 180);
+  ctx.translate(-safeArea / 2, -safeArea / 2);
+
+  ctx.drawImage(
+    image,
+    safeArea / 2 - image.width * 0.5,
+    safeArea / 2 - image.height * 0.5
+  );
+
+  const data = ctx.getImageData(0, 0, safeArea, safeArea);
 
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
-  ctx.putImageData(data, 0, 0);
 
-  // Resize if > 1200
+  ctx.putImageData(
+    data,
+    Math.round(0 - safeArea / 2 + image.width * 0.5 - pixelCrop.x),
+    Math.round(0 - safeArea / 2 + image.height * 0.5 - pixelCrop.y)
+  );
+
+  // Resize if > 1200px
   let finalCanvas = canvas;
   if (canvas.width > 1200 || canvas.height > 1200) {
     const scale = Math.min(1200 / canvas.width, 1200 / canvas.height);
@@ -79,21 +111,7 @@ async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   }
 
   return new Promise((resolve) => {
-    finalCanvas.toBlob(
-      (blob) => resolve(blob),
-      'image/jpeg',
-      0.85
-    );
-  });
-}
-
-function createImage(url) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.addEventListener('load', () => resolve(img));
-    img.addEventListener('error', (e) => reject(e));
-    img.crossOrigin = 'anonymous';
-    img.src = url;
+    finalCanvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.85);
   });
 }
 
@@ -219,13 +237,10 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
             type="button"
             onClick={onClose}
             style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
+              ...buttonBaseStyle,
               backgroundColor: 'transparent',
               border: '1px solid #3f3f46',
               color: '#d4d4d8',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
             }}
           >
             Cancelar
@@ -235,13 +250,10 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
             onClick={handleApply}
             disabled={processing}
             style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
+              ...buttonBaseStyle,
               backgroundColor: '#f59e0b',
               border: 'none',
               color: 'black',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
               fontWeight: 600,
               opacity: processing ? 0.7 : 1,
             }}
