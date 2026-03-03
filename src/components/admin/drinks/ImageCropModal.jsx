@@ -182,7 +182,6 @@ export default function ImageCropModal({ imageSrc, onClose, onCropDone }) {
             onMediaLoaded={() => setImageLoaded(true)}
             objectFit="contain"
           />
-          />
         </div>
 
         {/* Controls */}
