@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Plus, Trash2, Loader2, Upload, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import ImageCropModal from './ImageCropModal';
 
 /**
  * Formulário de drink com estilos inline para produção.
@@ -57,6 +59,9 @@ function CharacteristicPreview({ nivel }) {
 }
 
 export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
+  const fileInputRef = useRef(null);
+  const [cropImageSrc, setCropImageSrc] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
@@ -236,14 +241,58 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
           </div>
 
           <div>
-            <label style={labelStyle}>URL da Imagem *</label>
+            <label style={labelStyle}>Imagem de Capa *</label>
+            
+            {/* Upload button */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                if (file.size > 10 * 1024 * 1024) {
+                  toast.error('Imagem deve ter no máximo 10MB');
+                  return;
+                }
+                const reader = new FileReader();
+                reader.onload = () => setCropImageSrc(reader.result);
+                reader.readAsDataURL(file);
+                e.target.value = '';
+              }}
+            />
+            
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                style={{
+                  ...buttonStyle,
+                  flex: 1,
+                  backgroundColor: '#27272a',
+                  border: '1px solid #3f3f46',
+                  color: '#d4d4d8',
+                  padding: '0.5rem 0.75rem',
+                  fontSize: '0.8rem',
+                  opacity: uploading ? 0.6 : 1,
+                }}
+              >
+                <Upload size={14} /> {uploading ? 'Enviando...' : 'Upload de Imagem'}
+              </button>
+            </div>
+
+            {/* URL input */}
             <input
               type="text"
               value={formData.imagem_url}
               onChange={(e) => handleChange('imagem_url', e.target.value)}
-              placeholder="https://..."
-              style={inputStyle}
+              placeholder="Ou cole a URL da imagem..."
+              style={{ ...inputStyle, fontSize: '0.8rem' }}
             />
+
+            {/* Preview */}
             {formData.imagem_url && (
               <div
                 style={{
@@ -253,6 +302,7 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                   borderRadius: '0.5rem',
                   overflow: 'hidden',
                   backgroundColor: '#27272a',
+                  position: 'relative',
                 }}
               >
                 <img
@@ -262,6 +312,38 @@ export default function DrinkFormNew({ drink, onSave, onCancel, isLoading }) {
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
               </div>
+            )}
+
+            {/* Crop Modal */}
+            {cropImageSrc && (
+              <ImageCropModal
+                imageSrc={cropImageSrc}
+                onClose={() => setCropImageSrc(null)}
+                onCropDone={async (blob) => {
+                  setCropImageSrc(null);
+                  setUploading(true);
+                  try {
+                    const fileName = `drink_${Date.now()}.jpg`;
+                    const { error: uploadError } = await supabase.storage
+                      .from('drinks-images')
+                      .upload(fileName, blob, { contentType: 'image/jpeg', upsert: true });
+                    
+                    if (uploadError) throw uploadError;
+
+                    const { data: urlData } = supabase.storage
+                      .from('drinks-images')
+                      .getPublicUrl(fileName);
+
+                    handleChange('imagem_url', urlData.publicUrl);
+                    toast.success('Imagem enviada com sucesso!');
+                  } catch (err) {
+                    console.error('Upload error:', err);
+                    toast.error('Erro ao enviar imagem');
+                  } finally {
+                    setUploading(false);
+                  }
+                }}
+              />
             )}
           </div>
 
